@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-12 col-lg-6 text-start ">
                                 <label class="form-label label-font text-muted "> Enter first name </label>
-                                <input type="text" class="form-control" placeholder="EX:Doyley" id="lname">
+                                <input type="text" class="form-control" placeholder="EX:Doily" id="lname">
                             </div>
                             <div class="col-12 text-start mt-1 ">
                                 <label class="form-label label-font text-muted "> Enter Email Adress </label>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-12 col-lg-6 text-start mt-1 mb-4 ">
                                 <label class="form-label form-label text-muted">Select Your gender</label>
-                                <select name="" class="form-control" id="">
+                                <select name="" class="form-control" id="gender">
                                     <option value="0">Select your gender</option>
 
                                     <?php 
@@ -84,7 +84,7 @@
                             </div>
                             <hr>
                             <div class="col-12 col-lg-6 mt-4 mb-lg-2">
-                                <v-button class="btn btn-primary form-control shadow">CREATE ACCOUNT</v-button>
+                                <v-button class="btn btn-primary form-control shadow" onclick="creatNewAccount();" >CREATE ACCOUNT</v-button>
                             </div>
                             <div class="col-12 col-lg-6 mt-1 mt-lg-4 mb-2">
                                 <v-button class="btn btn-dark form-control shadow  " onclick="togDiv();" >Already have account? LOGIN</v-button>
@@ -118,11 +118,11 @@
                                 </span>
                                 <div class="col-12 text-start mt-1 ">
                                     <label class="form-label label-font text-muted "> Enter Email Adress / Mobile Number</label>
-                                    <input type="email" class="form-control" placeholder="EX:Johndoiley@example.com / 07XXXXXXX" id="email">
+                                    <input type="email" class="form-control" placeholder="EX:Johndoiley@example.com / 07XXXXXXX" id="email1">
                                 </div>
                                 <div class="col-12 text-start mt-1 ">
                                     <label class="form-label label-font text-muted ">Enter Your Password </label>
-                                    <input type="password" class="form-control" placeholder="EX:********" id="password">
+                                    <input type="password" class="form-control" placeholder="EX:********" id="password1">
                                 </div>
                                 <div class="row">
                                     <div class="col-6 text-start mt-2 mb-2 ">
