@@ -56,3 +56,29 @@ function creatNewAccount(){
     r.send(f);
 }
 
+function login(){
+    var email = document.getElementById("email1").value;
+    var password = document.getElementById("password1").value;
+    var rememberme = document.getElementById("check").checked;
+
+    var f = new FormData();
+    f.append("e", email);
+    f.append("p", password);
+    f.append("r", rememberme);
+    
+    var r = new XMLHttpRequest();
+    r.onreadystatechange = function (){
+        if(r.readyState == 4 && r.status == 200){
+            var t = r.responseText;
+            if(t=="success"){
+                window.location="home.php";
+            }
+        } else if (r.readyState == 4 && r.status != 200) {
+            // Handle other HTTP statuses (e.g., 401 for unauthorized)
+            alert("Login failed"); 
+        }
+    }
+
+    r.open("POST", "loginProcess.php", true);
+    r.send(f);
+}

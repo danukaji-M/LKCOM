@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
 
+session_start();
+
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,17 +125,32 @@
                                 <span class="signupstart h3  fw-bold text-uppercase">
                                     Login Account
                                 </span>
+
+                                <?php
+                                
+                                $email="";
+                                $password="";
+
+                                if(isset($_COOKIE["email"])){
+                                    $email=$_COOKIE["email"];
+                                }
+                                if(isset($_COOKIE["password"])){
+                                    $password=$_COOKIE["password"];
+                                }
+
+                                ?>
+
                                 <div class="col-12 text-start mt-1 ">
                                     <label class="form-label label-font text-muted "> Enter Email Adress / Mobile Number</label>
-                                    <input type="email" class="form-control" placeholder="EX:Johndoiley@example.com / 07XXXXXXX" id="email1">
+                                    <input type="email" class="form-control" value="<?php echo $email ?>" placeholder="EX:Johndoiley@example.com / 07XXXXXXX" id="email1">
                                 </div>
                                 <div class="col-12 text-start mt-1 ">
                                     <label class="form-label label-font text-muted ">Enter Your Password </label>
-                                    <input type="password" class="form-control" placeholder="EX:********" id="password1">
+                                    <input type="password" class="form-control" value="<?php echo $password ?>" placeholder="EX:********" id="password1">
                                 </div>
                                 <div class="row">
                                     <div class="col-6 text-start mt-2 mb-2 ">
-                                        <input type="checkbox" name="" id=" check">
+                                        <input type="checkbox" name="" id="check">
                                         <label class="text-muted">Remember me </label>
                                     </div>
                                     <div class="col-6 text-end mt-2 mb-2">
