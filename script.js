@@ -21,7 +21,7 @@ function creatNewAccount(){
     var pw1 = document.getElementById("pw1");
     var pw2 = document.getElementById("pw2");
     var mob = document.getElementById("mobile");
-    var gen = document.getElementById("gen");
+    var gender = document.getElementById("gender");
 
     var f = new FormData();
     f.append("fn", fn.value);
@@ -30,7 +30,7 @@ function creatNewAccount(){
     f.append("pw1", pw1.value);
     f.append("pw2", pw2.value);
     f.append("mob", mob.value);
-    f.append("gen", gen.value);
+    f.append("gen", gender.value);
 
     var r = new XMLHttpRequest();
 
