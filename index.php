@@ -28,8 +28,13 @@
                 <div class="row">
                     <div class="col-12 text-center  form-control shadow-lg">\
                         <div class="mt-2">
-                            <span class="signupstart h3  fw-bold text-uppercase">
+                            <span class="signupstart h3 fw-bold text-uppercase">
                                 CReate new account
+                            </span>
+                        </div>
+                        <div class="d-none col-12 form-control alert-success text-start" id="responseDiv" >
+                            <span class="text-capitalize text-success" id="responseText1" >
+                                
                             </span>
                         </div>
                         <div class="row mt-2">
@@ -134,7 +139,7 @@
                                     </div>
                                     <hr>
                                     <div class="col-12 col-lg-6 mt-4 mb-lg-4">
-                                        <v-button class="btn btn-primary form-control text-uppercase shadow">Login account</v-button>
+                                        <v-button onclick="login();" class="btn btn-primary form-control text-uppercase shadow">Login account</v-button>
                                     </div>
                                     <div class="col-12 col-lg-6 mt-1 mt-lg-4 mb-4">
                                         <v-button onclick="togCrDiv();" class="btn btn-dark form-control text-uppercase shadow ">Don't have an account? CREATe</v-button>

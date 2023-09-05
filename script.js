@@ -34,13 +34,25 @@ function creatNewAccount(){
 
     var r = new XMLHttpRequest();
 
-    r.onreadystatechange = function (){
-        if (r.readyState == 4 && r.status == 200){
+
+    r.onreadystatechange = function () {
+        if (r.readyState == 4 && r.status == 200) {
             var t = r.responseText;
-            alert(t);
+            
+            if (t=="Success") {
+                document.getElementById("responseText1").innerHTML= t ;
+                document.getElementById("responseText1").classList = ("text-capitalize text-success");
+                document.getElementById("responseDiv").classList = ("d-block col-12 form-control alert-success text-start");
+            }else{
+                document.getElementById("responseText1").innerHTML= t ;
+                document.getElementById("responseText1").classList = ("text-capitalize text-danger");
+                document.getElementById("responseDiv").classList = ("d-block col-12 form-control alert-danger text-start");
+            }
         }
     }
+    
 
     r.open("POST", "createAccountProcess.php" , true);
     r.send(f);
 }
+
