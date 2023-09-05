@@ -1,0 +1,42 @@
+.logo{
+    background-image: url('resources/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 300px;
+    width:300px;
+    margin-top: -50px;
+}
+
+.text-1{
+    margin-top: -70px;
+
+}
+.text-2{
+font-family: 'myfont-5',;
+font-weight: 800;
+font-size: xxl-large;
+color: rgb(33, 103, 165);
+}
+
+*{
+    font-family: myfont-2;
+}
+
+.signupstart{
+    font-family: myfont-3;
+}
+
+label{
+    font-family: myfont-5;
+}
+.social{
+    font-family: myfont-3;
+    font-weight: 500;
+    color: blue;
+}
+
+.login{
+    font-family: myfont-3 ;
+    font-style: normal;
+    font-weight: 900;
+}

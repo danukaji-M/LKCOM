@@ -1,0 +1,24 @@
+@font-face {
+    font-family: myfont-1;
+    src: url(font/Aller_LtIt.ttf);
+}
+
+@font-face {
+    font-family: myfont-2;
+    src: url(font/Folks-Normal.ttf);
+}
+
+@font-face {
+    font-family: myfont-3;
+    src: url(font/Istok-Regular.ttf);
+}
+
+@font-face {
+    font-family: myfont-4;
+    src: url(font/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: myfont-5;
+    src: url(font/Rubik-Regular.ttf);
+}
