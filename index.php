@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php 
+<?php
 
 session_start();
 
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +29,7 @@ session_start();
                     <u>Welcome to cart lanka.com</u>
                 </span>
             </div>
-            <div class="col-12  col-lg-6 mt-3 offset-lg-3" id="crDiv" >
+            <div class="col-12  col-lg-6 mt-3 offset-lg-3" id="crDiv">
                 <div class="row">
                     <div class="col-12 text-center  form-control shadow-lg">\
                         <div class="mt-2">
@@ -36,9 +37,9 @@ session_start();
                                 CReate new account
                             </span>
                         </div>
-                        <div class="d-none col-12 form-control alert-success text-start" id="responseDiv" >
-                            <span class="text-capitalize text-success" id="responseText1" >
-                                
+                        <div class="d-none col-12 form-control alert-success text-start" id="responseDiv">
+                            <span class="text-capitalize text-success" id="responseText1">
+
                             </span>
                         </div>
                         <div class="row mt-2">
@@ -71,20 +72,20 @@ session_start();
                                 <select name="" class="form-control" id="gender">
                                     <option value="0">Select your gender</option>
 
-                                    <?php 
-                                    
+                                    <?php
+
                                     require "connection.php";
-                                    
+
                                     $rs = Database::search("SELECT * FROM `gender`");
                                     $nr = $rs->num_rows;
-                                    
-                                    for ($i=0; $i < $nr ; $i++) { 
+
+                                    for ($i = 0; $i < $nr; $i++) {
                                         $data = $rs->fetch_assoc();
-                                        ?>
+                                    ?>
 
                                         <option value="<?php echo $i ?>"> <?php echo $data["gender_name"] ?></option>
 
-                                        <?php
+                                    <?php
                                     }
 
                                     ?>
@@ -93,10 +94,10 @@ session_start();
                             </div>
                             <hr>
                             <div class="col-12 col-lg-6 mt-4 mb-lg-2">
-                                <v-button class="btn btn-primary form-control shadow" onclick="creatNewAccount();" >CREATE ACCOUNT</v-button>
+                                <v-button class="btn btn-primary form-control shadow" onclick="creatNewAccount();">CREATE ACCOUNT</v-button>
                             </div>
                             <div class="col-12 col-lg-6 mt-1 mt-lg-4 mb-2">
-                                <v-button class="btn btn-dark form-control shadow  " onclick="togDiv();" >Already have account? LOGIN</v-button>
+                                <v-button class="btn btn-dark form-control shadow  " onclick="togDiv();">Already have account? LOGIN</v-button>
                             </div>
                             <div class="text-start col-12 mt-4">
                                 <span class=" text-uppercase social h4">
@@ -117,7 +118,7 @@ session_start();
                     </div>
                 </div>
             </div>
-            <div class="col-12 d-none col-lg-6 offset-lg-3" id="logDiv" >
+            <div class="col-12 d-none col-lg-6 offset-lg-3" id="logDiv">
                 <div class="row mt-2 ">
                     <div class="col-12 form-control shadow-lg ">
                         <div class="row">
@@ -127,15 +128,15 @@ session_start();
                                 </span>
 
                                 <?php
-                                
-                                $email="";
-                                $password="";
 
-                                if(isset($_COOKIE["email"])){
-                                    $email=$_COOKIE["email"];
+                                $email = "";
+                                $password = "";
+
+                                if (isset($_COOKIE["email"])) {
+                                    $email = $_COOKIE["email"];
                                 }
-                                if(isset($_COOKIE["password"])){
-                                    $password=$_COOKIE["password"];
+                                if (isset($_COOKIE["password"])) {
+                                    $password = $_COOKIE["password"];
                                 }
 
                                 ?>
@@ -154,7 +155,7 @@ session_start();
                                         <label class="text-muted">Remember me </label>
                                     </div>
                                     <div class="col-6 text-end mt-2 mb-2">
-                                        <span><a href="#">Forgot password</a></span>
+                                        <a onclick="modalon();" href="#">Forgot password</a>
                                     </div>
                                     <hr>
                                     <div class="col-12 col-lg-6 mt-4 mb-lg-4">
@@ -169,6 +170,54 @@ session_start();
                     </div>
                 </div>
             </div>
+
+            <!--model-->
+            <div class="modal bg-dark-subtle  " tabindex="-1" id="forgotPasswordModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Forgot Password?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+
+                                <div class="col-6">
+                                    <label class="form-label">New Password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" id="np" />
+                                        <button class="btn btn-outline-secondary" onclick="showPassword();" type="button" id="npb">
+                                            <i class="bi bi-eye hand" id=""></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <label class="form-label">Retype New Password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" id="rnp" />
+                                        <button class="btn btn-outline-secondary" onclick="showPassword2();" type="button" id="rnpb">
+                                            <i class="bi bi-eye hand" id="types"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Verifiction Code</label>
+                                    <input type="text" class="form-control" id="vc" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="resetPassword();">Reset Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--model-->
+
             <!--footer-->
             <div class="col-12 fixed-bottom text-center ">
                 <span class="text-muted text-capitalize ">
@@ -179,7 +228,7 @@ session_start();
 
         </div>
     </div>
-    <script src="bootstrap.css"></script>
+    <script src="bootstrap.js"></script>
     <script src="script.js"></script>t
 </body>
 

@@ -82,3 +82,92 @@ function login(){
     r.open("POST", "loginProcess.php", true);
     r.send(f);
 }
+
+var togmodal;
+function modalon(){
+
+    var email = document.getElementById("email1");
+    
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if(r.readyState == 4 && r.status==200){
+            var t = r.responseText;
+            if(t == "success"){
+                var newmodal = document.getElementById("forgotPasswordModal");
+                togmodal = new bootstrap.Modal(newmodal);
+                togmodal.show();
+            }else{
+                alert(t);
+            }
+        }
+    }
+    r.open("GET" , "verificationSend.php?e="+email.value , true);
+    r.send();
+    
+}
+
+function resetPassword(){
+    
+    var email = document.getElementById("email2");
+    var np = document.getElementById("np");
+    var rnp = document.getElementById("rnp");
+    var vc = document.getElementById("vc");
+
+    var f = new FormData();
+    f.append("e",email.value);
+    f.append("np",np.value);
+    f.append("rnp",rnp.value);
+    f.append("vc",vc.value);
+
+    var r = new XMLHttpRequest();
+
+    r.onreadystatechange = function (){
+        if(r.readyState == 4 && r.status == 200){
+            var t = r.responseText;
+
+            if(t == "success"){
+
+                bm.hide();
+                alert ("Your password has been updated.");
+                window.location.reload();
+
+            }else{
+                alert (t);
+            }
+        }
+    }
+
+    r.open("POST","passwordReset.php",true);
+    r.send(f);
+    
+}
+
+function showPassword(){
+
+    var np = document.getElementById("np");
+    var npb = document.getElementById("npb");
+
+    if(np.type == "password"){
+        np.type = "text";
+        npb.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+    }else{
+        np.type = "password";
+        npb.innerHTML = '<i class="bi bi-eye"></i>';
+    }
+
+}
+
+function showPassword2(){
+
+    var rnp = document.getElementById("rnp");
+    var rnpb = document.getElementById("rnpb");
+
+    if(rnp.type == "password"){
+        rnp.type = "text";
+        rnpb.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+    }else{
+        rnp.type = "password";
+        rnpb.innerHTML = '<i class="bi bi-eye"></i>';
+    }
+
+}
