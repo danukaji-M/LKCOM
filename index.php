@@ -24,7 +24,7 @@
                     <u>Welcome to cart lanka.com</u>
                 </span>
             </div>
-            <div class="col-12  col-lg-6 mt-3 offset-lg-3">
+            <div class="col-12  col-lg-6 mt-3 offset-lg-3" id="crDiv" >
                 <div class="row">
                     <div class="col-12 text-center  form-control shadow-lg">\
                         <div class="mt-2">
@@ -50,12 +50,12 @@
                                 <input type="password" class="form-control" placeholder="EX:: **********" id="pw1">
                             </div>
                             <div class="col-12 col-lg-6 text-start mt-1 ">
-                                <label class="form-label label-font text-muted "> Retype your password  </label>
+                                <label class="form-label label-font text-muted "> Retype your password </label>
                                 <input type="password" class="form-control" placeholder="EX:: **********" id="pw2">
                             </div>
                             <div class="col-12 col-lg-6 text-start mt-1">
                                 <label class="form-label label-font text-muted">Enter your mobile number</label>
-                                <input type="text" class="form-control" name="" id="mobile" placeholder="07XXXXXXXXX" >
+                                <input type="text" class="form-control" name="" id="mobile" placeholder="07XXXXXXXXX">
                             </div>
                             <div class="col-12 col-lg-6 text-start mt-1 mb-4 ">
                                 <label class="form-label form-label text-muted">Select Your gender</label>
@@ -66,25 +66,62 @@
                             </div>
                             <hr>
                             <div class="col-12 col-lg-6 mt-4 mb-lg-2">
-                                <v-button class="btn btn-primary form-control shadow" >CREATE ACCOUNT</v-button>
+                                <v-button class="btn btn-primary form-control shadow">CREATE ACCOUNT</v-button>
                             </div>
                             <div class="col-12 col-lg-6 mt-1 mt-lg-4 mb-2">
-                                <v-button class="btn btn-dark form-control shadow " >Already have account? LOGIN</v-button>
+                                <v-button class="btn btn-dark form-control shadow  " onclick="togDiv();" >Already have account? LOGIN</v-button>
                             </div>
                             <div class="text-start col-12 mt-4">
-                                <span class=" text-uppercase social h4" >
+                                <span class=" text-uppercase social h4">
                                     Login with social account
                                 </span>
                             </div>
-                            <div class="col-6 mt-3 align-items-center justify-content-center ">
-                                <button type="button" class="btn btn-warning form-control  shadow" >
-                                    <i class="bi bi-google login " > Login with Google</i>
+                            <div class="col-6 mt-3 mb-4 align-items-center justify-content-center ">
+                                <button type="button" class="btn btn-warning form-control  shadow">
+                                    <i class="bi bi-google login "> Login with Google</i>
                                 </button>
                             </div>
-                            <div class="col-6 mt-3 align-items-center justify-content-center ">
-                                <button type="button" class="btn btn-info form-control  shadow" >
-                                    <i class="bi bi-facebook login " > Login with Facebook</i>
+                            <div class="col-6 mt-3 mb-4 align-items-center justify-content-center ">
+                                <button type="button" class="btn btn-info form-control  shadow">
+                                    <i class="bi bi-facebook login "> Login with Facebook</i>
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 d-none col-lg-6 offset-lg-3" id="logDiv" >
+                <div class="row mt-2 ">
+                    <div class="col-12 form-control shadow-lg ">
+                        <div class="row">
+                            <div class="mt-2 col-12 text-center ">
+                                <span class="signupstart h3  fw-bold text-uppercase">
+                                    Login Account
+                                </span>
+                                <div class="col-12 text-start mt-1 ">
+                                    <label class="form-label label-font text-muted "> Enter Email Adress / Mobile Number</label>
+                                    <input type="email" class="form-control" placeholder="EX:Johndoiley@example.com / 07XXXXXXX" id="email">
+                                </div>
+                                <div class="col-12 text-start mt-1 ">
+                                    <label class="form-label label-font text-muted ">Enter Your Password </label>
+                                    <input type="password" class="form-control" placeholder="EX:********" id="password">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 text-start mt-2 mb-2 ">
+                                        <input type="checkbox" name="" id=" check">
+                                        <label class="text-muted">Remember me </label>
+                                    </div>
+                                    <div class="col-6 text-end mt-2 mb-2">
+                                        <span><a href="#">Forgot password</a></span>
+                                    </div>
+                                    <hr>
+                                    <div class="col-12 col-lg-6 mt-4 mb-lg-4">
+                                        <v-button class="btn btn-primary form-control text-uppercase shadow">Login account</v-button>
+                                    </div>
+                                    <div class="col-12 col-lg-6 mt-1 mt-lg-4 mb-4">
+                                        <v-button onclick="togCrDiv();" class="btn btn-dark form-control text-uppercase shadow ">Don't have an account? CREATe</v-button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
