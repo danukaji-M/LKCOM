@@ -8,6 +8,9 @@
 <body>
     <div class="container-fluid">
         <div class="row">
+            <?php
+            require "header.php";
+            ?>
         </div>
     </div>
 </body>

@@ -40,3 +40,9 @@ label{
     font-style: normal;
     font-weight: 900;
 }
+
+.cart-icon{
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
