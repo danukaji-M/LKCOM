@@ -62,6 +62,24 @@
                                 <select name="" class="form-control" id="">
                                     <option value="0">Select your gender</option>
 
+                                    <?php 
+                                    
+                                    require "connection.php";
+                                    
+                                    $rs = Database::search("SELECT * FROM `gender`");
+                                    $nr = $rs->num_rows;
+                                    
+                                    for ($i=0; $i < $nr ; $i++) { 
+                                        $data = $rs->fetch_assoc();
+                                        ?>
+
+                                        <option value="<?php echo $i ?>"> <?php echo $data["gender_name"] ?></option>
+
+                                        <?php
+                                    }
+
+                                    ?>
+
                                 </select>
                             </div>
                             <hr>
@@ -127,6 +145,14 @@
                     </div>
                 </div>
             </div>
+            <!--footer-->
+            <div class="col-12 fixed-bottom text-center ">
+                <span class="text-muted text-capitalize ">
+                    copyright &copy; 2022-2023 cart lanka lnc. All rights reserved
+                </span>
+            </div>
+            <!--footer-->
+
         </div>
     </div>
     <script src="bootstrap.css"></script>
