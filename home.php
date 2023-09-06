@@ -13,8 +13,16 @@
     <div class="container-fluid">
         <div class="row">
             <?php
+            require "connection.php";
             require "header.php";
+            ?>
+            <?php            
             require "search.php";
+            ?>
+                <div class="col-12">
+                    
+                </div>
+            <?php
             require "footer.php";
             ?>
         </div>

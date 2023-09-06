@@ -27,7 +27,7 @@ session_start();
                 ?>
 
                     <span class=" text-decoration-underline text-warning"><?php echo $session_data["fname"] . " " . $session_data["lname"] ?></span> ||
-                    <span class="text-info fw-bold cursor" onclick="signOut();" >Sign Out</span>
+                    <span class="text-info fw-bold cursor" onclick="signOut();">Sign Out</span>
                 <?php
                 } else {
                 ?>
@@ -54,13 +54,13 @@ session_start();
                     </div>
                     <div class="col-4 align-items-end text-start">
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Settings
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#">Item 1</a></li>
-                                <li><a class="dropdown-item" href="#">Item 2</a></li>
-                                <li><a class="dropdown-item" href="#">Item 3</a></li>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" type="button">Action</button></li>
+                                <li><button class="dropdown-item" type="button">Another action</button></li>
+                                <li><button class="dropdown-item" type="button">Something else here</button></li>
                             </ul>
                         </div>
                     </div>
