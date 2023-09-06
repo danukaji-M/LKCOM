@@ -23,84 +23,41 @@
             ?>
             <div class="col-12">
                 <div class="row">
-                    <div class="col-6">
-                        <div class="row">
-                            <div id="myDiv" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-1</span>
+                            <div id="saved-items" class="col-1 text-warning cursor border-bottom text-center">
+                                <span class="fw-bold mb-3">Saved Items <i class="bi bi-heart-fill"></i></span>
                             </div>
-                            <div id="myDiv2" class="col-1 border-bottom text-center">
+                            <div id="item-2" class="col-1 text-warning cursor border-bottom text-center">
                                 <span class="fw-bold mb-3">Category-2</span>
                             </div>
-                            <div id="myDiv3" class="col-1 border-bottom text-center">
+                            <div id="myDiv1" data-value="1" class="col-1 border-bottom text-center">
+                                <span class="fw-bold mb-3">Category-1</span>
+                            </div>
+                            <div id="myDiv2" data-value="2" class="col-1 border-bottom text-center">
+                                <span class="fw-bold mb-3">Category-2</span>
+                            </div>
+                            <div id="myDiv3" data-value="3" class="col-1 border-bottom text-center">
                                 <span class="fw-bold mb-3">Category-3</span>
                             </div>
-                            <div id="myDiv4" class="col-1 border-bottom text-center">
+                            <div id="myDiv4" data-value="4" class="col-1 border-bottom text-center">
                                 <span class="fw-bold mb-3">Category-4</span>
                             </div>
-                            <div id="myDiv5" class="col-1 border-bottom text-center">
+                            <div id="myDiv5" data-value="5" class="col-1 border-bottom text-center">
                                 <span class="fw-bold mb-3">Category-5</span>
                             </div>
-                            <div id="myDiv6" class="col-1 border-bottom text-center">
+                            <div id="myDiv6" data-value="6" class="col-1 border-bottom text-center">
                                 <span class="fw-bold mb-3">Category-6</span>
                             </div>
-                            <div id="myDiv7" class="col-1 border-bottom text-center">
+                            <div id="myDiv7" data-value="7" class="col-1 border-bottom text-center">
                                 <span class="fw-bold mb-3">Category-7</span>
                             </div>
-                            <div id="myDiv8" class="col-1 border-bottom text-center">
+                            <div id="myDiv8" data-value="8" class="col-1 border-bottom text-center">
                                 <span class="fw-bold mb-3">Category-8</span>
                             </div>
-                            <div id="myDiv9" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-9</span>
-                            </div>
-                            <div id="myDiv10" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-10</span>
-                            </div>
-                            <div id="myDiv11" class="col-1 border-bottom text-center">
+                            <div id="item3" class="col-1 text-warning border-bottom cursor text-center">
                                 <span class="fw-bold mb-3">Category-11</span>
                             </div>
-                            <div id="myDiv12" class="col-1 border-bottom text-center">
+                            <div id="item4" class="col-1 text-warning border-bottom cursor text-center">
                                 <span class="fw-bold mb-3">Category-12</span>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="col-6">
-                        <div class="row">
-                            <div id="myDiv13" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-13</span>
-                            </div>
-                            <div id="myDiv14" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-14</span>
-                            </div>
-                            <div id="myDiv15" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-15</span>
-                            </div>
-                            <div id="myDiv16" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-16</span>
-                            </div>
-                            <div id="myDiv17" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-17</span>
-                            </div>
-                            <div id="myDiv18" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-18</span>
-                            </div>
-                            <div id="myDiv19" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-19</span>
-                            </div>
-                            <div id="myDiv20" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-20</span>
-                            </div>
-                            <div id="myDiv21" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-21</span>
-                            </div>
-                            <div id="myDiv22" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-22</span>
-                            </div>
-                            <div id="myDiv23" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-23</span>
-                            </div>
-                            <div id="myDiv24" class="col-1 border-bottom text-center">
-                                <span class="fw-bold mb-3">Category-24</span>
                             </div>
                         </div>
                     </div>

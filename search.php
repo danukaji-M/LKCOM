@@ -22,7 +22,7 @@
                     <div class="col-1 d-none d-lg-block">
                         <span class="text-info" >Shop With category</span>
                     </div>
-                    <div class=" col-12 col-md-8 offset-1 offset-lg-0 col-lg-7 ">
+                    <div class=" col-9 col-md-8 offset-1 offset-lg-0 col-lg-7 ">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" aria-label="Text input with dropdown button">
                             <button class="btn btn-outline-secondary dropdown-toggle" type="button" placeholder="Search Your Product" data-bs-toggle="dropdown" aria-expanded="false">Category</button>
@@ -37,8 +37,11 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-12 col-md-2 col-lg-1 align-items-center text-center">
-                        <button class="btn btn-info" type="button">Advanced Search</button>
+                    <div class="col-6 offset-1 offset-lg-0 col-md-2 align-items-sm-center col-lg-1 align-items-md-start text-md-start">
+                        <button class="btn btn-primary" type="button">Search <i class="bi bi-search"></i></button>
+                    </div>
+                    <div class="col-5 col-md-2 col-lg-1 align-items-start text-start">
+                        <button class="btn btn-info" type="button">Advanced <i class="bi bi-search"></i> </button>
                     </div>
                 </div>
             </div>
