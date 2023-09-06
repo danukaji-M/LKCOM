@@ -10,6 +10,7 @@
         <div class="row">
             <?php
             require "header.php";
+            require "search.php";
             ?>
         </div>
     </div>

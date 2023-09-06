@@ -17,9 +17,9 @@ session_start();
 </head>
 
 <body>
-    <div class="col-12 mb-2 mt-2">
+    <div class="col-12 mb-1 mt-2">
         <div class="row">
-            <div class="col-12 d-none d-md-block offset-lg-1 col-md-6">
+            <div class="col-12 d-none d-md-block offset-md-1 col-md-6">
                 <span class="fw-bold ">Welcome</span>
                 <?php
                 if (isset($_SESSION["ud"])) {
@@ -41,7 +41,7 @@ session_start();
                 ||
                 <span class="fw-bold">Help & Contact</span>
             </div>
-            <div class="col-12 col-md-4 offset-md-1">
+            <div class="col-12 col-md-4 offset-lg-1 ">
                 <div class="row">
                     <div class="col-3 align-items-start text-start ">
                         <span class="fw-bold">SELL</span>
@@ -49,13 +49,13 @@ session_start();
                     <div class="col-3 align-items-start text-start">
                         <img src="resources/cart.svg" alt="" class="cart-icon" srcset="">
                     </div>
-                    <div class="col-3 align-items-start text-start ">
+                    <div class="col-2 align-items-start text-start ">
                         <span class="fw-bold">Watch list </span>
                     </div>
-                    <div class="col-3 align-items-end text-start">
+                    <div class="col-4 align-items-end text-start">
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown Button
+                                Settings
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item" href="#">Item 1</a></li>
@@ -63,13 +63,12 @@ session_start();
                                 <li><a class="dropdown-item" href="#">Item 3</a></li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+    <hr>
 
     <script src="script.js"></script>
     <script src="bootstrap.bundle.js"></script>
