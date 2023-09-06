@@ -186,3 +186,28 @@ function signOut(){
     r.send();
     
 }
+
+
+
+var newmodal;
+document.addEventListener("DOMContentLoaded", function() {
+    const myDiv = document.getElementById("myDiv");
+
+
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { // Change background color
+        myDiv.classList="col-1 border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+    }
+
+    // Add a mouseenter event listener to the <div>
+    myDiv.addEventListener("mouseenter", handleMouseEnter);
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+});
+
