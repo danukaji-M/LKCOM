@@ -27,7 +27,7 @@ session_start();
                 ?>
 
                     <span class=" text-decoration-underline text-warning"><?php echo $session_data["fname"] . " " . $session_data["lname"] ?></span> ||
-                    <span class="text-info fw-bold">Sign Out</span>
+                    <span class="text-info fw-bold cursor" onclick="signOut();" >Sign Out</span>
                 <?php
                 } else {
                 ?>

@@ -162,3 +162,27 @@ function resetPassword(){
     r.open("POST" , "passwordReset.php" ,true);
     r.send(f);
 }
+
+function signOut(){
+
+    var r = new XMLHttpRequest();
+
+    r.onreadystatechange = function(){
+        if(r.readyState == 4 && r.status == 200){
+            var t = r.responseText;
+
+            if(t == "success"){
+
+                // window.location.reload();
+                window.location = "index.php";
+
+            }else{
+                alert (t);
+            }
+        }
+    }
+
+    r.open("GET","signoutProcess.php",true);
+    r.send();
+    
+}

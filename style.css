@@ -54,3 +54,7 @@ label{
 .fter{
     font-family: myfont-3;
 }
+
+.cursor{
+    cursor: pointer;
+}
