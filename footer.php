@@ -12,10 +12,10 @@
 </head>
 
 <body>
-    <div class="col-12 mt-2 mb-2 bg-dark">
+    <div class="col-12 mt-2  bg-dark">
         <hr>
         <div class="row">
-            <div class="col-12 align-items-center ">
+            <div class="col-12 mb-5 align-items-center ">
                 <div class="row">
                     <div class="col-4 fter col-lg-3 mx-2 text-start">
                         <span class="h5 fter text-warning text-uppercase fw-bold ">CARTLANKA.COM</span>
@@ -34,11 +34,44 @@
                         </a>
                         </span>
                     </div>
-                    <div class="col-4 fter col-lg-3 text-center">
-                        <i class="bi bi-facebook"></i>
+                    <div class="col-4 fter col-lg-3 mt-md-2 text-start text-light">
+                        <span class="text-warning fw-bold h5 fter">Social Media</span>
+                    <ul class=" list-inline">
+                        <li class=" list-inline-item" >
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                        </li>
+                        <li class=" list-inline-item" >
+                            <a class=" text-decoration-none text-warning" href="#"><i class="bi bi-google"></i></a>
+                        </li>
+                        <li class=" list-inline-item" >
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                        </li>
+                        <li class=" list-inline-item" >
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </li>
+                        <li class=" list-inline-item" >
+                            <a class=" text-decoration-none text-danger" href="#"><i class="bi bi-youtube"></i></a>
+                        </li>
+                        <li class=" list-inline-item" >
+                            <a class=" text-decoration-none text-light" href="#"><i class="bi bi-github"></i></a>
+                        </li>
+                    </ul>
                     </div>
-                    <div class="col-4 fter col-lg-3 text-center">
-
+                    <div class="col-4 fter col-lg-2 mt-md-2 text-start">
+                        <span class="text-info fter fw-bold h5">Contact</span>
+                        <br>
+                        <i class="bi bi-house-fill text-light"></i>
+                            <span class="text-light" > Colombo/CARTLANKA.COM</span>
+                            <br>
+                            <i class="bi text-light bi-telephone-plus-fill"></i>
+                            <span class="text-light" > +94721991299 / +94761964531</span>
+                            <br>
+                            <i class="bi text-light bi-envelope-at-fill"></i>
+                            <span class="text-light" > danukajihansanath@gmail.com</span>
+                            <br>
+                            <i class="bi bi-printer-fill text-light "></i>
+                            <span class="text-light" > +94761964531</span>
+                        
                     </div>
                 </div>
             </div>

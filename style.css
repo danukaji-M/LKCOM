@@ -58,3 +58,7 @@ label{
 .cursor{
     cursor: pointer;
 }
+
+.list{
+    list-style: none;
+}
