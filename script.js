@@ -198,13 +198,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { // Change background color
+    function handleMouseEnter() { 
         myDiv.classList="col-1 border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
     function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+        myDiv.classList="col-1 text-center border-bottom"; 
     }
 
     // Add a mouseenter event listener to the <div>
@@ -220,13 +220,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { // Change background color
+    function handleMouseEnter() { 
         myDiv.classList="col-1 border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
     function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+        myDiv.classList="col-1 text-center border-bottom"; 
     }
 
     // Add a mouseenter event listener to the <div>
@@ -242,13 +242,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { // Change background color
+    function handleMouseEnter() { 
         myDiv.classList="col-1 border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
     function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+        myDiv.classList="col-1 text-center border-bottom"; 
     }
 
     // Add a mouseenter event listener to the <div>
@@ -264,13 +264,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { // Change background color
+    function handleMouseEnter() { 
         myDiv.classList="col-1 border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
     function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+        myDiv.classList="col-1 text-center border-bottom"; 
     }
 
     // Add a mouseenter event listener to the <div>
@@ -286,13 +286,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { // Change background color
+    function handleMouseEnter() { 
         myDiv.classList="col-1 border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
     function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+        myDiv.classList="col-1 text-center border-bottom"; 
     }
 
     // Add a mouseenter event listener to the <div>
@@ -308,13 +308,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { // Change background color
+    function handleMouseEnter() { 
         myDiv.classList="col-1 border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
     function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+        myDiv.classList="col-1 text-center border-bottom"; 
     }
 
     // Add a mouseenter event listener to the <div>
@@ -330,13 +330,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { // Change background color
+    function handleMouseEnter() { 
         myDiv.classList="col-1 border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
     function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+        myDiv.classList="col-1 text-center border-bottom"; 
     }
 
     // Add a mouseenter event listener to the <div>
@@ -352,13 +352,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { // Change background color
+    function handleMouseEnter() { 
         myDiv.classList="col-1 border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
     function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; // Reset background color
+        myDiv.classList="col-1 text-center border-bottom";
     }
 
     // Add a mouseenter event listener to the <div>
