@@ -34,14 +34,14 @@ if(isset($_GET["e"])){
             $mail->addReplyTo('hansanathdanukaji@gmail.com', 'Reset Password');
             $mail->addAddress($email);
             $mail->isHTML(true);
-            $mail->Subject = 'eShop Forgot Password Verification Code';
-            $bodyContent = '<h3 style="color:green;">Your verification code is '.$code.'</h3> <br/> Don\'t Share this code to anyone ' ;
+            $mail->Subject = 'Cartlanka Forgot Password Verification Code';
+            $bodyContent = '<h3 style="color:gold;">Your verification code is '.$code.'</h3> <br/> Don\'t Share this code to anyone ' ;
             $mail->Body    = $bodyContent;
 
             if(!$mail->send()){
                 echo ("Verification Code Sending Failed.");
             }else{
-                echo ("success");
+                echo 1;
             }
 
     }else{

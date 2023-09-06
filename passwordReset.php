@@ -1,42 +1,37 @@
-<?php
+<?php 
 
 require "connection.php";
 
-$email = $_POST["e"];
-$new_pw = $_POST["np"];
-$retyped_pw = $_POST["rnp"];
-$v_code = $_POST["vc"];
+$np = $_POST["np"];
+$rnp = $_POST["rnp"];
+$vc = $_POST["vc"];
+$e = $_POST["e"];
 
-if(empty($email)){
-    echo ("Please enter your email address.");
-}else if(empty($new_pw)){
-    echo ("Please enter a New Password.");
-}else if(strlen($new_pw)<5 || strlen($new_pw)>20){
-    echo ("Invalid New Password.");
-}else if(empty($retyped_pw)){
-    echo ("Please Retype the New Password.");
-}else if($new_pw != $retyped_pw){
-    echo ("Password does not matched.");
-}else if(empty($v_code)){
-    echo ("Please enter your verification code.");
+if(empty($e)){
+    echo("Enter Your Email");
+}else if(strlen($e)>100){
+    echo ("Enter valid email");
+}else if(!filter_var($e,FILTER_VALIDATE_EMAIL)){
+    echo ("Invalid E-mail Address!");
+}elseif(empty($np)){
+    echo("Please Enter New Password.");
+}elseif(empty($rnp)){
+    echo ("Please Retype Your Password");
+}elseif($np != $rnp){
+    echo ("Password Must Be matched");
+}elseif(empty($vc)){
+    echo"Verification Code is required.";
 }else{
-
-    $rs = Database::search("SELECT * FROM `users` WHERE `email`='".$email."' AND 
-    `verification_code`='".$v_code."'");
-    
-    $n = $rs->num_rows;
-
-    if($n == 1){
-
-        Database::iud("UPDATE `users` SET `password`='".$new_pw."' WHERE `email`='".$email."' AND 
-        `verification_code`='".$v_code."'");
-
-        echo ("success"); 
-
+    $rs = Database::search("SELECT * FROM `user` WHERE `email` = '".$e."'
+    AND `recover_code`='".$vc."'");
+    $nr = $rs->num_rows;
+    if($nr>0){
+        Database::iud("UPDATE `user` SET `password`='".$np."' WHERE 
+        `email`='".$e."' AND `recover_code`='".$vc."'");
+        echo("success");
     }else{
-        echo ("Invalid user details.");
+        echo("Invalid credentials");
     }
-
 }
 
 ?>

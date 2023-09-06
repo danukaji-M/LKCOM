@@ -92,11 +92,11 @@ function modalon(){
     r.onreadystatechange = function(){
         if(r.readyState == 4 && r.status==200){
             var t = r.responseText;
-            if(t == "success"){
+            if(t == 1){
                 var newmodal = document.getElementById("forgotPasswordModal");
                 togmodal = new bootstrap.Modal(newmodal);
                 togmodal.show();
-            }else{
+            }else if(t != 1){
                 alert(t);
             }
         }
@@ -106,41 +106,6 @@ function modalon(){
     
 }
 
-function resetPassword(){
-    
-    var email = document.getElementById("email2");
-    var np = document.getElementById("np");
-    var rnp = document.getElementById("rnp");
-    var vc = document.getElementById("vc");
-
-    var f = new FormData();
-    f.append("e",email.value);
-    f.append("np",np.value);
-    f.append("rnp",rnp.value);
-    f.append("vc",vc.value);
-
-    var r = new XMLHttpRequest();
-
-    r.onreadystatechange = function (){
-        if(r.readyState == 4 && r.status == 200){
-            var t = r.responseText;
-
-            if(t == "success"){
-
-                bm.hide();
-                alert ("Your password has been updated.");
-                window.location.reload();
-
-            }else{
-                alert (t);
-            }
-        }
-    }
-
-    r.open("POST","passwordReset.php",true);
-    r.send(f);
-    
-}
 
 function showPassword(){
 
@@ -170,4 +135,30 @@ function showPassword2(){
         rnpb.innerHTML = '<i class="bi bi-eye"></i>';
     }
 
+}
+
+function resetPassword(){
+    var np = document.getElementById("np").value;
+    var rnp = document.getElementById("rnp").value;
+    var vc = document.getElementById("vc").value;
+    var e = document.getElementById("email1").value;
+
+    var f = new FormData;
+    f.append('np' , np);
+    f.append('rnp', rnp);
+    f.append('vc' , vc);
+    f.append('e'  , e);
+
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if (r.status==200 && r.readyState==4) {
+            var t = r.responseText;
+            if(t=="success"){
+                window.location="index.php";
+            }
+        }
+    }
+
+    r.open("POST" , "passwordReset.php" ,true);
+    r.send(f);
 }
