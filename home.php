@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-12 d-none d-lg-block col-lg-10 offset-lg-1">
+                    <div class="col-12 mt-1 d-none d-lg-block col-lg-10 offset-lg-1">
                         <div id="carouselExampleCaptions" class="carousel slide">
                             <div class="carousel-inner h-100">
                                 <div class="carousel-item active">
