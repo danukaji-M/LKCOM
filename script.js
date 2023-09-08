@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to be executed when the mouse enters the <div>
     function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1 shadow border-top border-start border-end text-center";
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to be executed when the mouse enters the <div>
     function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1 shadow border-top border-start border-end text-center";
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to be executed when the mouse enters the <div>
     function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1 shadow border-top border-start border-end text-center";
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to be executed when the mouse enters the <div>
     function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1 shadow border-top border-start border-end text-center";
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to be executed when the mouse enters the <div>
     function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1 shadow border-top border-start border-end text-center";
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to be executed when the mouse enters the <div>
     function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1 shadow border-top border-start border-end text-center";
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
@@ -330,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to be executed when the mouse enters the <div>
     function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1 shadow border-top border-start border-end text-center";
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
@@ -352,7 +352,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to be executed when the mouse enters the <div>
     function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1 shadow border-top border-start border-end text-center";
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
     }
 
     // Function to be executed when the mouse leaves the <div>
@@ -367,5 +367,25 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function clicking(item_id){
-    alert(item_id);
+
+    if (item_id == 0){
+
+    }else{
+        const currentDate = new Date();
+        const expirationDate = new Date(currentDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+        const expirationDateString = expirationDate.toUTCString();
+        
+        document.cookie = "item"+item_id +"expires=${expirationDateString}; path=/";
+        var r = new XMLHttpRequest;
+    
+        r.onreadystatechange = function() {
+            if(r.status == 200 && r.readyState == 4){
+                var t = r.responseText;
+
+            }
+        }
+    
+        r.open("GET","clicking.php?click="+item_id,true);
+        r.send();
+    }
 }

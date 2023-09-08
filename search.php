@@ -27,13 +27,17 @@
                             <input type="text" class="form-control" aria-label="Text input with dropdown button">
                             <button class="btn btn-outline-secondary dropdown-toggle" type="button" placeholder="Search Your Product" data-bs-toggle="dropdown" aria-expanded="false">Category</button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                <?php
+                                $datab_rs = Database::search("SELECT * FROM `product_category`");
+                                $numrows = $datab_rs->num_rows;
+                                for ($n=0; $n < $numrows; $n++) { 
+                                    $datadd = $datab_rs->fetch_assoc();
+                                    ?>
+                                    <li><a class="dropdown-item" href="#"><?php echo $datadd['cat_name']; ?></a></li>
+                                    <?php
+                                }
+                                ?>
+                                
                             </ul>
                         </div>
                     </div>

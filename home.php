@@ -24,14 +24,14 @@
 
 
             ?>
-            <hr/>
+            <hr />
             <div class="col-12 d-none d-lg-block ">
                 <div class="row">
                     <div id="saved-items" class="col-1 text-warning cursor border-bottom text-center">
                         <span class="fw-bold mb-3">Saved Items <i class="bi bi-heart-fill"></i></span>
                     </div>
                     <div id="item-2" class="col-1 text-warning cursor border-bottom text-center">
-                        <span class="fw-bold mb-3">Category-2</span>
+                        <span class="fw-bold mb-3">Latest</span>
                     </div>
 
                     <?php
@@ -40,17 +40,17 @@
                     for ($x = 1; $x < $num; $x++) {
                         $cat_data = $rs_cat->fetch_assoc();
                     ?>
-                        <div id="<?php echo ("myDiv" . $x) ?>" data-value="1" class=" col-1  border-bottom text-center" data-bs-toggle="dropdown">
+                        <div id="<?php echo ("myDiv" . $x) ?>" data-value="1" onmouseover="divview(<?php echo $X ?>);" onmouseout="onmouseout(<?php echo $x ?>);" class=" col-1  border-bottom text-center" data-bs-toggle="dropdown">
                             <span class="fw-bold mb-3"><?php echo $cat_data["cat_name"] ?></span>
                         </div>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu modal" id="<?php echo'myModal'.$x ?>" >
                             <div class="row">
                                 <div class=" text-dark text-decoration-none col-5 offset-1">
                                     <span class="h4 signupstart">Shop Now</span>
                                     <br>
                                     <br>
                                     <?php
-                                    $sub_cat_rs = Database::search("SELECT * FROM `sub_category` WHERE `product_category_id` = '" . $cat_data['id'] . "'");
+                                    $sub_cat_rs = Database::search("SELECT * FROM `sub_category` WHERE `product_category_id` = '" . $cat_data['cat_id'] . "'");
                                     $sub_cat_num = $sub_cat_rs->num_rows;
                                     for ($i = 0; $i < $sub_cat_num; $i++) {
                                         $sub_cat_data = $sub_cat_rs->fetch_assoc();
@@ -73,10 +73,10 @@
                     ?>
 
                     <div id="item3" class="col-1 text-warning border-bottom cursor text-center">
-                        <span class="fw-bold mb-3">Category-11</span>
+                        <span class="fw-bold mb-3">Wouchers</span>
                     </div>
                     <div id="item4" class="col-1 text-warning border-bottom cursor text-center">
-                        <span class="fw-bold mb-3">Category-12</span>
+                        <span class="fw-bold mb-3">My Products</span>
                     </div>
                 </div>
             </div>
@@ -153,25 +153,14 @@
 
 
                         ?>
-                            <div class="col-4   mx-5 d-none d-lg-block col-lg-2" onclick="clicking(<?php echo $db_data['id']; ?>);">
-                                <div class="card" style="width: 12rem; height: auto; " onclick="userClick(
-                                    <?php 
-                                    if(isset($_COOKIE['email'])){
-                                    echo $_COOKIE['email'];
-                                    }else{
-                                        
-                                        if(!isset($_COOKIE['nrud'])){
-                                            $uniqId = uniqid();
-                                            setcookie('nurd',$uniqId,  time() + (365*24*60*60));
-                                            echo $uniqId;
-                                        }else{
-                                            $uniqId = $_COOKIE('nurd');
-                                            echo $uniqId;
-                                        }
-                                    }
-
-                                    ?>
-                                );" >
+                            <div class="col-4   mx-5 d-none cursor d-lg-block col-lg-2" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);">
+                                <div class="card" style="width: 12rem; height: auto; ">
                                     <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
                                     <div class="card-body text-start align-items-center justify-content-center">
                                         <span class="text-primary fw-bold"> <?php echo $db_data["title"] ?> </span>
@@ -201,7 +190,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3 d-sm-block d-md-none mt-1">
+                            <div class="col-3 d-sm-block cursor d-md-none mt-1" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);"> >
                                 <div class="card" style="width: 7rem;">
                                     <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                     <div class="card-body text-start ">
@@ -229,7 +224,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
+                            <div class="col-3 d-none cursor d-md-block d-lg-none mt-1 mb-2" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);"> >
                                 <div class="card" style="width: 7rem;;">
                                     <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                     <div class="card-body text-start ">
@@ -286,7 +287,13 @@
                         for ($y = 0; $y < $dis_num_rows; $y++) {
                             $dis_data = $dis_rs->fetch_assoc();
                         ?>
-                            <div class="col-4 mx-5 d-none d-lg-block col-lg-2">
+                            <div class="col-4 mx-5 d-none cursor d-lg-block col-lg-2" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);"> >
                                 <div class="card" style="width: 12rem;">
                                     <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                     <div class="card-body text-start align-items-center justify-content-center">
@@ -303,7 +310,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3 d-sm-block d-md-none mt-1">
+                            <div class="col-3 d-sm-block cursor d-md-none mt-1" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);"> >
                                 <div class="card" style="width: 7rem;">
                                     <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                     <div class="card-body">
@@ -316,7 +329,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
+                            <div class="col-3 d-none cursor d-md-block d-lg-none mt-1 mb-2" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);"> >
                                 <div class="card" style="width: 7rem;;">
                                     <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                     <div class="card-body start ">
@@ -349,7 +368,13 @@
                         for ($z = 0; $z < $list_num; $z++) {
                             $list_data = $list_rs->fetch_assoc();
                         ?>
-                            <div class="col-4  mx-5 d-none d-lg-block col-lg-2">
+                            <div class="col-4  mx-5 d-none cursor d-lg-block col-lg-2" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);"> >
                                 <div class="card" style="width: 12rem; height: auto; ">
                                     <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
                                     <div class="card-body text-start align-items-center justify-content-center">
@@ -377,7 +402,13 @@
                                         }
                                         ?>
                                     </div>
-                                    <div class="col-3 d-sm-block d-md-none mt-1">
+                                    <div class="col-3 d-sm-block cursor d-md-none mt-1" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);"> >
                                         <div class="card" style="width: 7rem;">
                                             <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                             <div class="card-body start ">
@@ -390,7 +421,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
+                                    <div class="col-3 d-none d-md-block cursor d-lg-none mt-1 mb-2" onclick="clicking(<?php
+                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
+                                                                                                        echo $db_data['id'];
+                                                                                                    }else{
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>);"> >
                                         <div class="card" style="width: 7rem;;">
                                             <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                             <div class="card-body text-start ">
@@ -413,10 +450,15 @@
                     </div>
                 </div>
             </div>
+            <div class="row justify-content-center text-center align-items-center ">
+                <div class="col-12">
+                    <span class="text-muted h6" id="loading" >Show More....</span>
+                </div>
+            </div>
             <!--body-->
             <?php
-        require "footer.php";
-        ?>
+            require "footer.php";
+            ?>
         </div>
         <script src="script.js"></script>
         <script src="bootstrap.bundle.js"></script>
