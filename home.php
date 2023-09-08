@@ -141,20 +141,43 @@
                         <?php
                         $database_rs = Database::search("SELECT * FROM `product` INNER JOIN `click_products` 
                             ON `product`.`id` = `click_products`.`product_id` INNER JOIN `product_img` ON 
-                            `product_img`.`product_id`=`product`.`id` INNER JOIN `product_status` ON `product_status`.`id`=`product`.`product_status_id`
+                            `product_img`.`product_id`=`product`.`id` INNER JOIN `product_status` ON `product_status`.`status_id`=`product`.`product_status_id`
                             WHERE `product_status_id`='1' ORDER BY `click_count` DESC, `product_added_date` ASC LIMIT 4");
                         $db_row = $database_rs->num_rows;
 
                         for ($x = 0; $x < $db_row; $x++) {
                             $db_data = $database_rs->fetch_assoc();
+
+
                         ?>
                             <div class="col-4  mx-5 d-none d-lg-block col-lg-2">
-                                <div class="card" style="width: 12rem;">
+                                <div class="card" style="width: 12rem; height: auto; ">
                                     <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
                                     <div class="card-body text-center align-items-center justify-content-center">
                                         <span class="text-primary fw-bold"> <?php echo $db_data["title"] ?> </span>
                                         <br>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                        <?php
+                                        $discount = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $db_data["id"] . "'");
+                                        $discount_row = $discount->num_rows;
+                                        $discount_data = $discount->fetch_assoc();
+                                        if ($discount_row > 0) {
+
+                                            $op2 = $db_data["price"];
+                                            $dis2 = $discount_data["dis_presentage"];
+                                            $np2 = ($op2 - (($op2 / 100) * $dis2));
+                                            if ($op2 == $np2) {
+                                        ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
+                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +187,24 @@
                                     <div class="card-body">
                                         <!--bodyhere-->
                                         <h6><?php echo $db_data["title"] ?></h6>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                        <?php
+                                        if ($discount_row > 0) {
+
+                                            $op2 = $db_data["price"];
+                                            $dis2 = $discount_data["dis_presentage"];
+                                            $np2 = ($op2 - (($op2 / 100) * $dis2));
+                                            if ($op2 == $np2) {
+                                        ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
+                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
 
                                     </div>
                                 </div>
@@ -174,8 +214,25 @@
                                     <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                     <div class="card-body">
                                         <h6><?php echo $db_data["title"] ?></h6>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
-                                        <!--bodyhere-->
+                                        <?php
+                                        if ($discount_row > 0) {
+
+                                            $op2 = $db_data["price"];
+                                            $dis2 = $discount_data["dis_presentage"];
+                                            $np2 = ($op2 - (($op2 / 100) * $dis2));
+
+                                            if ($op2 == $np2) {
+                                        ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
+                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -257,77 +314,96 @@
                         ?>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-12 col-lg-8 d-none d-lg-block offset-2 mt-3 mb-3">
-                        <div class="row">
-                            <div class="col-4  mt-3 mb-3 mx-5 col-lg-2">
-                                <div class="card" style="width: 12rem;">
-                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-center align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold">Title here</span>
-                                        <br>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
-                                <div class="card" style="width: 12rem;">
-                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-center align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold">Title here</span>
-                                        <br>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
-                                <div class="card" style="width: 12rem;">
-                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-center align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold">Title here</span>
-                                        <br>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 mx-5 d-none mt-3 mb-3 mx-5 col-lg-2">
-                                <div class="card" style="width: 12rem;">
-                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-center align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold">Title here</span>
-                                        <br>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
-                                <div class="card" style="width: 12rem;">
-                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-center align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold">Title here</span>
-                                        <br>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <hr>
+            <div class="row justify-content-center ">
+                <div class="col-12 col-lg-8 d-none d-lg-block offset-2 mt-3 mb-3">
+                    <div class="row">
+                        <?php
 
+                        $list_rs = Database::search("SELECT * FROM `product` 
+                            INNER JOIN `product_img` ON `product_img`.`product_id`=`product`.`id` INNER JOIN
+                    `discount` ON `discount`.`product_id`=`product`.`id` INNER JOIN `click_products` ON `click_products`.`product_id`=`product`.`id`
+                    WHERE `product_status_id`= '1' ORDER BY `click_count` DESC, `product_added_date` LIMIT 4 OFFSET 4 ");
+                        $list_num = $list_rs->num_rows;
+                        for ($z = 0; $z < $list_num; $z++) {
+                            $list_data = $list_rs->fetch_assoc();
+                        ?>
+                            <div class="col-4  mx-5 d-none d-lg-block col-lg-2">
+                                <div class="card" style="width: 12rem; height: auto; ">
+                                    <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
+                                    <div class="card-body text-center align-items-center justify-content-center">
+                                        <span class="text-primary fw-bold"> <?php echo $list_data["title"] ?> </span>
+                                        <br>
+                                        <?php
+                                        $discount1 = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $db_data["id"] . "'");
+                                        $discount_row1 = $discount1->num_rows;
+                                        $discount_data1 = $discount1->fetch_assoc();
+                                        if ($discount_row1 > 0) {
+
+                                            $op3 = $list_data["price"];
+                                            $dis3 = $discount_data1["dis_presentage"];
+                                            $np3 = ($op3 - (($op3 / 100) * $dis3));
+                                            if ($op3 == $np3) {
+                                        ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $list_data["price"] ?></span>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np3 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
+                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op3 ?></h6>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="col-3 d-sm-block d-md-none mt-1">
+                                        <div class="card" style="width: 7rem;">
+                                            <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                            <div class="card-body">
+                                                <!--bodyhere-->
+                                                <span class="text-primary fw-bold"><?php echo $list_data["title"]; ?></span>
+                                                <br>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
+                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op1 ?></h6>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
+                                        <div class="card" style="width: 7rem;;">
+                                            <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                            <div class="card-body">
+                                                <span class="text-primary fw-bold"><?php echo $dis1_data["title"]; ?></span>
+                                                <br>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
+                                                <br>
+                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op1 ?></h6>
+                                                <!--bodyhere-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+
+                                ?>
+                                </div>
+                            </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--body-->
-        <?php
+            <!--body-->
+            <?php
         require "footer.php";
         ?>
-    </div>
-    <script src="script.js"></script>
-    <script src="bootstrap.bundle.js"></script>
-    <script src="bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+        </div>
+        <script src="script.js"></script>
+        <script src="bootstrap.bundle.js"></script>
+        <script src="bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
