@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="font.css">
 </head>
 
-<body class="body " >
+<body class="body ">
     <div class=" container-fluid">
         <div class="row">
             <?php
@@ -124,7 +124,7 @@
         <hr>
         <div class="row">
             <div class="col-12 mb-3 align-items-center col-lg-8 offset-lg-2 ">
-                <div class="form-control d-none d-lg-block">
+                <div class="form-control">
                     <div class="row">
                         <div class="col-6 text-start">
                             <h3 class=" fst-italic fw-bold"><span class="new-text text-danger fw-bold  ">This Week Top </span>
@@ -137,372 +137,190 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row ">
-                        <div class="col-4  mx-5 col-lg-2">
-                            <div class="card" style="width: 12rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 " alt="...">
-                                <div class="card-body text-center align-items-center justify-content-center">
-                                    <span class="text-primary fw-bold">Title here</span>
-                                    <br>
-                                    <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4 mx-5 col-lg-2">
-                            <div class="card" style="width: 12rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2  " alt="...">
-                                <div class="card-body text-center align-items-center justify-content-center">
-                                    <span class="text-primary fw-bold">Title here</span>
-                                    <br>
-                                    <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4 mx-5 col-lg-2 mb-2">
-                            <div class="card" style="width: 12rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 " alt="...">
-                                <div class="card-body text-center align-items-center justify-content-center">
-                                    <span class="text-primary fw-bold">Title here</span>
-                                    <br>
-                                    <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4 mx-5 col-lg-2 mb-2">
-                            <div class="card" style="width: 12rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 " alt="...">
-                                <div class="card-body text-center align-items-center justify-content-center">
-                                    <span class="text-primary fw-bold">Title here</span>
-                                    <br>
-                                    <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-control d-none mb-3 d-md-block d-lg-none ">
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-6 text-start">
-                                <h6 class=" fst-italic fw-bold"><span class="new-text text-danger fw-bold  ">This Week Top </span>
-                                    <span>Deals</span>
-                                    <span class=" text-muted h6 "><a href="#" class="text-muted text-decoration-none">click here to see more-></a> </span>
-                                </h6>
-                            </div>
-                            <div class="col-6 text-end">
-                                <span> <a href="#" class="text-decoration-none text-muted ">View More</a> </span>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-1 mb-2">
-                            <div class="card" style="width: 7rem; height: 7rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                                <div class="card-body">
-                                    <!--bodyhere-->
-                                    <!--bodyhere-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-1 mb-2">
-                            <div class="card" style="width: 7rem; height: 7rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                                <div class="card-body">
-                                    <!--bodyhere-->
-                                    <!--bodyhere-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-1 mb-2">
-                            <div class="card" style="width: 7rem; height: 7rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                                <div class="card-body">
-                                    <!--bodyhere-->
-                                    <!--bodyhere-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-1 mb-2">
-                            <div class="card" style="width: 7rem; height: 7rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                                <div class="card-body">
-                                    <!--bodyhere-->
-                                    <!--bodyhere-->
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row justify-content-center ">
+                        <?php
+                        $database_rs = Database::search("SELECT * FROM `product` INNER JOIN `click_products` 
+                            ON `product`.`id` = `click_products`.`product_id` INNER JOIN `product_img` ON 
+                            `product_img`.`product_id`=`product`.`id` INNER JOIN `product_status` ON `product_status`.`id`=`product`.`product_status_id`
+                            WHERE `product_status_id`='1' ORDER BY `click_count` DESC, `product_added_date` ASC LIMIT 4");
+                        $db_row = $database_rs->num_rows;
 
-
-
-                    </div>
-                </div>
-                <div class="form-control mb-3  d-block d-md-none">
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-6 text-start">
-                                <h6 class=" fst-italic fw-bold"><span class="new-text text-danger fw-bold  ">This Week Top </span>
-                                    <span>Deals</span>
-                                    <span class=" text-muted h6 "><a href="#" class="text-muted text-decoration-none">click here to see more-></a> </span>
-                                </h6>
-                            </div>
-                            <div class="col-6 text-end">
-                                <span> <a href="#" class="text-decoration-none text-muted ">View More</a> </span>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-1 mx-3 mb-2">
-                            <div class="card" style="width: 7rem; height: 7rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                                <div class="card-body">
-                                    <!--bodyhere-->
-                                    <h6>title</h6>
-                                    <!--bodyhere-->
+                        for ($x = 0; $x < $db_row; $x++) {
+                            $db_data = $database_rs->fetch_assoc();
+                        ?>
+                            <div class="col-4  mx-5 d-none d-lg-block col-lg-2">
+                                <div class="card" style="width: 12rem;">
+                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
+                                    <div class="card-body text-center align-items-center justify-content-center">
+                                        <span class="text-primary fw-bold"> <?php echo $db_data["title"] ?> </span>
+                                        <br>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-3 mt-1 mx-3 mb-2">
-                            <div class="card" style="width: 7rem; height: 7rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                                <div class="card-body">
-                                    <!--bodyhere-->
-                                    <!--bodyhere-->
+                            <div class="col-3 d-sm-block d-md-none mt-1">
+                                <div class="card" style="width: 7rem;">
+                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body">
+                                        <!--bodyhere-->
+                                        <h6><?php echo $db_data["title"] ?></h6>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-3 mt-1 m-3 mb-2">
-                            <div class="card" style="width: 7rem; height: 7rem;">
-                                <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                                <div class="card-body">
-                                    <!--bodyhere-->
-                                    
-                                    <!--bodyhere-->
+                            <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
+                                <div class="card" style="width: 7rem;;">
+                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body">
+                                        <h6><?php echo $db_data["title"] ?></h6>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                        <!--bodyhere-->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php
+                        }
 
-
+                        ?>
                     </div>
                 </div>
             </div>
-            <hr>
-        </div>
-        <div class="col-12 mb-3 align-items-center col-lg-8 offset-lg-2 ">
-            <div class="form-control d-none d-lg-block">
-                <div class="row">
-                    <div class="col-6 text-start">
-                        <h3 class=" fst-italic fw-bold"><span class="new-text text-danger fw-bold  ">This Week Top </span>
-                            <span>Discount Deals</span>
-                            <span class=" text-muted h6 "><a href="#" class="text-muted text-decoration-none">click here to see more-></a> </span>
-                        </h3>
+            <div class="col-12 mb-3 align-items-center col-lg-8 offset-lg-2 ">
+                <div class="form-control">
+                    <div class="row">
+                        <div class="col-6 text-start">
+                            <h3 class=" fst-italic fw-bold"><span class="new-text text-danger fw-bold  ">This Week Top </span>
+                                <span>Discount Deals</span>
+                                <span class=" text-muted h6 "><a href="#" class="text-muted text-decoration-none">click here to see more-></a> </span>
+                            </h3>
+                        </div>
+                        <div class="col-6 text-end">
+                            <span> <a href="#" class="text-decoration-none text-muted ">View More</a> </span>
+                        </div>
                     </div>
-                    <div class="col-6 text-end">
-                        <span> <a href="#" class="text-decoration-none text-muted ">View More</a> </span>
+                    <hr>
+                    <div class="row justify-content-center ">
+                        <?php
+                        $dis_rs = Database::search("SELECT * FROM `product` INNER JOIN `discount` ON `product`.`id`=`discount`.`product_id`
+                        INNER JOIN `click_products` ON `click_products`.`product_id`=`product`.`id` INNER JOIN `product_img` ON `product_img`.`product_id` = `product`.`id`
+                        WHERE  `product_status_id`='1' ORDER BY `dis_presentage` DESC , `product_added_date` ASC LIMIT 4");
+                        $dis_num_rows = $dis_rs->num_rows;
+                        for ($y = 0; $y < $dis_num_rows; $y++) {
+                            $dis_data = $dis_rs->fetch_assoc();
+                        ?>
+                            <div class="col-4 mx-5 d-none d-lg-block col-lg-2">
+                                <div class="card" style="width: 12rem;">
+                                    <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body text-center align-items-center justify-content-center">
+                                        <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
+                                        <br>
+                                        <?php
+                                        $op = $dis_data["price"];
+                                        $dis = $dis_data["dis_presentage"];
+                                        $np = ($op - (($op / 100) * $dis));
+                                        ?>
+
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
+                                        <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 d-sm-block d-md-none mt-1">
+                                <div class="card" style="width: 7rem;">
+                                    <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body">
+                                        <!--bodyhere-->
+                                        <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
+                                        <br>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
+                                        <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
+                                <div class="card" style="width: 7rem;;">
+                                    <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body">
+                                        <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
+                                        <br>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
+                                        <br>
+                                        <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
+                                        <!--bodyhere-->
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
                 <hr>
-                <div class="row ">
-                    <div class="col-4  mx-5 col-lg-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mx-5 col-lg-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2  " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mx-5 col-lg-2 mb-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mx-5 col-lg-2 mb-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-control d-none mb-3 d-md-block d-lg-none ">
                 <div class="row">
-                    <div class="row">
-                        <div class="col-6 text-start">
-                            <h6 class=" fst-italic fw-bold"><span class="new-text text-danger fw-bold  ">This Week Top </span>
-                                <span>Discount Deals</span>
-                                <span class=" text-muted h6 "><a href="#" class="text-muted text-decoration-none">click here to see more-></a> </span>
-                            </h6>
-                        </div>
-                        <div class="col-6 text-end">
-                            <span> <a href="#" class="text-decoration-none text-muted ">View More</a> </span>
-                        </div>
-                    </div>
-                    <div class="col-3 mt-1 mb-2">
-                        <div class="card" style="width: 7rem; height: 7rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                            <div class="card-body">
-                                <!--bodyhere-->
-                                <!--bodyhere-->
+                    <div class="col-12 col-lg-8 d-none d-lg-block offset-2 mt-3 mb-3">
+                        <div class="row">
+                            <div class="col-4  mt-3 mb-3 mx-5 col-lg-2">
+                                <div class="card" style="width: 12rem;">
+                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body text-center align-items-center justify-content-center">
+                                        <span class="text-primary fw-bold">Title here</span>
+                                        <br>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
+                                <div class="card" style="width: 12rem;">
+                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body text-center align-items-center justify-content-center">
+                                        <span class="text-primary fw-bold">Title here</span>
+                                        <br>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
+                                <div class="card" style="width: 12rem;">
+                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body text-center align-items-center justify-content-center">
+                                        <span class="text-primary fw-bold">Title here</span>
+                                        <br>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 mx-5 d-none mt-3 mb-3 mx-5 col-lg-2">
+                                <div class="card" style="width: 12rem;">
+                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body text-center align-items-center justify-content-center">
+                                        <span class="text-primary fw-bold">Title here</span>
+                                        <br>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
+                                <div class="card" style="width: 12rem;">
+                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                    <div class="card-body text-center align-items-center justify-content-center">
+                                        <span class="text-primary fw-bold">Title here</span>
+                                        <br>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 mt-1 mb-2">
-                        <div class="card" style="width: 7rem; height: 7rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                            <div class="card-body">
-                                <!--bodyhere-->
-                                <!--bodyhere-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 mt-1 mb-2">
-                        <div class="card" style="width: 7rem; height: 7rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                            <div class="card-body">
-                                <!--bodyhere-->
-                                <!--bodyhere-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 mt-1 mb-2">
-                        <div class="card" style="width: 7rem; height: 7rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                            <div class="card-body">
-                                <!--bodyhere-->
-                                <!--bodyhere-->
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </div>
-            <div class="form-control mb-3  d-block d-md-none">
-                <div class="row">
-                    <div class="row">
-                        <div class="col-6 text-start">
-                            <h6 class=" fst-italic fw-bold"><span class="new-text text-danger fw-bold  ">This Week Top </span>
-                                <span>Discount</span>
-                                <span class=" text-muted h6 "><a href="#" class="text-muted text-decoration-none">click here to see more-></a> </span>
-                            </h6>
-                        </div>
-                        <div class="col-6 text-end">
-                            <span> <a href="#" class="text-decoration-none text-muted ">View More</a> </span>
-                        </div>
-                    </div>
-                    <div class="col-3 mt-1 mx-3 mb-2">
-                        <div class="card" style="width: 7rem; height: 7rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                            <div class="card-body">
-                                <!--bodyhere-->
-                                <!--bodyhere-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 mt-1 mx-3 mb-2">
-                        <div class="card" style="width: 7rem; height: 7rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                            <div class="card-body">
-                                <!--bodyhere-->
-                                <!--bodyhere-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 mt-1 m-3 mb-2">
-                        <div class="card" style="width: 7rem; height: 7rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2 mb-3" alt="...">
-                            <div class="card-body">
-                                <!--bodyhere-->
-                                <!--bodyhere-->
-                            </div>
-                        </div>
-                    </div>
-
 
                 </div>
             </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col-12 col-lg-8 d-none d-lg-block offset-2 mt-3 mb-3">
-                <div class="row">
-                    <div class="col-4  mt-3 mb-3 mx-5 col-lg-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2  " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2  " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2  " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mx-5 d-none mt-3 mb-3 mx-5 col-lg-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2  " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mx-5 mt-3 mb-3 mx-5 col-lg-2">
-                        <div class="card" style="width: 12rem;">
-                            <img src="resources/product/example_pro_1.jpg" class="card-img-top mt-2  " alt="...">
-                            <div class="card-body text-center align-items-center justify-content-center">
-                                <span class="text-primary fw-bold">Title here</span>
-                                <br>
-                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span>100000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-    </div>
-    <!--body-->
-    <?php
-    require "footer.php";
-    ?>
+        <!--body-->
+        <?php
+        require "footer.php";
+        ?>
     </div>
     <script src="script.js"></script>
     <script src="bootstrap.bundle.js"></script>
