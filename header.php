@@ -55,12 +55,15 @@ session_start();
                     <div class="col-4 align-items-end text-start">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                CartLanka.Com
                             </button>
                             <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button">Action</button></li>
-                                <li><button class="dropdown-item" type="button">Another action</button></li>
-                                <li><button class="dropdown-item" type="button">Something else here</button></li>
+                                <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
                             </ul>
                         </div>
                     </div>

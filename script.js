@@ -365,3 +365,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add a mouseleave event listener to the <div>
     myDiv.addEventListener("mouseleave", handleMouseLeave);
 });
+
+function clicking(item_id){
+    alert(item_id);
+}

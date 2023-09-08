@@ -24,6 +24,7 @@
 
 
             ?>
+            <hr/>
             <div class="col-12 d-none d-lg-block ">
                 <div class="row">
                     <div id="saved-items" class="col-1 text-warning cursor border-bottom text-center">
@@ -81,6 +82,8 @@
             </div>
         </div>
         <!--body-->
+        <br>
+        <br>
         <div class="row">
             <div class="col-12">
                 <div class="row">
@@ -150,10 +153,27 @@
 
 
                         ?>
-                            <div class="col-4  mx-5 d-none d-lg-block col-lg-2">
-                                <div class="card" style="width: 12rem; height: auto; ">
+                            <div class="col-4   mx-5 d-none d-lg-block col-lg-2" onclick="clicking(<?php echo $db_data['id']; ?>);">
+                                <div class="card" style="width: 12rem; height: auto; " onclick="userClick(
+                                    <?php 
+                                    if(isset($_COOKIE['email'])){
+                                    echo $_COOKIE['email'];
+                                    }else{
+                                        
+                                        if(!isset($_COOKIE['nrud'])){
+                                            $uniqId = uniqid();
+                                            setcookie('nurd',$uniqId,  time() + (365*24*60*60));
+                                            echo $uniqId;
+                                        }else{
+                                            $uniqId = $_COOKIE('nurd');
+                                            echo $uniqId;
+                                        }
+                                    }
+
+                                    ?>
+                                );" >
                                     <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
-                                    <div class="card-body text-center align-items-center justify-content-center">
+                                    <div class="card-body text-start align-items-center justify-content-center">
                                         <span class="text-primary fw-bold"> <?php echo $db_data["title"] ?> </span>
                                         <br>
                                         <?php
@@ -184,7 +204,7 @@
                             <div class="col-3 d-sm-block d-md-none mt-1">
                                 <div class="card" style="width: 7rem;">
                                     <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body">
+                                    <div class="card-body text-start ">
                                         <!--bodyhere-->
                                         <h6><?php echo $db_data["title"] ?></h6>
                                         <?php
@@ -212,7 +232,7 @@
                             <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
                                 <div class="card" style="width: 7rem;;">
                                     <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body">
+                                    <div class="card-body text-start ">
                                         <h6><?php echo $db_data["title"] ?></h6>
                                         <?php
                                         if ($discount_row > 0) {
@@ -269,7 +289,7 @@
                             <div class="col-4 mx-5 d-none d-lg-block col-lg-2">
                                 <div class="card" style="width: 12rem;">
                                     <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-center align-items-center justify-content-center">
+                                    <div class="card-body text-start align-items-center justify-content-center">
                                         <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
                                         <br>
                                         <?php
@@ -299,7 +319,7 @@
                             <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
                                 <div class="card" style="width: 7rem;;">
                                     <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body">
+                                    <div class="card-body start ">
                                         <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
                                         <br>
                                         <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
@@ -332,7 +352,7 @@
                             <div class="col-4  mx-5 d-none d-lg-block col-lg-2">
                                 <div class="card" style="width: 12rem; height: auto; ">
                                     <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
-                                    <div class="card-body text-center align-items-center justify-content-center">
+                                    <div class="card-body text-start align-items-center justify-content-center">
                                         <span class="text-primary fw-bold"> <?php echo $list_data["title"] ?> </span>
                                         <br>
                                         <?php
@@ -360,7 +380,7 @@
                                     <div class="col-3 d-sm-block d-md-none mt-1">
                                         <div class="card" style="width: 7rem;">
                                             <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                            <div class="card-body">
+                                            <div class="card-body start ">
                                                 <!--bodyhere-->
                                                 <span class="text-primary fw-bold"><?php echo $list_data["title"]; ?></span>
                                                 <br>
@@ -373,7 +393,7 @@
                                     <div class="col-3 d-none d-md-block d-lg-none mt-1 mb-2">
                                         <div class="card" style="width: 7rem;;">
                                             <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                            <div class="card-body">
+                                            <div class="card-body text-start ">
                                                 <span class="text-primary fw-bold"><?php echo $dis1_data["title"]; ?></span>
                                                 <br>
                                                 <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
