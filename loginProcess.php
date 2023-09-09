@@ -23,7 +23,7 @@ if(empty($email)){
     echo ("Incorrect password.");
 }else{
 
-    $rs = Database::search("SELECT * FROM `user` WHERE `email` = '".$email."' AND `password` = '".$password."'");
+    $rs = Database::search("SELECT * FROM `user` INNER JOIN `gender` ON `gender`.`gen_id`=`user`.`gender_gen_id`  WHERE `email` = '".$email."' AND `password` = '".$password."'");
     $nmrow = $rs->num_rows;
 
     if($nmrow == 1){
