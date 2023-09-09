@@ -389,3 +389,60 @@ function clicking(item_id){
         r.send();
     }
 }
+
+function changeUserType(){
+    var swbutton = document.getElementById("switch");
+    window.location='sellerAccopunt.php'
+}
+
+
+
+function phis(){
+    var divrev = document.getElementById("rev");
+    var divhis = document.getElementById("his");
+    var divcom = document.getElementById("com")
+    var viewdiv = document.getElementById("phistry");
+    var viewdiv1 = document.getElementById("viewdiv1");
+    var viewdiv2 = document.getElementById("viewdiv2");
+
+    divhis.classList = "col-4 border-start border-end border-top bg-primary";
+    divrev.classList="col-4 border-start border-end border-top border-bottom";
+    divcom.classList="col-4 border-start border-end border-top border-bottom";
+    viewdiv1.classList="row d-none"
+    viewdiv2.classList="row d-none"
+    viewdiv.classList="row mt-5 d-block"
+}
+
+function prev(){
+    var divrev = document.getElementById("rev");
+    var divhis = document.getElementById("his");
+    var divcom = document.getElementById("com")
+    var viewdiv = document.getElementById("phistry");
+    var viewdiv1 = document.getElementById("viewdiv1");
+    var viewdiv2 = document.getElementById("viewdiv2");
+
+    divrev.classList="col-4 border-start bg-primary border-end border-top bg-primary";
+    divhis.classList="col-4 border-start border-end border-top border-bottom";
+    divcom.classList="col-4 border-start border-end border-top border-bottom";
+
+    viewdiv.classList="row d-none"
+    viewdiv2.classList="row d-none"
+    viewdiv1.classList="row mt-5 d-block"
+
+}
+
+function pcom(){
+    var divrev = document.getElementById("rev");
+    var divhis = document.getElementById("his");
+    var divcom = document.getElementById("com")
+    var viewdiv = document.getElementById("phistry");
+    var viewdiv1 = document.getElementById("viewdiv1");
+    var viewdiv2 = document.getElementById("viewdiv2");
+
+    divrev.classList="col-4 border-start border-end border-top border-bottom";
+    divhis.classList="col-4 border-start border-end border-top border-bottom";
+    divcom.classList="col-4 border-start bg-primary border-end border-top bg-primary";
+    viewdiv.classList="row d-none"
+    viewdiv1.classList="row d-none"
+    viewdiv2.classList="row mt-5 d-block"
+}

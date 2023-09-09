@@ -145,7 +145,7 @@
                         <?php
                         $database_rs = Database::search("SELECT * FROM `product` INNER JOIN `click_products` 
                             ON `product`.`id` = `click_products`.`product_id` INNER JOIN `product_img` ON 
-                            `product_img`.`product_id`=`product`.`id` INNER JOIN `product_status` ON `product_status`.`status_id`=`product`.`product_status_id`
+                            `product_img`.`product_id`=`product`.`id`
                             WHERE `product_status_id`='1' ORDER BY `click_count` DESC, `product_added_date` ASC LIMIT 4");
                         $db_row = $database_rs->num_rows;
 

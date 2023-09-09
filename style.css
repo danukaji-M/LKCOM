@@ -71,3 +71,10 @@ label{
 .body{
     overflow-x: hidden;
 }
+
+.img-user{
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    border-color: blue;
+}
