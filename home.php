@@ -15,6 +15,7 @@
     <div class=" container-fluid">
         <div class="row">
             <?php
+            session_start();
             require "connection.php";
             require "header.php";
             ?>

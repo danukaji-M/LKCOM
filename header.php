@@ -1,7 +1,3 @@
-<?php
-session_start();
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +55,7 @@ session_start();
                                 CartLanka.Com
                             </button>
                             <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="userProfile.php">My Account</a></button></li>
                                 <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
                                 <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
                                 <li><button class="dropdown-item" type="button"><a class=" text-decoration-none text-dark" href="">My Account</a></button></li>
