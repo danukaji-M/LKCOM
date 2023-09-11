@@ -57,7 +57,7 @@ if (empty($fname)) {
         
 Database::iud("INSERT INTO `user`(`email` , `mobile` , `fname` , `lname` , `password` , `gender_gen_id` ,  `status` , `joined_date`) VALUES 
 ('" . $e . "' , '" . $mob . "' , '" . $fname . "' , '" . $lname . "' , '" . $pw1 . "' , '" . ($gen+1) . "' ,'1' , '" . $date . "' )");
-Database::iud("INSERT INTO `user_has_user_type`(`user_email` ,  `user_type_type_id`) VALUES ('1' , '".$e."')");
+Database::iud("INSERT INTO `user_has_user_type`(`user_email` ,  `user_type_type_id`) VALUES ('".$e."', '1')");
         echo("Success");
     }
 }

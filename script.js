@@ -410,6 +410,7 @@ function phis(){
     divcom.classList="col-4 border-start border-end border-top border-bottom";
     viewdiv1.classList="row d-none"
     viewdiv2.classList="row d-none"
+    viewdiv.classList="row mt-5 d-block"
 }
 
 function prev(){
@@ -463,6 +464,7 @@ function save(){
             var t = r.responseText;
             if(t == "success"){
                 $('#imgModal').modal('hide');
+                window.location="userProfile.php";
             }else{
                 alert(t);
             }
@@ -491,34 +493,37 @@ function adressesUpdate(){
     var lname = document.getElementById("ln");
     var pw = document.getElementById("pw");
     var email = document.getElementById("email");
+    var mobile = document.getElementById("mobile");
     var pal1 = document.getElementById("pal1");
     var pal2 = document.getElementById("pal2");
     var pcity = document.getElementById("pcity");
     var ppc = document.getElementById("ppc");
-    var sal1 = document.getElementById("sali");
-    var sal2 = document.getElementById("sal2");
-    var scity = document.getElementById("scity");
-    var spc = document.getElementById("spc");
-    var bal1 = document.getElementById("bal1");
-    var bal2 = document.getElementById("bal2");
-    var bcity = document.getElementById("bcity");
-    var bpc = document.getElementById("bpc");
+
+
 
     var f = new FormData();
     f.append("fn", fname.value);
     f.append("ln", lname.value);
     f.append("pw", pw.value);
     f.append("email", email.value);
+    f.append("mobile",mobile.value);
     f.append("pl1", pal1.value);
     f.append("pl2", pal2.value);
     f.append("pc", pcity.value);
     f.append("ppc", ppc.value);
-    f.append("sl1", sal1.value);
-    f.append("sl2", sal2.value);
-    f.append("sc", scity.value);
-    f.append("spc", spc.value);
-    f.append("bl1", bal1.value);
-    f.append("bl2", bal2.value);
-    f.append("bc", bcity.value);
-    f.append("bpc", bpc.value);
+
+
+    var r = new XMLHttpRequest ();
+    r.onreadystatechange = function(){
+        if(r.status==200 && r.readyState ==4){
+            var t = r.responseText;
+            if(t="success"){
+                window.location="userProfile.php";
+            }else{
+                alert(t);
+            }
+        }
+    }
+    r.open("POST", `profileUpdate.php` , true);
+    r.send(f);
 }

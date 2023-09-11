@@ -151,7 +151,11 @@ session_start();
                                 </div>
                                 <div class="row">
                                     <div class="col-6 text-start mt-2 mb-2 ">
-                                        <input type="checkbox" name="" id="check">
+                                        <input type="checkbox" name="" id="check" <?php
+                                                                                    if (isset($_COOKIE["email"])) {
+                                                                                        echo ("checked");
+                                                                                    }
+                                                                                    ?>>
                                         <label class="text-muted">Remember me </label>
                                     </div>
                                     <div class="col-6 text-end mt-2 mb-2">
