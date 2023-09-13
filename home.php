@@ -44,7 +44,7 @@
                         <div id="<?php echo ("myDiv" . $x) ?>" data-value="1" onmouseover="divview(<?php echo $X ?>);" onmouseout="onmouseout(<?php echo $x ?>);" class=" col-1  border-bottom text-center" data-bs-toggle="dropdown">
                             <span class="fw-bold mb-3"><?php echo $cat_data["cat_name"] ?></span>
                         </div>
-                        <div class="dropdown-menu modal" id="<?php echo'myModal'.$x ?>" >
+                        <div class="dropdown-menu modal" id="<?php echo 'myModal' . $x ?>">
                             <div class="row">
                                 <div class=" text-dark text-decoration-none col-5 offset-1">
                                     <span class="h4 signupstart">Shop Now</span>
@@ -142,126 +142,79 @@
                     </div>
                     <hr>
                     <div class="row justify-content-center ">
-                        <?php
-                        $database_rs = Database::search("SELECT * FROM `product` INNER JOIN `click_products` 
-                            ON `product`.`id` = `click_products`.`product_id` INNER JOIN `product_img` ON 
-                            `product_img`.`product_id`=`product`.`id`
-                            WHERE `product_status_id`='1' ORDER BY `click_count` DESC, `product_added_date` ASC LIMIT 4");
-                        $db_row = $database_rs->num_rows;
+                        <div class="col-12">
+                            <div class="row">
+                                <?php
+                                $product_rs = Database::search("SELECT *
+FROM `product`
+INNER JOIN `click_products` ON `click_products`.`product_id` = `product`.`id`
+INNER JOIN `product_category` ON `product_category`.`cat_id` = `product`.`product_category_id`
+INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id`
+INNER JOIN `product_img` ON `product_img`.`product_id`=`product`.`id` 
+INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
+INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
+ORDER BY `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC
+LIMIT 4;
+");
+                                $product_num = $product_rs->num_rows;
+                                for ($k = 0; $k < $product_num; $k++) {
+                                    $product_data = $product_rs->fetch_assoc();
+                                ?>
+                                    <div class="col-3 col-lg-3 m-3 cursor card " onclick="productclick(<?php
+                                                                                                        if (!isset($_COOKIE['product' . $product_data['id']])) {
+                                                                                                            echo $product_data['id'];
+                                                                                                        } else {
+                                                                                                            echo 0;
+                                                                                                        }
+                                                                                                        ?>) , brandclick(
+                                                                                                <?php
 
-                        for ($x = 0; $x < $db_row; $x++) {
-                            $db_data = $database_rs->fetch_assoc();
-
-
-                        ?>
-                            <div class="col-4   mx-5 d-none cursor d-lg-block col-lg-2" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);">
-                                <div class="card" style="width: 12rem; height: auto; ">
-                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
-                                    <div class="card-body text-start align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold"> <?php echo $db_data["title"] ?> </span>
-                                        <br>
-                                        <?php
-                                        $discount = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $db_data["id"] . "'");
-                                        $discount_row = $discount->num_rows;
-                                        $discount_data = $discount->fetch_assoc();
-                                        if ($discount_row > 0) {
-
-                                            $op2 = $db_data["price"];
-                                            $dis2 = $discount_data["dis_presentage"];
-                                            $np2 = ($op2 - (($op2 / 100) * $dis2));
-                                            if ($op2 == $np2) {
-                                        ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                                                                                echo $product_data['brand_id'];
+                                                                                                ?>
+                                                                                            )  , catogoryclick(<?php
+                                                                                                                if(isset($_COOKIE['category'.$product_data['cat_id']])){
+                                                                                                                    echo (0);
+                                                                                                                }else{
+                                                                                                                    echo $product_data['cat_id'];
+                                                                                                                }
+                                                                                                                ?>);">
+                                        <div class="card-body">
+                                            <img class="img-fluid" src="<?php echo $product_data["img_path"]  ?>">
+                                            <span class="text-primary d-none d-lg-block signupstart fw-bold text-capitalize "><?php echo $product_data["title"] ?></span>
                                             <?php
-                                            } else {
+                                            $discount = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $product_data["id"] . "'");
+                                            $discount_row = $discount->num_rows;
+                                            $discount_data = $discount->fetch_assoc();
+                                            if ($discount_row > 0) {
+
+                                                $op2 = $product_data["price"];
+                                                $dis2 = $discount_data["dis_presentage"];
+                                                $np2 = ($op2 - (($op2 / 100) * $dis2));
+                                                if ($op2 == $np2) {
                                             ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
-                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 d-sm-block cursor d-md-none mt-1" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);"> >
-                                <div class="card" style="width: 7rem;">
-                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-start ">
-                                        <!--bodyhere-->
-                                        <h6><?php echo $db_data["title"] ?></h6>
-                                        <?php
-                                        if ($discount_row > 0) {
-
-                                            $op2 = $db_data["price"];
-                                            $dis2 = $discount_data["dis_presentage"];
-                                            $np2 = ($op2 - (($op2 / 100) * $dis2));
-                                            if ($op2 == $np2) {
-                                        ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
+                                                    <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
+                                                <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $product_data["price"] ?></span>
                                             <?php
-                                            } else {
-                                            ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
-                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
-                                        <?php
                                             }
-                                        }
-                                        ?>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 d-none cursor d-md-block d-lg-none mt-1 mb-2" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);"> >
-                                <div class="card" style="width: 7rem;;">
-                                    <img src="<?php echo $db_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-start ">
-                                        <h6><?php echo $db_data["title"] ?></h6>
-                                        <?php
-                                        if ($discount_row > 0) {
-
-                                            $op2 = $db_data["price"];
-                                            $dis2 = $discount_data["dis_presentage"];
-                                            $np2 = ($op2 - (($op2 / 100) * $dis2));
-
-                                            if ($op2 == $np2) {
-                                        ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $db_data["price"] ?></span>
-                                            <?php
-                                            } else {
                                             ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
-                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php
-                        }
 
-                        ?>
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -288,185 +241,147 @@
                         for ($y = 0; $y < $dis_num_rows; $y++) {
                             $dis_data = $dis_rs->fetch_assoc();
                         ?>
-                            <div class="col-4 mx-5 d-none cursor d-lg-block col-lg-2" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
+                            <div class="col-3 card cursor d-lg-block col-lg-2" onclick="clicking(<?php
+                                                                                                    if (!isset($_COOKIE['item' . $product_data['id'] . 'expires'])) {
+                                                                                                        echo $product_data['id'];
+                                                                                                    } else {
                                                                                                         echo 0;
                                                                                                     }
-                                                                                                    ?>);"> >
-                                <div class="card" style="width: 12rem;">
-                                    <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body text-start align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
-                                        <br>
-                                        <?php
-                                        $op = $dis_data["price"];
-                                        $dis = $dis_data["dis_presentage"];
-                                        $np = ($op - (($op / 100) * $dis));
-                                        ?>
+                                                                                                    ?>);">
 
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
-                                        <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 d-sm-block cursor d-md-none mt-1" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);"> >
-                                <div class="card" style="width: 7rem;">
-                                    <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body">
-                                        <!--bodyhere-->
-                                        <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
-                                        <br>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
-                                        <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
+                                <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                <div class="card-body text-start align-items-center justify-content-center">
+                                    <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
+                                    <br>
+                                    <?php
+                                    $op = $dis_data["price"];
+                                    $dis = $dis_data["dis_presentage"];
+                                    $np = ($op - (($op / 100) * $dis));
+                                    ?>
 
-                                    </div>
+                                    <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
+                                    <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
                                 </div>
                             </div>
-                            <div class="col-3 d-none cursor d-md-block d-lg-none mt-1 mb-2" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);"> >
-                                <div class="card" style="width: 7rem;;">
-                                    <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                    <div class="card-body start ">
-                                        <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
-                                        <br>
-                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
-                                        <br>
-                                        <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
-                                        <!--bodyhere-->
-                                    </div>
-                                </div>
-                            </div>
-                        <?php
-                        }
-                        ?>
                     </div>
+                <?php
+                        }
+                ?>
                 </div>
             </div>
-            <hr>
-            <div class="row justify-content-center ">
-                <div class="col-12 col-lg-8 d-none d-lg-block offset-2 mt-3 mb-3">
-                    <div class="row">
-                        <?php
+        </div>
+        <hr>
+        <div class="row justify-content-center ">
+            <div class="col-12 col-lg-8 d-none d-lg-block offset-2 mt-3 mb-3">
+                <div class="row">
+                    <?php
 
-                        $list_rs = Database::search("SELECT * FROM `product` 
+                    $list_rs = Database::search("SELECT * FROM `product` 
                             INNER JOIN `product_img` ON `product_img`.`product_id`=`product`.`id` INNER JOIN
                     `discount` ON `discount`.`product_id`=`product`.`id` INNER JOIN `click_products` ON `click_products`.`product_id`=`product`.`id`
                     WHERE `product_status_id`= '1' ORDER BY `click_count` DESC, `product_added_date` LIMIT 4 OFFSET 4 ");
-                        $list_num = $list_rs->num_rows;
-                        for ($z = 0; $z < $list_num; $z++) {
-                            $list_data = $list_rs->fetch_assoc();
-                        ?>
-                            <div class="col-4  mx-5 d-none cursor d-lg-block col-lg-2" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);"> >
-                                <div class="card" style="width: 12rem; height: auto; ">
-                                    <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
-                                    <div class="card-body text-start align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold"> <?php echo $list_data["title"] ?> </span>
-                                        <br>
-                                        <?php
-                                        $discount1 = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $db_data["id"] . "'");
-                                        $discount_row1 = $discount1->num_rows;
-                                        $discount_data1 = $discount1->fetch_assoc();
-                                        if ($discount_row1 > 0) {
+                    $list_num = $list_rs->num_rows;
+                    for ($z = 0; $z < $list_num; $z++) {
+                        $list_data = $list_rs->fetch_assoc();
+                    ?>
+                        <div class="col-4  mx-5 d-none cursor d-lg-block col-lg-2" onclick="clicking(<?php
+                                                                                                        if (!isset($_COOKIE['item' . $product_data['id'] . 'expires'])) {
+                                                                                                            echo $product_data['id'];
+                                                                                                        } else {
+                                                                                                            echo 0;
+                                                                                                        }
+                                                                                                        ?>);"> >
+                            <div class="card" style="width: 12rem; height: auto; ">
+                                <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
+                                <div class="card-body text-start align-items-center justify-content-center">
+                                    <span class="text-primary fw-bold"> <?php echo $list_data["title"] ?> </span>
+                                    <br>
+                                    <?php
+                                    $discount1 = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $product_data["id"] . "'");
+                                    $discount_row1 = $discount1->num_rows;
+                                    $discount_data1 = $discount1->fetch_assoc();
+                                    if ($discount_row1 > 0) {
 
-                                            $op3 = $list_data["price"];
-                                            $dis3 = $discount_data1["dis_presentage"];
-                                            $np3 = ($op3 - (($op3 / 100) * $dis3));
-                                            if ($op3 == $np3) {
-                                        ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $list_data["price"] ?></span>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np3 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
-                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op3 ?></h6>
+                                        $op3 = $list_data["price"];
+                                        $dis3 = $discount_data1["dis_presentage"];
+                                        $np3 = ($op3 - (($op3 / 100) * $dis3));
+                                        if ($op3 == $np3) {
+                                    ?>
+                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $op3 ?></span>
                                         <?php
-                                            }
+                                        } else {
+                                        ?>
+                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np3 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
+                                            <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op3 ?></h6>
+                                    <?php
                                         }
-                                        ?>
-                                    </div>
-                                    <div class="col-3 d-sm-block cursor d-md-none mt-1" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);"> >
-                                        <div class="card" style="width: 7rem;">
-                                            <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                            <div class="card-body start ">
-                                                <!--bodyhere-->
-                                                <span class="text-primary fw-bold"><?php echo $list_data["title"]; ?></span>
-                                                <br>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
-                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op1 ?></h6>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 d-none d-md-block cursor d-lg-none mt-1 mb-2" onclick="clicking(<?php
-                                                                                                    if(!isset($_COOKIE['item'.$db_data['id'].'expires'])){
-                                                                                                        echo $db_data['id'];
-                                                                                                    }else{
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);"> >
-                                        <div class="card" style="width: 7rem;;">
-                                            <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                            <div class="card-body text-start ">
-                                                <span class="text-primary fw-bold"><?php echo $dis1_data["title"]; ?></span>
-                                                <br>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
-                                                <br>
-                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op1 ?></h6>
-                                                <!--bodyhere-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php
-                            }
-
-                                ?>
+                                    }
+                                    ?>
                                 </div>
-                            </div>
+                                <div class="col-3 d-sm-block cursor d-md-none mt-1" onclick="clicking(<?php
+                                                                                                        if (!isset($_COOKIE['item' . $product_data['id'] . 'expires'])) {
+                                                                                                            echo $product_data['id'];
+                                                                                                        } else {
+                                                                                                            echo 0;
+                                                                                                        }
+                                                                                                        ?>);"> >
+                                    <div class="card" style="width: 7rem;">
+                                        <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                        <div class="card-body start ">
+                                            <!--bodyhere-->
+                                            <span class="text-primary fw-bold"><?php echo $list_data["title"]; ?></span>
+                                            <br>
+                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
+                                            <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op1 ?></h6>
 
-                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 d-none d-md-block cursor d-lg-none mt-1 mb-2" onclick="clicking(<?php
+                                                                                                                    if (!isset($_COOKIE['item' . $product_data['id'] . 'expires'])) {
+                                                                                                                        echo $product_data['id'];
+                                                                                                                    } else {
+                                                                                                                        echo 0;
+                                                                                                                    }
+                                                                                                                    ?>);"> >
+                                    <div class="card" style="width: 7rem;;">
+                                        <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                        <div class="card-body text-start ">
+                                            <span class="text-primary fw-bold"><?php echo $dis1_data["title"]; ?></span>
+                                            <br>
+                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
+                                            <br>
+                                            <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op1 ?></h6>
+                                            <!--bodyhere-->
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                        }
+
+                            ?>
+                            </div>
+                        </div>
+
                 </div>
             </div>
-            <div class="row justify-content-center text-center align-items-center ">
-                <div class="col-12">
-                    <span class="text-muted h6" id="loading" >Show More....</span>
-                </div>
-            </div>
-            <!--body-->
-            <?php
-            require "footer.php";
-            ?>
         </div>
-        <script src="script.js"></script>
-        <script src="bootstrap.bundle.js"></script>
-        <script src="bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+        <div class="row justify-content-center text-center align-items-center ">
+            <div class="col-12">
+                <span class="text-muted h6" id="loading">Show More....</span>
+            </div>
+        </div>
+        <!--body-->
+        <?php
+        require "footer.php";
+        ?>
+    </div>
+    <script src="script.js"></script>
+    <script src="bootstrap.bundle.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -366,26 +366,46 @@ document.addEventListener("DOMContentLoaded", function() {
     myDiv.addEventListener("mouseleave", handleMouseLeave);
 });
 
-function clicking(item_id){
-
-    if (item_id == 0){
-
-    }else{
-        const currentDate = new Date();
-        const expirationDate = new Date(currentDate.getTime() + 30 * 24 * 60 * 60 * 1000);
-        const expirationDateString = expirationDate.toUTCString();
-        
-        document.cookie = "item"+item_id +"expires=${expirationDateString}; path=/";
-        var r = new XMLHttpRequest;
+function productclick(item_id){
     
-        r.onreadystatechange = function() {
-            if(r.status == 200 && r.readyState == 4){
+    if(item_id != 0){
+        var r = new XMLHttpRequest;
+        r.onreadystatechange = function (){
+            if (r.readyState ==4 && r.status==200){
                 var t = r.responseText;
 
             }
         }
-    
-        r.open("GET","clicking.php?click="+item_id,true);
+        r.open('GET', 'clickProductProcess.php?pid='+item_id,true);
+        r.send();
+    }
+}
+
+function brandclick(brand_id){
+    if(brand_id != 0){
+        var r = new XMLHttpRequest;
+        r.onreadystatechange = function (){
+            if (r.readyState ==4 && r.status==200){
+                var t = r.responseText;
+
+            }
+        }
+        r.open('GET', 'clickBrandProcess.php?bid='+brand_id,true);
+        r.send();
+    }
+}
+
+function catogoryclick(cat_id){
+    if(cat_id != 0){
+        var r = new XMLHttpRequest;
+        r.onreadystatechange = function (){
+            if (r.readyState ==4 && r.status==200){
+                var t = r.responseText;
+            }else{
+                alert(cat_id);
+            }
+        }
+        r.open('GET', 'clickCategoryProcess.php?cid='+cat_id,true);
         r.send();
     }
 }
