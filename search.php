@@ -22,17 +22,17 @@
                         <span class="text-info" >Shop With category</span>
                     </div>
                     <div class=" col-9 col-md-8 offset-1 offset-lg-0 col-lg-7 ">
-                        <div class="input-group mb-3">
+                        <div class="input-group  mb-3" ">
                             <input type="text" class="form-control" aria-label="Text input with dropdown button">
                             <button class="btn btn-outline-secondary dropdown-toggle" type="button" placeholder="Search Your Product" data-bs-toggle="dropdown" aria-expanded="false">Category</button>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                            <ul class="dropdown-menu overflow-auto fw-bold dropdown-menu-end" style="height:30vh; font-size :smaller;">
                                 <?php
                                 $datab_rs = Database::search("SELECT * FROM `product_category`");
                                 $numrows = $datab_rs->num_rows;
                                 for ($n=0; $n < $numrows; $n++) { 
                                     $datadd = $datab_rs->fetch_assoc();
                                     ?>
-                                    <li><a class="dropdown-item" href="#"><?php echo $datadd['cat_name']; ?></a></li>
+                                    <li><a class="dropdown-item" href="#">&nbsp;&nbsp; <?php echo $datadd['cat_name']; ?></a></li>
                                     <?php
                                 }
                                 ?>

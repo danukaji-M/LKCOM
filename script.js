@@ -527,3 +527,17 @@ function adressesUpdate(){
     r.open("POST", `profileUpdate.php` , true);
     r.send(f);
 }
+
+function border(x){
+
+    if(document.getElementById(x).classList == " click "){
+        document.getElementById(x).classList.add("clicked")
+    }else{
+        document.getElementById(x).classList.remove("clicked")
+    }
+
+}
+
+function colorSelect(x){
+
+}

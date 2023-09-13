@@ -33,7 +33,7 @@ session_start();
                 <div class="row">
                     <div class="col-12 text-center  form-control shadow-lg">\
                         <div class="mt-2">
-                            <span class="signupstart h3 fw-bold text-uppercase">
+                            <span class="signupstart h3 fw-bold text-uppercase ">
                                 CReate new account
                             </span>
                         </div>
