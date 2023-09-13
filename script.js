@@ -387,7 +387,7 @@ function brandclick(brand_id){
         r.onreadystatechange = function (){
             if (r.readyState ==4 && r.status==200){
                 var t = r.responseText;
-
+                
             }
         }
         r.open('GET', 'clickBrandProcess.php?bid='+brand_id,true);

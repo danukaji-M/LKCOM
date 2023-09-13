@@ -143,7 +143,7 @@
                     <hr>
                     <div class="row justify-content-center ">
                         <div class="col-12">
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 <?php
                                 $product_rs = Database::search("SELECT *
 FROM `product`
@@ -168,13 +168,17 @@ LIMIT 4;
                                                                                                         }
                                                                                                         ?>) , brandclick(
                                                                                                 <?php
+                                                                                                if (!isset($_COOKIE['brand' . $product_data['brand_id']])) {
+                                                                                                    echo $product_data['brand_id'];
+                                                                                                } else {
+                                                                                                    echo 0;
+                                                                                                }
 
-                                                                                                echo $product_data['brand_id'];
                                                                                                 ?>
                                                                                             )  , catogoryclick(<?php
-                                                                                                                if(isset($_COOKIE['category'.$product_data['cat_id']])){
+                                                                                                                if (isset($_COOKIE['category' . $product_data['cat_id']])) {
                                                                                                                     echo (0);
-                                                                                                                }else{
+                                                                                                                } else {
                                                                                                                     echo $product_data['cat_id'];
                                                                                                                 }
                                                                                                                 ?>);">
@@ -241,13 +245,28 @@ LIMIT 4;
                         for ($y = 0; $y < $dis_num_rows; $y++) {
                             $dis_data = $dis_rs->fetch_assoc();
                         ?>
-                            <div class="col-3 card cursor d-lg-block col-lg-2" onclick="clicking(<?php
-                                                                                                    if (!isset($_COOKIE['item' . $product_data['id'] . 'expires'])) {
-                                                                                                        echo $product_data['id'];
-                                                                                                    } else {
-                                                                                                        echo 0;
-                                                                                                    }
-                                                                                                    ?>);">
+                            <div class="col-3 card cursor d-lg-block " onclick="productclick(<?php
+                                                                                                if (!isset($_COOKIE['product' . $product_data['id']])) {
+                                                                                                    echo $product_data['id'];
+                                                                                                } else {
+                                                                                                    echo 0;
+                                                                                                }
+                                                                                                ?>) , brandclick(
+                                                                                                <?php
+                                                                                                if (!isset($_COOKIE['brand' . $product_data['brand_id']])) {
+                                                                                                    echo $product_data['brand_id'];
+                                                                                                } else {
+                                                                                                    echo 0;
+                                                                                                }
+
+                                                                                                ?>
+                                                                                            )  , catogoryclick(<?php
+                                                                                                                if (isset($_COOKIE['category' . $product_data['cat_id']])) {
+                                                                                                                    echo (0);
+                                                                                                                } else {
+                                                                                                                    echo $product_data['cat_id'];
+                                                                                                                }
+                                                                                                                ?>);">
 
                                 <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                 <div class="card-body text-start align-items-center justify-content-center">
@@ -272,7 +291,7 @@ LIMIT 4;
         </div>
         <hr>
         <div class="row justify-content-center ">
-            <div class="col-12 col-lg-8 d-none d-lg-block offset-2 mt-3 mb-3">
+            <div class="col-12 col-lg-8 offset-2 mt-3 mb-3">
                 <div class="row">
                     <?php
 
@@ -284,14 +303,28 @@ LIMIT 4;
                     for ($z = 0; $z < $list_num; $z++) {
                         $list_data = $list_rs->fetch_assoc();
                     ?>
-                        <div class="col-4  mx-5 d-none cursor d-lg-block col-lg-2" onclick="clicking(<?php
-                                                                                                        if (!isset($_COOKIE['item' . $product_data['id'] . 'expires'])) {
-                                                                                                            echo $product_data['id'];
-                                                                                                        } else {
-                                                                                                            echo 0;
-                                                                                                        }
-                                                                                                        ?>);"> >
-                            <div class="card" style="width: 12rem; height: auto; ">
+                        <div class="col-3 card mx-5  cursor" onclick="productclick(<?php
+                                                                                    if (!isset($_COOKIE['product' . $product_data['id']])) {
+                                                                                        echo $product_data['id'];
+                                                                                    } else {
+                                                                                        echo 0;
+                                                                                    }
+                                                                                    ?>) , brandclick(
+                                                                                                <?php
+                                                                                                if (!isset($_COOKIE['brand' . $product_data['brand_id']])) {
+                                                                                                    echo $product_data['brand_id'];
+                                                                                                } else {
+                                                                                                    echo 0;
+                                                                                                }
+
+                                                                                                ?>
+                                                                                            )  , catogoryclick(<?php
+                                                                                                                if (isset($_COOKIE['category' . $product_data['cat_id']])) {
+                                                                                                                    echo (0);
+                                                                                                                } else {
+                                                                                                                    echo $product_data['cat_id'];
+                                                                                                                }
+                                                                                                                ?>);"> 
                                 <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
                                 <div class="card-body text-start align-items-center justify-content-center">
                                     <span class="text-primary fw-bold"> <?php echo $list_data["title"] ?> </span>
