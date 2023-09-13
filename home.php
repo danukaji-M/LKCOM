@@ -351,44 +351,6 @@ LIMIT 4;
                                     }
                                     ?>
                                 </div>
-                                <div class="col-3 d-sm-block cursor d-md-none mt-1" onclick="clicking(<?php
-                                                                                                        if (!isset($_COOKIE['item' . $product_data['id'] . 'expires'])) {
-                                                                                                            echo $product_data['id'];
-                                                                                                        } else {
-                                                                                                            echo 0;
-                                                                                                        }
-                                                                                                        ?>);"> >
-                                    <div class="card" style="width: 7rem;">
-                                        <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                        <div class="card-body start ">
-                                            <!--bodyhere-->
-                                            <span class="text-primary fw-bold"><?php echo $list_data["title"]; ?></span>
-                                            <br>
-                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
-                                            <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op1 ?></h6>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-3 d-none d-md-block cursor d-lg-none mt-1 mb-2" onclick="clicking(<?php
-                                                                                                                    if (!isset($_COOKIE['item' . $product_data['id'] . 'expires'])) {
-                                                                                                                        echo $product_data['id'];
-                                                                                                                    } else {
-                                                                                                                        echo 0;
-                                                                                                                    }
-                                                                                                                    ?>);"> >
-                                    <div class="card" style="width: 7rem;;">
-                                        <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                        <div class="card-body text-start ">
-                                            <span class="text-primary fw-bold"><?php echo $dis1_data["title"]; ?></span>
-                                            <br>
-                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np1 . "<span class='text-warning'>  DIS-" . $dis1 . " % </span>" ?></span>
-                                            <br>
-                                            <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op1 ?></h6>
-                                            <!--bodyhere-->
-                                        </div>
-                                    </div>
-                                </div>
                             <?php
                         }
 
