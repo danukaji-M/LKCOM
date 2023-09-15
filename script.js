@@ -561,3 +561,61 @@ function border(x){
 function colorSelect(x){
 
 }
+
+function clothSizesView(x){ 
+    alert("hi"); 
+}
+
+function insertProduct() {
+    var t = document.getElementById("title").value;
+    var d = document.getElementById("discription").value;
+    var image = document.getElementById("image-uploaderm");
+    var price = document.getElementById("price").value;
+    var dc = document.getElementById("dc").value;
+    var doc = document.getElementById("doc").value;
+    var cat = document.getElementById("catsel").value;
+    var scat = document.getElementById("subcatsel").value;
+    var brand = document.getElementById("brandsel").value;
+    var qty = document.getElementById("qty").value;
+    var col = document.getElementById("clr_id").value;
+    var feaures = document.getElementById("specs").value;
+    var payment = 0;
+    if (document.getElementById("cpay").checked && document.getElementById("cod").checked){
+        payment = 1;
+    }else if(document.getElementById("cpay").checked){
+        payment = 2;
+    }else if(document.getElementById("cod").checked){
+        payment = 3;
+    }
+
+    var f = new FormData();
+    f.append('t',t);
+    f.append('d',d);
+    f.append('price',price);
+    f.append('dc',dc);
+    f.append('doc',doc);
+    f.append('cat',cat);
+    f.append('scat',scat);
+    f.append('b',brand);
+    f.append('qty',qty);
+    f.append('c',col);
+    f.append('f',feaures);
+    f.append('p',payment);
+    
+    var img_count = image.files.length;
+    for (var index = 0; index < img_count; index++) {
+        f.append('img'+index, image.files[index])
+    }
+
+    var r = XMLHttpRequest();
+    r.onreadystatechange = function(){
+        if(r.status == 200 && r.readyState == 4){
+            var t = r.responseText;
+            alert(t);
+        }
+    }
+
+    r.open("POST", "addProductProcess.php", true);
+    r.send(f);
+}
+

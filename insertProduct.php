@@ -34,7 +34,7 @@ require "connection.php";
                                     <img src="resources/logo1.png" alt="">
                                 </a>
                             </div>
-                            <div class="col-12 text-start">
+                            <div class="col-12 mx-3 text-start">
                                 <span class="text-mute text-uppercase" style="color:gray;">Main</span>
                                 <ul style="list-style: none;">
                                     <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView2();"> <i class="bi bi-bucket-fill"></i>&nbsp;Add product</li>
@@ -44,7 +44,7 @@ require "connection.php";
                                     <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView5();"><i class="bi bi-emoji-neutral-fill"></i>&nbsp;Complains </li>
                                 </ul>
                             </div>
-                            <div class="col-12 text-start ">
+                            <div class="col-12 mx-3 text-start ">
                                 <span class="text-mute text-uppercase" style="color:gray;">Account settings</span>
                                 <ul style="list-style: none;">
                                     <li class=" signupstart h6 mt-4 mb-2 newclasshover "><a class="text-decoration-none text-dark" href=""><i class="bi bi-person-fill"></i>&nbsp;Account Settings</a></li>
@@ -57,7 +57,7 @@ require "connection.php";
                     </div>
                     <div class="col-12 col-lg-10">
                         <div class="row  ">
-                            <div class="col-12 overflow-auto border-top text-start border-end col-lg-6" style="height: 90vh;">
+                            <div class="col-12 overflow-auto border-top text-start border-end" style="height: 90vh;">
                                 <div class="row align-items-center justify-content-center">
                                     <div class="col-12  border-bottom mt-3">
                                         <span class="h1 text-capitalize">Add new product</span>
@@ -150,28 +150,68 @@ require "connection.php";
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <label class="form-label">Select category</label>
-                                                        <select class="form-control" name="category-select" id="catsel">`
+                                                        <select class="form-control" name="SelectOption" id="catsel">
+                                                            <option value="0">Select your product category</option>
+                                                            <?php
+                                                            $cat_rs = Database::search("SELECT * FROM `product_category`");
+                                                            $cat_num = $cat_rs->num_rows;
+                                                            $sub_cat_rs = Database::search("SELECT * FROM `sub_category` ");
+                                                            $sub_cat_num = $sub_cat_rs->num_rows;
+                                                            for ($m = 0; $m < $cat_num; $m++) {
+                                                                $cat_data = $cat_rs->fetch_assoc();
+                                                            ?>
+                                                                <option value="<?php echo $cat_data["cat_id"] ?>">
+                                                                    <?php
+                                                                    echo $cat_data["cat_name"]
+                                                                    ?>
+                                                                </option>
+                                                            <?php
+                                                            }
+                                                            ?>
 
-                                                            <option value="0">Select your product caegory</option>
                                                         </select>
+
+
                                                     </div>
                                                     <div class="col-6">
                                                         <label class="form-label">Select sub category</label>
                                                         <select class="form-control" name="category-select" id="subcatsel">
                                                             <option value="0">Select your product sub category</option>
+                                                            <?php
+                                                            for ($m = 0; $m < $sub_cat_num; $m++) {
+                                                                $sub_cat_data = $sub_cat_rs->fetch_assoc();
+                                                            ?>
+                                                                <option value="<?php echo $sub_cat_data["sub_cat_id"] ?>"><?php echo $sub_cat_data["sub_cat_name"] ?></option>
+                                                            <?php
+                                                            }
+
+                                                            ?>
+
                                                         </select>
                                                     </div>
                                                     <div class="col-6">
                                                         <label class="form-label">Select Brand</label>
                                                         <select class="form-control" name="category-select" id="brandsel">
                                                             <option value="0">Select your product Brand</option>
+                                                            <?php
+                                                            $brand_rs = Database::search("SELECT * FROM `brand`");
+                                                            $brand_num = $brand_rs->num_rows;
+                                                            for ($j = 1; $j < $brand_num + 1; $j++) {
+                                                                $brnd_data = $brand_rs->fetch_assoc();
+                                                            ?>
+                                                                <option value="<?php
+                                                                                echo $brnd_data["brand_id"];
+                                                                                ?>">
+                                                                    <?php echo $brnd_data['brand_name']; ?>
+                                                                </option>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         </select>
                                                     </div>
                                                     <div class="col-6">
-                                                        <label class="form-label">Select Condition</label>
-                                                        <select class="form-control" name="category-select" id="condisel">
-                                                            <option value="0">Select your product Condition</option>
-                                                        </select>
+                                                        <label for="" class="form-label"  >Product Quantity</label>
+                                                        <input class="form-control" id="qty" placeholder='product Quantity'> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,23 +223,19 @@ require "connection.php";
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-12">
+                                                        <select id="clr_id" class="form-control">
+                                                            <option value="0"> choose a color</option>
                                                         <?php
                                                         $color_rs = Database::search("SELECT * FROM `color`");
                                                         $color_num = $color_rs->num_rows;
                                                         for ($i = 0; $i < $color_num; $i++) {
                                                             $color_data = $color_rs->fetch_assoc();
                                                         ?>
-                                                            <label for="<?php echo ("cl" . $color_data["color_id"]) ?>" class="">
-                                                                <div id="<?php echo ($color_data["color_id"]) ?>" class=" click " style="
-                                                                    background-color: <?php echo $color_data["color"]  ?>;
-                                                                " onclick="border(<?php echo $color_data['color_id'] ?>);">
-                                                                </div>
-                                                            </label>
-                                                            <input type="radio" onclick="coloselect(<?php echo $color_data['color_id'] ?>);" class="d-none border-primary " name="color" id="<?php echo ("cl" . $color_data["color_id"]) ?>">
+                                                        <option value="<?php echo $color_data["color_id"]?>"> <?php echo $color_data["color"] ?> </option>
                                                         <?php
                                                         }
                                                         ?>
-
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,11 +257,11 @@ require "connection.php";
                                             <div class="  card-body">
                                                 <span for="">Select Approved Payment methods</span>
                                                 <ul class=" list-unstyled">
-                                                    <li> <input type="checkbox" name="Card Payment" id="">&nbsp;
+                                                    <li> <input type="checkbox" name="Card Payment" id="cpay">&nbsp;
                                                         <label for=""><i class="bi bi-credit-card-2-back-fill"></i>&nbsp;Card Payment</label>
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" name="Cash On Delivery" id="">
+                                                        <input type="checkbox" name="Cash On Delivery" id="cod">
                                                         &nbsp;<label for=""><i class="bi bi-cash-stack"></i>&nbsp;Cash on Delevery</label>
                                                     </li>
                                                 </ul>
@@ -233,7 +269,7 @@ require "connection.php";
                                         </div>
                                     </div>
                                     <div class="col-12 mt-4 mb-4 text-center">
-                                        <button class="btn btn-info "> Add your Product</button>
+                                        <button class="btn btn-info " onclick="insertProduct();" > Add your Product</button>
                                     </div>
                                 </div>
                             </div>
