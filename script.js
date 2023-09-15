@@ -607,7 +607,7 @@ function insertProduct() {
         f.append('img'+index, image.files[index])
     }
 
-    var r = XMLHttpRequest();
+    var r = new XMLHttpRequest();
     r.onreadystatechange = function(){
         if(r.status == 200 && r.readyState == 4){
             var t = r.responseText;

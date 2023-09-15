@@ -148,17 +148,20 @@
                                 $product_rs = Database::search("SELECT *
 FROM `product`
 INNER JOIN `click_products` ON `click_products`.`product_id` = `product`.`id`
-INNER JOIN `product_category` ON `product_category`.`cat_id` = `product`.`product_category_id`
-INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id`
-INNER JOIN `product_img` ON `product_img`.`product_id`=`product`.`id` 
+INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id`=`product`.`sub_category_sub_cat_id`
+INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`product_category_id`
+INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id` 
 INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
 INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
 ORDER BY `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC
 LIMIT 4;
 ");
+
                                 $product_num = $product_rs->num_rows;
                                 for ($k = 0; $k < $product_num; $k++) {
                                     $product_data = $product_rs->fetch_assoc();
+                                    $image_rs = Database::search("SELECT * FROM `product_img` WHERE `product_id`='" . $product_data["id"] . "'");
+                                    $image_data = $image_rs->fetch_assoc();
                                 ?>
                                     <div class="col-3 col-lg-3 m-3 cursor card " onclick="productclick(<?php
                                                                                                         if (!isset($_COOKIE['product' . $product_data['id']])) {
@@ -183,7 +186,7 @@ LIMIT 4;
                                                                                                                 }
                                                                                                                 ?>);">
                                         <div class="card-body">
-                                            <img class="img-fluid" src="<?php echo $product_data["img_path"]  ?>">
+                                            <img class="img-fluid" src="<?php echo $image_data["img_path"]  ?>">
                                             <span class="text-primary d-none d-lg-block signupstart fw-bold text-capitalize "><?php echo $product_data["title"] ?></span>
                                             <?php
                                             $discount = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $product_data["id"] . "'");
@@ -239,11 +242,13 @@ LIMIT 4;
                     <div class="row justify-content-center ">
                         <?php
                         $dis_rs = Database::search("SELECT * FROM `product` INNER JOIN `discount` ON `product`.`id`=`discount`.`product_id`
-                        INNER JOIN `click_products` ON `click_products`.`product_id`=`product`.`id` INNER JOIN `product_img` ON `product_img`.`product_id` = `product`.`id`
+                        INNER JOIN `click_products` ON `click_products`.`product_id`=`product`.`id` 
                         WHERE  `product_status_id`='1' ORDER BY `dis_presentage` DESC , `product_added_date` ASC LIMIT 4");
                         $dis_num_rows = $dis_rs->num_rows;
                         for ($y = 0; $y < $dis_num_rows; $y++) {
                             $dis_data = $dis_rs->fetch_assoc();
+                            $image_rs1 = Database::search("SELECT * FROM `product_img` WHERE `product_id`='" . $product_data["id"] . "'");
+                            $image_data1 = $image_rs1->fetch_assoc();
                         ?>
                             <div class="col-3 card cursor d-lg-block " onclick="productclick(<?php
                                                                                                 if (!isset($_COOKIE['product' . $product_data['id']])) {
@@ -268,7 +273,7 @@ LIMIT 4;
                                                                                                                 }
                                                                                                                 ?>);">
 
-                                <img src="<?php echo $dis_data["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                <img src="<?php echo $image_data1["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
                                 <div class="card-body text-start align-items-center justify-content-center">
                                     <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
                                     <br>
@@ -324,52 +329,52 @@ LIMIT 4;
                                                                                                                 } else {
                                                                                                                     echo $product_data['cat_id'];
                                                                                                                 }
-                                                                                                                ?>);"> 
-                                <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
-                                <div class="card-body text-start align-items-center justify-content-center">
-                                    <span class="text-primary fw-bold"> <?php echo $list_data["title"] ?> </span>
-                                    <br>
-                                    <?php
-                                    $discount1 = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $product_data["id"] . "'");
-                                    $discount_row1 = $discount1->num_rows;
-                                    $discount_data1 = $discount1->fetch_assoc();
-                                    if ($discount_row1 > 0) {
+                                                                                                                ?>);">
+                            <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
+                            <div class="card-body text-start align-items-center justify-content-center">
+                                <span class="text-primary fw-bold"> <?php echo $list_data["title"] ?> </span>
+                                <br>
+                                <?php
+                                $discount1 = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $product_data["id"] . "'");
+                                $discount_row1 = $discount1->num_rows;
+                                $discount_data1 = $discount1->fetch_assoc();
+                                if ($discount_row1 > 0) {
 
-                                        $op3 = $list_data["price"];
-                                        $dis3 = $discount_data1["dis_presentage"];
-                                        $np3 = ($op3 - (($op3 / 100) * $dis3));
-                                        if ($op3 == $np3) {
-                                    ?>
-                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $op3 ?></span>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np3 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
-                                            <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op3 ?></h6>
+                                    $op3 = $list_data["price"];
+                                    $dis3 = $discount_data1["dis_presentage"];
+                                    $np3 = ($op3 - (($op3 / 100) * $dis3));
+                                    if ($op3 == $np3) {
+                                ?>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $op3 ?></span>
                                     <?php
-                                        }
+                                    } else {
+                                    ?>
+                                        <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np3 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
+                                        <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op3 ?></h6>
+                                <?php
                                     }
-                                    ?>
-                                </div>
-                            <?php
-                        }
-
-                            ?>
+                                }
+                                ?>
                             </div>
-                        </div>
+                        <?php
+                    }
 
+                        ?>
+                        </div>
                 </div>
+
             </div>
         </div>
-        <div class="row justify-content-center text-center align-items-center ">
-            <div class="col-12">
-                <span class="text-muted h6" id="loading">Show More....</span>
-            </div>
+    </div>
+    <div class="row justify-content-center text-center align-items-center ">
+        <div class="col-12">
+            <span class="text-muted h6" id="loading">Show More....</span>
         </div>
-        <!--body-->
-        <?php
-        require "footer.php";
-        ?>
+    </div>
+    <!--body-->
+    <?php
+    require "footer.php";
+    ?>
     </div>
     <script src="script.js"></script>
     <script src="bootstrap.bundle.js"></script>
