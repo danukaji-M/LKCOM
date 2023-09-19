@@ -619,3 +619,126 @@ function insertProduct() {
     r.send(f);
 }
 
+function sort(id){
+    var search = document.getElementById("search");
+    var time = 0;
+    var qty =0;
+    var price = 0;
+    var status = 0;
+
+    if(document.getElementById("older").checked){
+        time = 1;
+    }else if(document.getElementById("new").checked){
+        time = 2
+    }
+
+    if(document.getElementById("high").checked){
+        price = 1;
+    }else if(document.getElementById("low").checked){
+        price = 2;
+    }
+
+    if(document.getElementById("active").checked){
+        status = 1;
+    }if(document.getElementById("deactive").checked){
+        status = 2;
+    }
+
+    if(document.getElementById("tomn").checked){
+        qty=1;
+    }else if(document.getElementById("tomx").checked){
+        qty = 2;
+    }
+
+    var f = new FormData();
+    f.append("text",search.value);
+    f.append("qty",qty);
+    f.append("price",price);
+    f.append("time",time);
+    f.append("status",status);
+    f.append("page",id);
+
+    var r = new XMLHttpRequest();
+    r.onreadystatechange = function(){
+        if(r.status == 200 && r.readyState == 4){
+            var t = r.responseText;
+            document.getElementById("sort").innerHTML = t;
+        }
+    }
+
+    r.open("POST", "sortProcess.php",true);
+    r.send(f);
+}
+function update( num){
+    $(document).ready(function(){
+        $("#statusOpen"+num).click(function(){
+            $("#status-modal").modal('show');
+        });
+    });
+}
+
+function yes(id){
+    var r = new XMLHttpRequest();
+
+    r.onreadystatechange = function(){
+        if(r.status == 200 && r.readyState == 4){
+            var t = r.responseText;
+            if(t= "success"){
+                window.location.reload();
+            }else{
+                alert(t)
+            }
+        }
+    }
+
+    r.open("GET", "statusChangeProcess.php?id="+id,true);
+    r.send();
+}
+
+function deleteProduct(num){
+    $(document).ready(function(){
+        $("#deleteOpen"+num).click(function(){
+            $("#delete-modal").modal('show');
+        });
+    });
+}
+
+function del(id){
+    var r = new XMLHttpRequest();
+    r.onreadystatechange = function (){
+        if(r.readyState == 4 && r.status == 200){
+            var t = r.responseText;
+            if(t == "success"){
+                window.location.reload();
+            }else{
+                alert(t);
+            }
+        }
+    }
+    r.open("GET","deleteProcess.php?id="+id,true);
+    r.send();
+}
+var discountId;
+function DiscountAdd(num){
+    discountId = num;
+    $(document).ready(function(){
+        $("#discountOpen"+num).click(function(){
+            $("#discount-modal").modal('show');
+        });
+    });
+}
+
+function discount(id){
+    var disval = document.getElementById("discount").value;
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if(r.status ==200 && r.readyState ==4){
+            var t=r.responseText;
+            if(t= "success"){
+                window.location.reload();
+            } 
+        }
+    }
+    r.open("GET" , "discountProceess.php?id="+discountId+"&dis="+disval,true);
+    r.send();
+}

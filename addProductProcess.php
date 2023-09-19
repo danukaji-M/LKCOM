@@ -23,9 +23,8 @@ $date = $d->format("Y-m-d H:i:s");
 $status = 1;
 
 
-$product_id = Database::$connection->insert_id;
+
 $length = sizeof($_FILES);
-Database::iud("INSERT INTO `click_products`(`click_count` , `product_id`) VALUES ('1' , '" . $product_id . "')");
 if ($length <= 3 && $length > 0) {
     $allowed_image_extentions = array("image/jpg,", "image/jpeg", "image/png", "image/svg++xml");
     for ($x = 0; $x < $length; $x++) {
@@ -48,10 +47,13 @@ if ($length <= 3 && $length > 0) {
                 $file_name = "resources//product//" . $title . "_" . $x . "_" . uniqid() . $new_img_extention;
                 move_uploaded_file($img_file['tmp_name'], $file_name);
 
-                Database::search("INSERT INTO `product_img`(`img_path` , `product_id`) VALUES ('" . $file_name . "' , '" . $product_id . "')");
+                
                 Database::iud("INSERT INTO `product`(`title`, `discription`, `price`, `delevery_colombo`, `delevery_other`, `sub_category_sub_cat_id`, `brand_id`, `product_status_id`, `product_added_date`, `product_specs`, `user_email` ,`qty`) 
 VALUES ('" . $title . "', '" . $desc . "', '" . $price . "', '" . $dc . "', '" . $doc . "', '" . $subcategory . "'
 , '" . $brand . "', '" . $status . "', '" . $date . "', '" . $feature . "', '" . $email . "', '" . $qty . "')");
+                $product_id = Database::$connection->insert_id;
+                Database::iud("INSERT INTO `click_products`(`click_count` , `product_id`) VALUES ('1' , '" . $product_id . "')");
+                Database::search("INSERT INTO `product_img`(`img_path` , `product_id`) VALUES ('" . $file_name . "' , '" . $product_id . "')");
                 echo ("success");
             } else {
                 echo ("Not an allowed image type");

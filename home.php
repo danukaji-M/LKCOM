@@ -154,7 +154,7 @@ INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_cat
 INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
 INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
 ORDER BY `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC
-LIMIT 4;
+LIMIT 6;
 ");
 
                                 $product_num = $product_rs->num_rows;
@@ -239,24 +239,26 @@ LIMIT 4;
                         </div>
                     </div>
                     <hr>
-                    <div class="row justify-content-center ">
-                        <?php
-                        $dis_rs = Database::search("SELECT * FROM `product` INNER JOIN `discount` ON `product`.`id`=`discount`.`product_id`
+                    <div class="row  ">
+                        <div class="col-12">
+                            <div class="row justify-content-center">
+                                <?php
+                                $dis_rs = Database::search("SELECT * FROM `product` INNER JOIN `discount` ON `product`.`id`=`discount`.`product_id`
                         INNER JOIN `click_products` ON `click_products`.`product_id`=`product`.`id` 
-                        WHERE  `product_status_id`='1' ORDER BY `dis_presentage` DESC , `product_added_date` ASC LIMIT 4");
-                        $dis_num_rows = $dis_rs->num_rows;
-                        for ($y = 0; $y < $dis_num_rows; $y++) {
-                            $dis_data = $dis_rs->fetch_assoc();
-                            $image_rs1 = Database::search("SELECT * FROM `product_img` WHERE `product_id`='" . $product_data["id"] . "'");
-                            $image_data1 = $image_rs1->fetch_assoc();
-                        ?>
-                            <div class="col-3 card cursor d-lg-block " onclick="productclick(<?php
-                                                                                                if (!isset($_COOKIE['product' . $product_data['id']])) {
-                                                                                                    echo $product_data['id'];
-                                                                                                } else {
-                                                                                                    echo 0;
-                                                                                                }
-                                                                                                ?>) , brandclick(
+                        WHERE  `product_status_id`='1' ORDER BY `dis_presentage` DESC , `product_added_date` ASC LIMIT 6");
+                                $dis_num_rows = $dis_rs->num_rows;
+                                for ($y = 0; $y < $dis_num_rows; $y++) {
+                                    $dis_data = $dis_rs->fetch_assoc();
+                                    $image_rs1 = Database::search("SELECT * FROM `product_img` WHERE `product_id`='" . $dis_data["id"] . "'");
+                                    $image_data1 = $image_rs1->fetch_assoc();
+                                ?>
+                                    <div class="col-3 card m-3 cursor d-lg-block " onclick="productclick(<?php
+                                                                                                        if (!isset($_COOKIE['product' . $product_data['id']])) {
+                                                                                                            echo $product_data['id'];
+                                                                                                        } else {
+                                                                                                            echo 0;
+                                                                                                        }
+                                                                                                        ?>) , brandclick(
                                                                                                 <?php
                                                                                                 if (!isset($_COOKIE['brand' . $product_data['brand_id']])) {
                                                                                                     echo $product_data['brand_id'];
@@ -273,24 +275,24 @@ LIMIT 4;
                                                                                                                 }
                                                                                                                 ?>);">
 
-                                <img src="<?php echo $image_data1["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
-                                <div class="card-body text-start align-items-center justify-content-center">
-                                    <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
-                                    <br>
-                                    <?php
-                                    $op = $dis_data["price"];
-                                    $dis = $dis_data["dis_presentage"];
-                                    $np = ($op - (($op / 100) * $dis));
-                                    ?>
+                                        <img src="<?php echo $image_data1["img_path"]; ?>" class="card-img-top mt-2  " alt="...">
+                                        <div class="card-body text-start align-items-center justify-content-center">
+                                            <span class="text-primary fw-bold"><?php echo $dis_data["title"]; ?></span>
+                                            <br>
+                                            <?php
+                                            $op = $dis_data["price"];
+                                            $dis = $dis_data["dis_presentage"];
+                                            $np = ($op - (($op / 100) * $dis));
+                                            ?>
 
-                                    <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
-                                    <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
-                                </div>
-                            </div>
+                                            <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np . "<span class='text-warning'>  DIS-" . $dis . " % </span>" ?></span>
+                                            <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op ?></h6>
+                                        </div>
+                                    </div>            
+                                                <?php
+                                }
+                        ?>
                     </div>
-                <?php
-                        }
-                ?>
                 </div>
             </div>
         </div>

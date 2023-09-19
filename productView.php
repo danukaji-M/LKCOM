@@ -71,7 +71,7 @@ if (isset($_SESSION["ud"])) {
                                             <input type="text" name="search" class="form-control" id="search">
                                         </div>
                                         <div class="col-2">
-                                            <button class="btn btn-primary" onclick="search();"> Search </button>
+                                            <button class="btn btn-primary" id="search" onclick="sort(0);"> Search </button>
                                         </div>
                                     </div>
 
@@ -87,7 +87,7 @@ if (isset($_SESSION["ud"])) {
                                     <input type="radio" name="h1" id="high">
                                     <label for="high" class="fw-bold">Highest Price to min Price</label>
                                     <br>
-                                    <input type="radio" name="h1" id="min">
+                                    <input type="radio" name="h1" id="low">
                                     <label for="min" class="fw-bold">Minimum price to highest Price</label>
                                     <hr>
                                     <h6 class="text-danger fw-bold">Activated And Deactivated</h6>
@@ -98,16 +98,17 @@ if (isset($_SESSION["ud"])) {
                                     <label for="deactive" class="fw-bold">Show Deactivated Products</label>
                                     <hr>
                                     <h6 class="text-danger fw-bold">Sort By Product quantity</h6>
-                                    <input type="radio" name="m1" id="minqty">
+                                    <input type="radio" name="m1" id="tomn">
                                     <label for="active" class="fw-bold">Max quantity to min</label>
                                     <br>
-                                    <input type="radio" name="m1" id="deactive">
+                                    <input type="radio" name="m1" id="tomx">
                                     <label for="maxqty" class="fw-bold">Min quantity to max</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-9">
+
+                    <div id="sort" class="col-12 col-lg-9">
                         <span class="h3 text-warning signupstart">Your Products</span>
                         <div class="row ">
                             <?php
@@ -138,12 +139,138 @@ if (isset($_SESSION["ud"])) {
                                             <div class="col-7 card-body">
                                                 <h5 class="card-title"><?php echo $product_data["title"] ?></h5>
                                                 <p class="card-text"><?php echo $product_data["price"] ?></p>
-                                                <span href="#" class="btn btn-info"> <a class=" text-decoration-none text-dark" href="updateProduct.php"> Update Product</a></span>
-                                                <span class="btn btn-success" onclick="productStatus();">Deactivate Product</span>
+                                                <p class="<?php
+                                                            if ($product_data["product_status_id"] == "1") {
+                                                            ?>
+                                                                    text-success fw-bold
+                                                                    <?php
+                                                                } else {
+                                                                    ?>
+                                                                    text-danger fw-bold
+                                                                    <?php
+                                                                }
+                                                                    ?>">
+                                                    <?php
+                                                    if ($product_data["product_status_id"] == "1") {
+                                                    ?>
+                                                        Your Product Is Activated
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        Your Product Is Disabled
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </p>
+                                                <span class="btn btn-info"> <a class=" text-decoration-none text-dark" href="updateProduct.php"> Update Product</a></span>
+                                                <span class="<?php
+                                                                if ($product_data["product_status_id"] == "1") {
+                                                                ?>
+                                                                    btn btn-success
+                                                                    <?php
+                                                                } else {
+                                                                    ?>
+                                                                    btn btn-dark
+                                                                    <?php
+                                                                }
+                                                                    ?>" onclick='update(<?php echo $product_data["id"]; ?> );' id="statusOpen<?php echo $product_data["id"] ?>"><?php
+                                                                                                                                                                                if ($product_data["product_status_id"] == "1") {
+                                                                                                                                                                                ?>
+                                                        Deactivate Product
+                                                    <?php
+                                                                                                                                                                                } else {
+                                                    ?>
+                                                        Activate Product
+                                                    <?php
+                                                                                                                                                                                }
+                                                    ?></span>
+                                                <div class="modal" id="status-modal" tabindex="-1">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Product Status Updater</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <?php
+                                                                if ($product_data["product_status_id"] == "1") {
+                                                                ?>
+                                                                    <span class="text-danger fw-bold">Do you Want Disable This Product ? </span>
+                                                                <?php
+                                                                } else {
+                                                                ?>
+                                                                    <span class="text-success fw-bold">Do you Want enable This Product ? </span>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" onclick="yes(<?php echo $product_data['id']; ?>)" class="<?php
+                                                                                                                                                if ($product_data["product_status_id"] == "1") {
+                                                                                                                                                ?>
+                                                                    btn btn-danger
+                                                                    <?php
+                                                                                                                                                } else {
+                                                                    ?>
+                                                                    btn btn-info
+                                                                    <?php
+                                                                                                                                                }
+                                                                    ?>">
+                                                                    YES
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal" id="discount-modal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Product Discount window</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span class="text-danger fw-bold">Do you Want Make Discount This Product ? </span>
+                                                <div class=" input-group"><input aria-describedby="basic-addon2" type="text" placeholder="Enter Your Discount Precentage" class="form-control" id="discount">
+                                                    <span class=" input-group-text" id="basic-addon2">%</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" onclick="discount(<?php echo $product_data['id'] ?>)" class="btn btn-danger">
+                                                    Add Discount
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                <div class="modal" id="delete-modal" tabindex="-1">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Product Permenant Delete</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <span class="text-danger fw-bold">Do you Want Delete This Product ? </span>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" onclick="del(<?php echo $product_data['id']; ?>)" class="btn btn-danger">
+                                                                    YES
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <br>
                                                 <br>
-                                                <span class="btn btn-danger" onclick="deleteProduct();">Delete</span>
-                                                <span class="btn btn-warning" onclick="DiscountAdd();">Discount</span>
+                                                <span class="btn cursor btn-danger" id="deleteOpen<?php echo $product_data['id']; ?>" onclick="deleteProduct(<?php echo $product_data['id']; ?>);">Delete</span>
+                                                <button class="btn cursor btn-warning" id="discountOpen<?php echo $product_data['id']; ?>" onclick="DiscountAdd(<?php echo $product_data['id']; ?>);">Discount</button>
                                             </div>
                                         </div>
                                     </div>
