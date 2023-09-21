@@ -758,3 +758,20 @@ function basicSearch(no){
     r.open("GET","searchProcess.php?pageno="+no+"&text="+text+"&catid="+cat,true);
     r.send();
 }
+
+// script.js
+
+const barGraph = document.querySelector(".bar-graph");
+
+fetch("data.php")
+.then((response) => response.json())
+.then((data) => {
+    data.forEach((value) => {
+    const bar = document.createElement("div");
+    bar.classList.add("bar");
+    bar.style.height = `${value}px`;
+    barGraph.appendChild(bar);
+    });
+})
+.catch((error) => console.error("Error fetching data:", error));
+

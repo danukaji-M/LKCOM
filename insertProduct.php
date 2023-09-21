@@ -2,6 +2,15 @@
 session_start();
 require "connection.php";
 
+
+$dataPoints = array(
+    array("y" => 7, "label" => "March"),
+    array("y" => 12, "label" => "April"),
+    array("y" => 28, "label" => "May"),
+    array("y" => 18, "label" => "June"),
+    array("y" => 41, "label" => "July")
+);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +23,34 @@ require "connection.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
+    <script>
+        window.onload = function() {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                title: {
+                    text: "SELLING DETAILS"
+                },
+                axisY: {
+                    title: "LKR.",
+                    includeZero: true,
+                    prefix: "LKR",
+                    suffix: "50K"
+                },
+                data: [{
+                    type: "bar",
+                    yValueFormatString: "$#,##0K",
+                    indexLabel: "{y}",
+                    indexLabelPlacement: "inside",
+                    indexLabelFontWeight: "bolder",
+                    indexLabelFontColor: "white",
+                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
+            chart.render();
+
+        }
+    </script>
 </head>
 
 <body class="bds">
@@ -55,7 +92,7 @@ require "connection.php";
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-10">
+                    <div class="col-12 d-none col-lg-10">
                         <div class="row  ">
                             <div class="col-12 overflow-auto border-top text-start border-end" style="height: 90vh;">
                                 <div class="row align-items-center justify-content-center">
@@ -210,8 +247,8 @@ require "connection.php";
                                                         </select>
                                                     </div>
                                                     <div class="col-6">
-                                                        <label for="" class="form-label"  >Product Quantity</label>
-                                                        <input class="form-control" id="qty" placeholder='product Quantity'> 
+                                                        <label for="" class="form-label">Product Quantity</label>
+                                                        <input class="form-control" id="qty" placeholder='product Quantity'>
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,16 +262,16 @@ require "connection.php";
                                                     <div class="col-12">
                                                         <select id="clr_id" class="form-control">
                                                             <option value="0"> choose a color</option>
-                                                        <?php
-                                                        $color_rs = Database::search("SELECT * FROM `color`");
-                                                        $color_num = $color_rs->num_rows;
-                                                        for ($i = 0; $i < $color_num; $i++) {
-                                                            $color_data = $color_rs->fetch_assoc();
-                                                        ?>
-                                                        <option value="<?php echo $color_data["color_id"]?>"> <?php echo $color_data["color"] ?> </option>
-                                                        <?php
-                                                        }
-                                                        ?>
+                                                            <?php
+                                                            $color_rs = Database::search("SELECT * FROM `color`");
+                                                            $color_num = $color_rs->num_rows;
+                                                            for ($i = 0; $i < $color_num; $i++) {
+                                                                $color_data = $color_rs->fetch_assoc();
+                                                            ?>
+                                                                <option value="<?php echo $color_data["color_id"] ?>"> <?php echo $color_data["color"] ?> </option>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -269,7 +306,19 @@ require "connection.php";
                                         </div>
                                     </div>
                                     <div class="col-12 mt-4 mb-4 text-center">
-                                        <button class="btn btn-info " onclick="insertProduct();" > Add your Product</button>
+                                        <button class="btn btn-info " onclick="insertProduct();"> Add your Product</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12  col-lg-10">
+                        <div class="row">
+                            <div class="col-12 overflow-auto">
+                                <h1 class=" signupstart "> Selling Analysis</h1>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -282,12 +331,15 @@ require "connection.php";
             require "footer.php";
             ?>
         </div>
-        <script src="script.js"></script>
-        <script src="bootstrap.bundle.js"></script>
-        <script src="bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <script src="bootstrap.bundle.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
