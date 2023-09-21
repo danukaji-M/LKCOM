@@ -742,3 +742,19 @@ function discount(id){
     r.open("GET" , "discountProceess.php?id="+discountId+"&dis="+disval,true);
     r.send();
 }
+
+function basicSearch(no){
+    var text = document.getElementById("searchtext").value;
+    var cat = document.getElementById("category").value;
+
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if(r.status == 200 && r.readyState == 4){
+            var t = r.responseText;
+            document.getElementById("sort").innerHTML = t;
+        }
+    }
+
+    r.open("GET","searchProcess.php?pageno="+no+"&text="+text+"&catid="+cat,true);
+    r.send();
+}
