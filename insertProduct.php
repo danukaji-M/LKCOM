@@ -2,15 +2,6 @@
 session_start();
 require "connection.php";
 
-
-$dataPoints = array(
-    array("y" => 7, "label" => "March"),
-    array("y" => 12, "label" => "April"),
-    array("y" => 28, "label" => "May"),
-    array("y" => 18, "label" => "June"),
-    array("y" => 41, "label" => "July")
-);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,40 +11,13 @@ $dataPoints = array(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CARTLANKLA||Seller Register</title>
     <link rel="stylesheet" href="bootstrap.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
-    <script>
-        window.onload = function() {
-
-            var chart = new CanvasJS.Chart("chartContainer", {
-                animationEnabled: true,
-                title: {
-                    text: "SELLING DETAILS"
-                },
-                axisY: {
-                    title: "LKR.",
-                    includeZero: true,
-                    prefix: "LKR",
-                    suffix: "50K"
-                },
-                data: [{
-                    type: "bar",
-                    yValueFormatString: "$#,##0K",
-                    indexLabel: "{y}",
-                    indexLabelPlacement: "inside",
-                    indexLabelFontWeight: "bolder",
-                    indexLabelFontColor: "white",
-                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-                }]
-            });
-            chart.render();
-
-        }
-    </script>
 </head>
 
-<body class="bds">
+<body onload="barGraph() , lineGraph();" class="bds">
     <div class="contianer-fluid">
         <div class="row">
             <?php
@@ -312,15 +276,66 @@ $dataPoints = array(
                             </div>
                         </div>
                     </div>
-                    <div class="col-12  col-lg-10">
+                    <div  class="col-12 d-none col-lg-10">
                         <div class="row">
                             <div class="col-12 overflow-auto">
                                 <h1 class=" signupstart "> Selling Analysis</h1>
                                 <div class="row">
                                     <div class="col-6">
-                                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                                        <div class="card col-12 ">
+                                            <div class="row align-items-center">
+                                                <h4 class="text-primary fw-bold text-start">Your Economy</h4>
+                                                <div class="col-10 offset-1">
+                                                    <label for="selectTime">Select time duration</label>
+                                                    <select id="selectTime" class="form-control">
+                                                        <option value="0">SELECT TIME DURATION</option>
+                                                        <option value="1">THIS MONTH WEEKLY</option>
+                                                        <option value="2">6 Month</option>
+                                                        <option value="3">12 Month</option>
+                                                    </select>
+                                                    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card col-12 ">
+                                            
+                                            <div class="row align-items-center">
+                                                <h4 class="text-primary fw-bold text-start">Product Buying Information </h4>
+                                                <div class="col-10 offset-1">
+                                                <label for="selectTime">Select Item</label>
+                                                    <select id="selectTime" class="mb-3 form-control">
+                                                        <option value="0">SELECT ITEM</option>
+                                                    </select>
+                                                <canvas id="myChartclick" style="width:100%;max-width:600px"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-10">
+                        <div class="row justify-content-center ">
+                            <span class="text-warning h3">
+                                Customer Details
+                            </span>
+                            <div class="col-12 col-lg-10 border-3 border-top border-bottom border-start border-end " >
+                                <table class="table" >
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" >Customer Name</th>
+                                            <th scope="col" >Customer Address</th>
+                                            <th scope="col" >Item</th>
+                                            <th scope="col" >Quantity</th>
+                                            <th scope="col" >Date</th>
+                                            <th scope="col" >Net Value</th>
+                                        </tr>
+                                    </thead>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -334,7 +349,6 @@ $dataPoints = array(
 
     </div>
     <script src="script.js"></script>
-    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
     <script src="bootstrap.bundle.js"></script>
     <script src="bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

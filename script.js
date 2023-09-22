@@ -759,19 +759,46 @@ function basicSearch(no){
     r.send();
 }
 
-// script.js
 
-const barGraph = document.querySelector(".bar-graph");
+function barGraph(){
+    var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+var yValues = [55, 49, 44, 24, 15];
+var barColors = ["red", "green","blue","orange","brown"];
 
-fetch("data.php")
-.then((response) => response.json())
-.then((data) => {
-    data.forEach((value) => {
-    const bar = document.createElement("div");
-    bar.classList.add("bar");
-    bar.style.height = `${value}px`;
-    barGraph.appendChild(bar);
-    });
-})
-.catch((error) => console.error("Error fetching data:", error));
+new Chart("myChart", {
+type: "bar",
+data: {
+    labels: xValues,
+    datasets: [{
+    backgroundColor: barColors,
+    data: yValues
+    }]
+},
+options: {
+    legend: {display: false},
+    title: {
+    display: true,
+    text: "World Wine Production 2018"
+    }
+}
+});
+}
 
+function lineGraph(){
+    const xValues = ["January" ,"February", "March" , "April" , "May" , "June" , "July" , "August" , "September" , "Octomber" ,  "November" , "December"];
+
+new Chart("myChartclick", {
+type: "line",
+data: {
+    labels: xValues,
+    datasets: [{ 
+    data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478 , 7988 , 4678],
+    borderColor: "red",
+    fill: false}]
+},
+options: {
+    legend: {display: false},
+    text: "World Wine Production 2018"
+}
+});
+}
