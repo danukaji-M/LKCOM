@@ -34,7 +34,7 @@ if (isset($_SESSION["ud"])) {
                                 <div class="col-12">
                                     <?php
                                     $watchlist_rs = Database::search("SELECT * FROM `watchlist` INNER JOIN `product` ON 
-                                    `product`.`id`=`watchlist`.`watchlist_id` INNER JOIN `product_img` ON 
+                                    `product`.`id`=`watchlist`.`product_id` INNER JOIN `product_img` ON 
                                     `product_img`.`product_id`=`product`.`id`");
                                     $watchlist_num = $watchlist_rs->num_rows;
                                     if ($watchlist_num == 0) {
