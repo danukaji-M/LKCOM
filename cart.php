@@ -62,7 +62,7 @@ if (isset($_SESSION["ud"])) {
                                             <button class="btn m-2 btn-success text-end">
                                                 Buy
                                             </button>
-                                            <button class="btn m-2 btn-danger text-end">
+                                            <button class="btn m-2  btn-danger text-end">
                                                 Remove 
                                             </button>
                                         </div>
