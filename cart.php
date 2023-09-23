@@ -18,7 +18,65 @@ if (isset($_SESSION["ud"])) {
     </head>
 
     <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <?php require "header.php"; ?>
+                    <h2 class=" signupstart text-warning">Cart Items</h2>
+                    <hr>
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="col-12 d-flex align-items-center justify-content-center  col-lg-11 border-3 border-start border-bottom border-end border-top " style="height: 70vh;">
+                            <?php
+                            $cart_rs = Database::search("SELECT * FROM `cart` WHERE `user_email`='" . $_SESSION['ud']['email'] . "'");
+                            $cart_num = $cart_rs->num_rows;
 
+                            if ($cart_num == 0) {
+                            ?>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <img src="resources/cart-cloud.png" class=" img-fluid" style="height: 200px;" alt="">
+                                        <br>
+                                        <span class="h1 fw-bold text-muted">No Cart items</span>
+                                    </div>
+                                </div>
+
+                                <?php
+                            } else {
+                                for ($i = 0; $i < $cart_num; $i++) {
+                                    $cart_data = $cart_rs->fetch_assoc();
+                                    $image_rs = Database::search("SELECT * FROM `product_img` INNER JOIN 
+                                `product` ON product_img.product_id = product.id WHERE `user_email` = '" . $cart_data['product_id'] . "'");
+                                    $image_data = $image_rs->fetch_assoc();
+                                ?>
+                                    <div class="row ">
+                                        <div class="col-12 align-items-end justify-content-end d-flex">
+                                            <table class="table text-end align-text-bottom">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col-1">Net Value :</th>
+                                                        <th scope="col-1">LKR.100000.00</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            <hr>
+                                            <button class="btn m-2 btn-success text-end">
+                                                Buy
+                                            </button>
+                                            <button class="btn m-2 btn-danger text-end">
+                                                Remove 
+                                            </button>
+                                        </div>
+                                    </div>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <?php require "footer.php" ?>
+            </div>
+        </div>
         <script src="script.js"></script>
         <script src="bootstrap.bundle.js"></script>
         <script src="bootstrap.bundle.min.js"></script>
@@ -29,11 +87,6 @@ if (isset($_SESSION["ud"])) {
 
     </html>
 <?php
-} else {
-?>
-    <script>
-        window.location = "home.php"
-    </script>
-<?
+} else if (!isset($_SESSION["ud"])) {
+    echo "<script>window.location='home.php'</script>";
 }
-?>
