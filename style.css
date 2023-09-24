@@ -185,3 +185,12 @@ label{
     margin-right: 10px;
     transition: height 0.5s;
 }
+
+.mybtn{
+    border-radius: 25px;
+    background-color: rgb(255, 33, 33);
+}
+
+.mybtn1{
+    border-radius: 25px;
+}

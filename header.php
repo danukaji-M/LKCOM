@@ -43,8 +43,8 @@
                     <div class="col-3 align-items-start text-start ">
                         <span class="fw-bold">SELL</span>
                     </div>
-                    <div class="col-3 align-items-start text-start">
-                        <img src="resources/cart.svg" alt="" class="cart-icon" srcset="">
+                    <div class="col-3 align-items-start cursor text-start">
+                        <a href="cart.php"><img src="resources/cart.svg" alt="" class="cart-icon " srcset=""></a>
                     </div>
                     <div class="col-2 align-items-start text-start ">
                         <span class="fw-bold">Watch list </span>

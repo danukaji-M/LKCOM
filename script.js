@@ -402,7 +402,6 @@ function catogoryclick(cat_id){
             if (r.readyState ==4 && r.status==200){
                 var t = r.responseText;
             }else{
-                alert(cat_id);
             }
         }
         r.open('GET', 'clickCategoryProcess.php?cid='+cat_id,true);
@@ -801,4 +800,29 @@ options: {
     text: "World Wine Production 2018"
 }
 });
+}
+
+function singleload(id){
+
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if(r.status == 200 && r.readyState ==4){
+            window.location = "singleproductview.php?pid="+id;
+        }
+    }
+    
+    r.open("GET","singleproductView.php?pid="+id,true);
+    r.send();
+}
+
+function addtocart(id){
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function () {
+        if(r.status == 200 && r.readyState == 4){
+            var t = r.responseText;
+            alert(t);
+        }
+    }
+    r.open("GET","addtoCartProcess.php?pid="+id,true);
+    r.send();
 }
