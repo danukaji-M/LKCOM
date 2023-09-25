@@ -1,12 +1,12 @@
 <?php
+
 session_start();
 require "connection.php";
-
 if (isset($_SESSION["ud"])) {
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,6 @@ if (isset($_SESSION["ud"])) {
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="font.css">
     </head>
-
     <body>
         <div class="container-fluid">
             <div class="row">
@@ -31,7 +30,6 @@ if (isset($_SESSION["ud"])) {
                             $didtot = 0;
                             $cart_rs = Database::search("SELECT * FROM `cart` WHERE `user_email`='" . $_SESSION['ud']['email'] . "'");
                             $cart_num = $cart_rs->num_rows;
-
                             if ($cart_num == 0) {
                             ?>
                                 <div class="row">
@@ -52,7 +50,6 @@ if (isset($_SESSION["ud"])) {
                                         $product_data = Database::search("SELECT * FROM `product` WHERE `id` = '" . $cart_data['product_id'] . "'")->fetch_assoc();
                                         $wdp = $product_data['price'];
                                         $total = $total + $wdp;
-
                                     ?>
                                         <div class="col-12 ">
                                             <div class="row"></div>
@@ -71,16 +68,13 @@ if (isset($_SESSION["ud"])) {
                                                         $discount_row = $discount->num_rows;
                                                         $discount_data = $discount->fetch_assoc();
                                                         if ($discount_row > 0) {
-
                                                             $op2 = $product_data["price"];
                                                             $dis2 = $discount_data["dis_presentage"];
                                                             $discountval = ($op2 / 100) * $dis2;
                                                             $np2 = ($op2 - (($op2 / 100) * $dis2));
                                                             $didtot = $didtot + $discountval;
                                                             if ($op2 == $np2) {
-
                                                         ?>
-
                                                             <?php
                                                             } else {
                                                             ?>
