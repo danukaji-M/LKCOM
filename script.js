@@ -826,3 +826,20 @@ function addtocart(id){
     r.open("GET","addtoCartProcess.php?pid="+id,true);
     r.send();
 }
+
+
+function removeCart(id){
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if(r.status == 200 && r.readyState == 4){
+            var t = r.responseText;
+            if(t == "success"){
+                window.location.reload();
+            }else{
+                alert(t);
+            }
+        }
+    }
+    r.open("GET","cartDelete.php?pid="+id,true);
+    r.send();
+}
