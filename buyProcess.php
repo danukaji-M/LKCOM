@@ -44,10 +44,10 @@ if (isset($_SESSION["ud"])) {
             if(!empty($discount_rs) && $status ==1){
                 $discount_data = $discount_rs->fetch_assoc();
                 $newprice = 0;
-                $price = ($product_data["price"]-($product_data["price"]*($discount_data["dis_presentage"]/100)))*$qty;
+                $price = ($product_data["price"]-($product_data["price"]*($discount_data["dis_presentage"]/100)))*$cart_data["count"];
 
             }elseif(empty($discount_rs) && $status == 1){
-                $price = $product_data["price"]*$qty;
+                $price = $product_data["price"]*$cart_data["count"];
             }elseif (!empty($discount_rs) && $status ==2) {
                 $discount_data = $discount_rs->fetch_assoc();
                 $newprice = 0;
