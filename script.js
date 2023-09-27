@@ -817,7 +817,7 @@ function singleload(id){
 
 function addtocart(id){
     var r = new XMLHttpRequest;
-    var qty = document.getElementById("qty");
+    var qty = document.getElementById("qtysingle1");
     r.onreadystatechange = function () {
         if(r.status == 200 && r.readyState == 4){
             var t = r.responseText;
