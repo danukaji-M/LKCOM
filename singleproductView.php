@@ -88,7 +88,7 @@ $product_data = $product_rs->fetch_assoc();
                                                                         echo "0";
                                                                     }
                                                                     ?> Reviews &nbsp;&nbsp;&nbsp; <?php
-                                                                                                    $scountdata = Database::search("SELECT * FROM `sold_product_count` WHERE `product_id` = '" . $pid . "'")->fetch_assoc();
+                                                                                                    $scountdata = Database::search("SELECT * FROM `buyitems` WHERE `product_id` = '" . $pid . "'")->fetch_assoc();
                                                                                                     if (!empty($scountdata['count'])) {
                                                                                                         echo $scountdata['count'];
                                                                                                     } else {
@@ -96,7 +96,7 @@ $product_data = $product_rs->fetch_assoc();
                                                                                                     }
                                                                                                     ?> SOLD</span>
                                 &nbsp;&nbsp;&nbsp;
-                                <span class="text-muted fw-medium ">Quantity <?php echo $product_data["qty"] ?></span>
+                                <span class="text-muted fw-medium ">Quantity<span id="qtysingle"></span><?php echo $product_data["qty"] ?></span> </span>
                                 <hr>
                                 <?php
                                 $discount = Database::search("SELECT * FROM `product` INNER JOIN 
@@ -120,9 +120,23 @@ $product_data = $product_rs->fetch_assoc();
                                 ?>
                                 <br>
                                 <label class=" text-danger" for="qty">Quantity</label>
-                                <input type="number" name="" class="myinput form-control" value="1" id="qty">
+                                <input type="number" name="" class="myinput form-control" value="1" id="qtysingle1">
                                 <hr>
                                 <span class="fw-bold fs-3">Shipping</span>
+                                <p class="h5">
+                                    <?php
+                                    $user_rs = Database::search("SELECT * FROM `address`
+                                    INNER JOIN `city` ON `city`.`city_id` = `address`.`city_city_id` INNER JOIN 
+                                    district ON district.district_id =city.district_district_id 
+                                    WHERE address.user_email ='".$_SESSION['ud']['email']."'");
+                                    $user_data = $user_rs->fetch_assoc();
+                                    if($user_data["district_id"]==15){
+                                        echo $product_data["delevery_colombo"] . "(".$user_data["district_name"].")";
+                                    }else{
+                                        echo $product_data["delevery_other"] . "&nbsp;<span class='fw-bold text-info'> (".$user_data["district_name"].")</span>";
+                                    }
+                                    ?>
+                                </p>
                                 <p><span class="text-mute text-secondary">Delevery By</span>
                                     <?php
                                     $d = new DateTime();
@@ -133,7 +147,7 @@ $product_data = $product_rs->fetch_assoc();
                                     ?>
                                     <span class="fw-bolder"><?php echo $date ?></span>
                                 </p>
-                                <button type="submit" class="btn btn-danger mybtn">BUY NOW</button>
+                                <button type="submit" onclick="buyNow(<?php echo $product_data['id']; ?>);" class="btn btn-danger mybtn">BUY NOW</button>
                                 <button onclick="addtocart(<?php echo $pid ?>);" class="btn btn-warning mybtn1 fw-bold">Add To Cart</button>
                             </div>
                         </div>
@@ -217,6 +231,7 @@ $product_data = $product_rs->fetch_assoc();
         </div>
     </div>
     <script src="script.js"></script>
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
     <script src="bootstrap.bundle.js"></script>
     <script src="bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

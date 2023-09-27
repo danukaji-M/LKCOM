@@ -7,6 +7,7 @@ if (isset($_SESSION["ud"])) {
 ?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@ if (isset($_SESSION["ud"])) {
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="font.css">
     </head>
+
     <body>
         <div class="container-fluid">
             <div class="row">
@@ -26,8 +28,12 @@ if (isset($_SESSION["ud"])) {
                     <div class="row align-items-center  justify-content-center ">
                         <div class="col-12 align-items-center overflow-auto justify-content-center overfolw col-lg-11 border-3 border-start border-bottom border-end border-top " style="height: 70vh;">
                             <?php
+                            $dc = 0;
+                            $pt = 0;
                             $total = 0;
                             $didtot = 0;
+                            $pp = 0;
+                            $dis= 0;
                             $cart_rs = Database::search("SELECT * FROM `cart` WHERE `user_email`='" . $_SESSION['ud']['email'] . "'");
                             $cart_num = $cart_rs->num_rows;
                             if ($cart_num == 0) {
@@ -44,12 +50,26 @@ if (isset($_SESSION["ud"])) {
                                 } else {
                                     for ($i = 0; $i < $cart_num; $i++) {
                                         $cart_data = $cart_rs->fetch_assoc();
+                                        $count = $cart_data["count"];
                                         $image_rs = Database::search("SELECT * FROM `product_img` INNER JOIN 
                                 `product` ON product_img.product_id = product.id WHERE `product_id` = '" . $cart_data['product_id'] . "'");
                                         $image_data = $image_rs->fetch_assoc();
                                         $product_data = Database::search("SELECT * FROM `product` WHERE `id` = '" . $cart_data['product_id'] . "'")->fetch_assoc();
                                         $wdp = $product_data['price'];
-                                        $total = $total + $wdp;
+                                        $discount = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $product_data["id"] . "'");
+                                        $discount_row = $discount->num_rows;
+                                        $discount_data = $discount->fetch_assoc();
+                                        $total = $total + ($product_data["price"] * $count);
+                                        $pt = $pt + 1 * ($count);
+                                        if (isset($discount_data)) {
+                                            $dis = $discount_data["dis_presentage"];
+                                            $pp = $product_data["price"];
+                                            $didtot = $didtot + (($pp * $dis / 100) * $count);
+                                        } else {
+                                            $didtot = $didtot + (($pp * $dis / 100) * 0);
+                                        }
+
+
                                     ?>
                                         <div class="col-12 ">
                                             <div class="row"></div>
@@ -64,16 +84,13 @@ if (isset($_SESSION["ud"])) {
                                                         <span class="text-muted "><?php echo $image_data["discription"] ?></span>
                                                         <br>
                                                         <?php
-                                                        $discount = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $product_data["id"] . "'");
-                                                        $discount_row = $discount->num_rows;
-                                                        $discount_data = $discount->fetch_assoc();
                                                         if ($discount_row > 0) {
                                                             $op2 = $product_data["price"];
                                                             $dis2 = $discount_data["dis_presentage"];
                                                             $discountval = ($op2 / 100) * $dis2;
                                                             $np2 = ($op2 - (($op2 / 100) * $dis2));
-                                                            $didtot = $didtot + $discountval;
-                                                            if ($op2 == $np2) {
+                                                            if (!isset($discount)) {
+
                                                         ?>
                                                             <?php
                                                             } else {
@@ -90,8 +107,27 @@ if (isset($_SESSION["ud"])) {
                                                         <?php
                                                         }
                                                         ?>
+                                                        <p class="text-dark fw-bold">Product count-<span id="qty"><?php
+
+                                                                                                                    echo $count;
+
+                                                                                                                    ?></span class=" input-group"></p>
+                                                        <?php
+                                                        $user_rs = Database::search("SELECT * FROM `address`
+                                    INNER JOIN `city` ON `city`.`city_id` = `address`.`city_city_id` INNER JOIN 
+                                    district ON district.district_id =city.district_district_id 
+                                    WHERE address.user_email ='" . $_SESSION['ud']['email'] . "'");
+                                                        $user_data = $user_rs->fetch_assoc();
+                                                        if ($user_data["district_id"] == 15) {
+                                                            $dc = $dc + $product_data["delevery_other"];
+                                                            echo "LKR. " . $product_data["delevery_colombo"] . "(" . $user_data["district_name"] . ")";
+                                                        } else {
+                                                            $dc = $dc + $product_data["delevery_other"];
+                                                            echo "LKR. " . $product_data["delevery_other"] . "&nbsp;<span class='fw-bold text-info'> (" . $user_data["district_name"] . ")</span>";
+                                                        }
+                                                        ?>
                                                         <br>
-                                                        <button type="submit " class=" btn mb-3 btn-warning">Buy Now</button>
+                                                        <button type="submit " onclick="buyNow(<?php echo $product_data['id']; ?>);" class=" btn mb-3 btn-warning">Buy Now</button>
                                                         <button type="submit" onclick="removeCart(<?php echo $product_data['id']; ?>)" class=" mb-3 btn btn-danger text-capitalize">remove from cart</button>
                                                     </div>
                                                 </div>
@@ -116,7 +152,7 @@ if (isset($_SESSION["ud"])) {
                                     <th>
                                         item count
                                     </th>
-                                    <th class=" fw-bold"><?php echo $cart_num; ?> Items</th>
+                                    <th class=" fw-bold"><?php echo $pt ?> Items</th>
                                 </tr>
                             </thead>
                             <thead>
@@ -138,9 +174,17 @@ if (isset($_SESSION["ud"])) {
                             <thead>
                                 <tr>
                                     <th class="col">
+                                        Delevery Cost
+                                    </th>
+                                    <th class="fw-bolder fw-bold">LKR. <?php echo $dc ?></th>
+                                </tr>
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <th class="col">
                                         Net Value
                                     </th>
-                                    <th class="fw-bolder fw-bold">LKR. <?php echo $total - $didtot ?></th>
+                                    <th class="fw-bolder fw-bold">LKR. <?php echo $total - $didtot +$dc ?></th>
                                 </tr>
                             </thead>
                         </table>
@@ -154,6 +198,7 @@ if (isset($_SESSION["ud"])) {
         </div>
         </div>
         <script src="script.js"></script>
+        <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
         <script src="bootstrap.bundle.js"></script>
         <script src="bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
