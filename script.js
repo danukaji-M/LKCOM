@@ -936,3 +936,76 @@ function buyNow(id){
     r.open("POST","buyProcess.php",true);
     r.send(f);
 }
+function buyCart(x ){
+    alert(x);
+}
+
+var selectedValue = 0;
+var starRadios = document.querySelectorAll('input[name="stars"]');
+
+// Add a click event listener to each radio button
+starRadios.forEach((radio) => {
+    radio.addEventListener('click', () => {
+        // Get the value of the clicked radio button
+        selectedValue = radio.value;
+        // You can now use the selectedValue for further processing
+    });
+});
+
+var selectedValue;
+
+$(document).ready(function () {
+    // Get a reference to the select element
+    var selectElement = document.getElementById("boughtItem");
+
+    // Add an event listener for the change event
+    selectElement.addEventListener("change", function () {
+        // Get the selected value
+        var selectedValue = selectElement.value;
+
+        // Do something with the selected value (e.g., display it)
+    });
+});
+
+var stval;
+function feedback(){
+    if(selectedValue==0){
+        stval =0;
+    }
+    if(selectedValue==1){
+        stval = 1;
+    }
+    if(selectedValue==2){
+        stval = 2;
+    }
+    if(selectedValue==3){
+        stval = 3;
+    }
+    if(selectedValue==4){
+        stval = 4;
+    }
+    if(selectedValue==5){
+        stval = 5;
+    }
+    var text = document.getElementById ("textfb").value;
+    var image = document.getElementById("imagefb");
+    var f = new FormData;
+    f.append("img",image.files[0]);
+    f.append("star", stval);
+    f.append("text",text);
+    f.append("buy_id",selectedValue);
+    
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if(r.status == 200 && r.readyState==4){
+            var t = r.responseText;
+            alert(t)
+        }
+    }
+
+    r.open("POST","feedbackphp.",true);
+    r.send(f);
+}
+
+// Assuming you have jQuery loaded, you can do this:
+

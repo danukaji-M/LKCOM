@@ -68,8 +68,7 @@ if (isset($_SESSION["ud"])) {
                                         } else {
                                             $didtot = $didtot + (($pp * $dis / 100) * 0);
                                         }
-
-
+                                        
                                     ?>
                                         <div class="col-12 ">
                                             <div class="row"></div>
@@ -90,7 +89,6 @@ if (isset($_SESSION["ud"])) {
                                                             $discountval = ($op2 / 100) * $dis2;
                                                             $np2 = ($op2 - (($op2 / 100) * $dis2));
                                                             if (!isset($discount)) {
-
                                                         ?>
                                                             <?php
                                                             } else {
@@ -108,15 +106,13 @@ if (isset($_SESSION["ud"])) {
                                                         }
                                                         ?>
                                                         <p class="text-dark fw-bold">Product count-<span id="qty"><?php
-
                                                                                                                     echo $count;
-
                                                                                                                     ?></span class=" input-group"></p>
                                                         <?php
                                                         $user_rs = Database::search("SELECT * FROM `address`
-                                    INNER JOIN `city` ON `city`.`city_id` = `address`.`city_city_id` INNER JOIN 
-                                    district ON district.district_id =city.district_district_id 
-                                    WHERE address.user_email ='" . $_SESSION['ud']['email'] . "'");
+                                                        INNER JOIN `city` ON `city`.`city_id` = `address`.`city_city_id` INNER JOIN 
+                                                        district ON district.district_id =city.district_district_id 
+                                                        WHERE address.user_email ='" . $_SESSION['ud']['email'] . "'");
                                                         $user_data = $user_rs->fetch_assoc();
                                                         if ($user_data["district_id"] == 15) {
                                                             $dc = $dc + $product_data["delevery_other"];
@@ -131,8 +127,6 @@ if (isset($_SESSION["ud"])) {
                                                         <button type="submit" onclick="removeCart(<?php echo $product_data['id']; ?>)" class=" mb-3 btn btn-danger text-capitalize">remove from cart</button>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                     <?php
                                     }
@@ -140,7 +134,6 @@ if (isset($_SESSION["ud"])) {
                                     ?>
                                         </div>
                                 </div>
-
                         </div>‌
                     </div>
                 </div>
@@ -197,6 +190,8 @@ if (isset($_SESSION["ud"])) {
             <?php require "footer.php" ?>
         </div>
         </div>
+        <script>
+        </script>
         <script src="script.js"></script>
         <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
         <script src="bootstrap.bundle.js"></script>
@@ -205,7 +200,6 @@ if (isset($_SESSION["ud"])) {
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
     </body>
-
     </html>
 <?php
 } else if (!isset($_SESSION["ud"])) {

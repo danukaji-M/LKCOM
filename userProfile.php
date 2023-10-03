@@ -13,8 +13,6 @@ if (isset($_SESSION["ud"])) {
 
     for ($x = 0; $x < $db_row; $x++) {
         $db_data = $database_rs->fetch_assoc();
-
-
     }
 
 ?>
@@ -71,7 +69,7 @@ if (isset($_SESSION["ud"])) {
                                     </div>
                                     <hr>
                                     <div class=" mt-2 mb-2 col-12 text-center bg-info-subtle  ">
-                                        <v-button onclick="changeUserType();" id="switch" class="btn btn-success mb-2">
+                                        <button onclick="changeUserType();" id="switch" class="btn btn-success mb-2">
                                             <?php
                                             $x = Database::search("SELECT * FROM `user_has_user_type` WHERE `user_email`='" . $email . "' AND `user_type_type_id`='1'");
                                             $xnum = $x->num_rows;
@@ -86,7 +84,7 @@ if (isset($_SESSION["ud"])) {
                                             }
                                             ?>
 
-                                        </v-button>
+                                        </button>
                                         <br>
                                         <div class="text-start">
                                             <?php
@@ -225,9 +223,9 @@ if (isset($_SESSION["ud"])) {
                                     </div>
                                 </div>
 
-                                <div class="row mt-5 justify-content-center" id="phistry">
+                                <div class="row mt-5 overflow-auto" style="height: 60vh;" id="phistry">
                                     <?php
-                                    $purchase_rs = Database::search("SELECT * FROM `purchase_history` WHERE `user_email`= '" . $email . "' ORDER BY `purchase_history_date` DESC");
+                                    $purchase_rs = Database::search("SELECT * FROM `buyitems` WHERE `user_email`= '" . $email . "' ORDER BY `date` DESC");
                                     if ($purchase_rs->num_rows > 0) {
                                         for ($n = 0; $n < $purchase_rs->num_rows; $n++) {
                                             $purchase_data = $purchase_rs->fetch_assoc();
@@ -258,7 +256,7 @@ if (isset($_SESSION["ud"])) {
                                                             ?>
                                                                 <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
                                                                 <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
-                                                                <button class="btn btn-warning" >GO TO SEEING DETAILS</button>
+                                                                <button class="btn btn-warning">GO TO SEEING DETAILS</button>
                                                         <?php
                                                             }
                                                         }
@@ -280,24 +278,6 @@ if (isset($_SESSION["ud"])) {
                                     <?php
                                     }
                                     ?>
-
-                                    <div class="col-12 mt-5">
-                                        <div class="row justify-content-center">
-                                            <div class="col-6 col-lg-5 offset-lg-1">
-                                                <span class="btn btn-dark">
-                                                    << </span>
-                                                        <span class="btn link-opacity-50-hover  btn-dark">
-                                                            1
-                                                        </span>
-                                                        <span class="btn btn-dark">
-                                                            2
-                                                        </span>
-                                                        <span class="btn btn-dark">
-                                                            >>
-                                                        </span>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
                                 <div class="row d-none " id="viewdiv1">
@@ -404,14 +384,15 @@ if (isset($_SESSION["ud"])) {
                                     <select name="" class="form-control" id="boughtItem">
                                         <option value="0">SELECT YOUR ITEM</option>
                                         <?php
-                                        $purchase_rs = Database::search("SELECT * FROM `purchase_history` WHERE `user_email`= '" . $email . "' ORDER BY `purchase_history_date` DESC");
+                                        $purchase_rs = Database::search("SELECT * FROM `buyitems` WHERE `user_email`= '" . $email . "' ORDER BY `date` DESC");
                                         if ($purchase_rs->num_rows > 0) {
                                             for ($n = 0; $n < $purchase_rs->num_rows; $n++) {
                                                 $purchase_data = $purchase_rs->fetch_assoc();
                                                 $product_rs = Database::search("SELECT * FROM `product` WHERE `id` = '" . $purchase_data["product_id"] . "'");
                                                 $product_data = $product_rs->fetch_assoc();
                                         ?>
-                                                <option value="<?php echo $purchase_data["purchase_id"] ?>"><?php echo $product_data["title"] ?></option>
+                                                <option value="<?php echo $purchase_data["buyitem_id"]
+                                                                ?>"><?php echo $product_data["title"] ?></option>
                                         <?php
                                             }
                                         }
@@ -419,94 +400,57 @@ if (isset($_SESSION["ud"])) {
                                     </select>
                                 </div>
                                 <br>
-                                <div class="col-6 text-start">
-                                    <labe class="text-muted form-label ">Press button to track your item</labe>
 
-                                    <v-button class="btn btn-danger mt-2 ">
-                                        Check Tracking Details
-                                    </v-button>
-                                </div>
                             </div>
-                            <div class="row mt-5 justify-content-center">
-                                <span class="text-muted h1">
-                                    OOPS HAVENT ANY TRACKING DETAIL PLEASE SELECT A review
-                                    <br />
-                                    <i class="bi bi-geo-alt"></i>
-                                </span>
-                            </div>
-                            <div class="row">
-                                <div class="col-10 offset-1">
-                                    <span class="h5 text-warning ">Your Tracking details</span>
-                                    <div class="row border-2 mt-3 border-start border-end border-top border-bottom">
-                                        <div class="col-3 border-end">
-                                            <span class="text-info text-capitalize fw-bold signupstart " id="wh">
-                                                PACKAGE HAND OUT TO COORIER
-                                            </span>
-                                        </div>
-                                        <div class="col-4 border-end text-start">
-                                            <input type="radio" name="" id="locationRadio">
-                                            <span class="text-muted text-capitalize text-dark ">
-                                                location <i class="bi bi-geo-alt"></i>-
-                                            </span>
-                                        </div>
-                                        <div class="col-5">
-                                            <span class="text-dark text-capitalize">Coorier details</span>
-                                        </div>
-                                    </div>
+
+                            <hr>
+                            <div class="col-10 text-start offset-1 mt-5">
+                                <span class="text-danger fw-bold signupstart ">Give Feedback Star To review Quality</span>
+                                <div class="star-rating">
+                                    <input type="radio" name="stars" id="star-a" value="5" />
+                                    <label for="star-a"></label>
+
+                                    <input type="radio" name="stars" id="star-b" value="4" />
+                                    <label for="star-b"></label>
+
+                                    <input type="radio" name="stars" id="star-c" value="3" />
+                                    <label for="star-c"></label>
+
+                                    <input type="radio" name="stars" id="star-d" value="2" />
+                                    <label for="star-d"></label>
+
+                                    <input type="radio" name="stars" id="star-e" value="1" />
+                                    <label for="star-e"></label>
+
                                 </div>
-                                <div class="col-10 mb-2 text-start mt-5 offset-1">
-                                    <span class="text-dark form-control fw bold">
-                                        estimate date and Price
+                                <div class=" mt-5 mb-5 text-center justify-content-center ">
+                                    <span class="h5 fw-bold signupstart text-start">
+                                        Upload Your review Image Here
                                     </span>
+                                    <input type="file" class="d-none" src="" id="feedbackreviewImg" alt="Profile Picture">
+                                    <label for="userImage" class="btn btn-dark">Upload Your review to click Here</label>
                                 </div>
-                                <hr>
-                                <div class="col-10 text-start offset-1 mt-5">
-                                    <span class="text-danger fw-bold signupstart ">Give Feedback Star To review Quality</span>
-                                    <div class="star-rating">
-                                        <input type="radio" name="stars" id="star-a" value="5" />
-                                        <label for="star-a"></label>
-
-                                        <input type="radio" name="stars" id="star-b" value="4" />
-                                        <label for="star-b"></label>
-
-                                        <input type="radio" name="stars" id="star-c" value="3" />
-                                        <label for="star-c"></label>
-
-                                        <input type="radio" name="stars" id="star-d" value="2" />
-                                        <label for="star-d"></label>
-
-                                        <input type="radio" name="stars" id="star-e" value="1" />
-                                        <label for="star-e"></label>
-
-                                    </div>
-                                    <div class=" mt-5 mb-5 text-center justify-content-center ">
-                                        <span class="h5 fw-bold signupstart text-start">
-                                            Upload Your review Image Here
-                                        </span>
-                                        <input type="file" class="d-none" src="" id="feedbackreviewImg" alt="Profile Picture">
-                                        <label for="userImage" class="btn btn-dark">Upload Your review to click Here</label>
-                                    </div>
-                                    <span class="text-dark fw-bold text-1">Write About Your review</span>
-                                    <textarea id="feedback" class="form-control">
+                                <span class="text-dark fw-bold text-1">Write About Your review</span>
+                                <textarea id="textfb" class="form-control">
                                     </textarea>
-                                    <button class="btn btn-info mt-2 fw-bold" onclick="feedback();">Submit</button>
-                                    <hr>
-                                </div>
+                                <button class="btn btn-info mt-2 fw-bold" onclick="feedback();">Submit</button>
+                                <hr>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="view2" class="row d-none justify-content-center text-center">
-                <div class="col-12 col-lg-6 border-start border-end">
-                    <span class="text-dark h1">User Details</span>
-                    <div class="form-control mb-3">
-                        <div class="text-end d-flex ">
-                            <i class="bi bi-gear-wide cursor" onclick="profilephotoChange();"></i>
-                            <br>
-                            <label class="form-label">profile</label>
-                        </div>
-                        <img src="
+        </div>
+        <div id="view2" class="row d-none justify-content-center text-center">
+            <div class="col-12 col-lg-6 border-start border-end">
+                <span class="text-dark h1">User Details</span>
+                <div class="form-control mb-3">
+                    <div class="text-end d-flex ">
+                        <i class="bi bi-gear-wide cursor" onclick="profilephotoChange();"></i>
+                        <br>
+                        <label class="form-label">profile</label>
+                    </div>
+                    <img src="
                                         <?php
                                         if (isset($image_data["img_path"])) {
                                             echo $image_data["img_path"];
@@ -515,148 +459,148 @@ if (isset($_SESSION["ud"])) {
                                         }
                                         ?>
                                         " class=" img-user">
-                        <br>
-                        <span class="text-warning fw-bold h3 signupstart ">
-                            <?php
-                            echo $_SESSION["ud"]["fname"] . " " . $_SESSION["ud"]["lname"];
-                            ?>
-                        </span>
-                        <br>
-                        <span class="text-muted signupstart">
-                            <?php
-                            echo $_SESSION["ud"]["email"];
-                            $email = $_SESSION["ud"]["email"];
-                            ?>
-                        </span>
+                    <br>
+                    <span class="text-warning fw-bold h3 signupstart ">
+                        <?php
+                        echo $_SESSION["ud"]["fname"] . " " . $_SESSION["ud"]["lname"];
+                        ?>
+                    </span>
+                    <br>
+                    <span class="text-muted signupstart">
+                        <?php
+                        echo $_SESSION["ud"]["email"];
+                        $email = $_SESSION["ud"]["email"];
+                        ?>
+                    </span>
 
-                    </div>
-
-                    <hr />
-                    <!--address-->
-
-                    <div class="row  mb-2 justify-content-center text-start">
-                        <div class="col-6 mb-2">
-                            <label class="form-label">First Name</label>
-                            <input class="form-control" id="fn" type="text" value="<?php echo $_SESSION["ud"]["fname"]; ?>">
-                        </div>
-                        <div class="col-6 mb-2">
-                            <label for="">Gender</label>
-                            <label class="form-label">Last Name</label>
-                            <input class="form-control" id="ln" type="text" value="<?php echo $_SESSION["ud"]["lname"]; ?>">
-                        </div>
-                        <div class="col-6 mb-2">
-                            <label class="form-label">Your Gender</label>
-                            <select class="form-control" disabled>
-                                <option value="0"><?php echo $_SESSION["ud"]["gender_name"]; ?></option>
-                            </select>
-                        </div>
-                        <div class="col-6 mb-2">
-                            <label class="form-label">Password</label>
-                            <input class="form-control" id="pw" type="passowrd" value="<?php echo $_SESSION["ud"]["password"]; ?>">
-                        </div>
-                        <div class="col-6 mb-2">
-                            <label class="form-label">Your Mobile</label>
-                            <input class="form-control" id="mobile" type="email" value="<?php echo $_SESSION["ud"]["mobile"]; ?>">
-                        </div>
-                        <div class="col-6 mb-2">
-                            <label class="form-label">Joined Date</label>
-                            <input class="form-control" type="text" value="<?php echo $_SESSION["ud"]["joined_date"]; ?>" disabled>
-                        </div>
-                        <div class="col-12 mb-2">
-                            <label class="form-label">Your Email</label>
-                            <input class="form-control" id="email" type="email" value="<?php echo $_SESSION["ud"]["email"]; ?>">
-                        </div>
-                        <hr>
-                        <div class="row text-center mt-5 mb-5 justify-content-center">
-                            <div class="col-12 ">
-                                <button class="btn btn-success"> Change personal Details </button>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="col-12 col-lg-12 border-top border-bottom border-end border-5 ">
-                            <span class="text-primary shadow h3 text-start">Primary Adress</span>
-                            <br>
-                            <div class="row">
-                                <div class="col-12 mt-3 ">
-                                    <label class="form-label signupstart">Address Line 1</label>
-                                    <input type="text" id="pal1" value="<?php
-                                                                        if (empty($pdata["line_1"])) {
-                                                                        } else {
-                                                                            echo $pdata["line_1"];
-                                                                        }
-                                                                        ?>" placeholder="Address line 1" class="form-control border-primary">
-                                </div>
-                                <div class="col-12 mt-3 ">
-                                    <label class="form-label signupstart">Address Line 2</label>
-                                    <input type="text" id="pal2" value="<?php
-                                                                        if (empty($pdata["line_2"])) {
-                                                                        } else {
-                                                                            echo $pdata["line_2"];
-                                                                        }
-                                                                        ?>" placeholder="Address line 2" class="form-control border-primary">
-                                </div>
-                                <div class="col-6 mt-3">
-                                    <label class="form-label">
-                                        Select Your City
-                                    </label>
-                                    <select id="pcity" class="form-control border-primary ">
-                                        <option value="0">Select your City</option>
-                                        <?php
-                                        $city_rs = Database::search("SELECT * FROM `city`");
-                                        $city_rows = $city_rs->num_rows;
-                                        for ($j = 0; $j < $city_rows; $j++) {
-                                            $city_data = $city_rs->fetch_assoc();
-                                        ?>
-                                            <option value="<?php echo ($j + 1) ?>"><?php echo $city_data["city_name"] ?></option>
-                                        <?php
-                                        }
-
-                                        ?>
-
-                                    </select>
-                                </div>
-                                <div class="col-6 mt-3">
-                                    <label class="form-label">
-                                        Select Your District
-                                    </label>
-                                    <select id="pdisreict" class="form-control border-primary ">
-                                        <option value="0">Select your District</option>
-                                    </select>
-                                </div>
-                                <div class="col-6 mt-3">
-                                    <label class="form-label">
-                                        Select Your Province
-                                    </label>
-                                    <select id="pprovince" class="form-control border-primary ">
-                                        <option value="0">Select your Province</option>
-                                    </select>
-
-                                </div>
-                                <div class="col-6 mt-3">
-                                    <label class="form-label">
-                                        Enter Your Postal Code
-                                    </label>
-                                    <input id="ppc" value="<?php
-                                                            if (empty($pdata["postal_code"])) {
-                                                            } else {
-                                                                echo $pdata["postal_code"];
-                                                            }
-                                                            ?>" class="form-control border-primary" type="text">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-5 justify-content-center">
-                            <div class="col-12">
-                                <button onclick="adressesUpdate();" class="btn btn-success fw-bold signupstart ">Update Shipping Details</button>
-                                <button type="button" class="btn btn-secondary" onclick="changeview();">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--address-->
                 </div>
 
+                <hr />
+                <!--address-->
+
+                <div class="row  mb-2 justify-content-center text-start">
+                    <div class="col-6 mb-2">
+                        <label class="form-label">First Name</label>
+                        <input class="form-control" id="fn" type="text" value="<?php echo $_SESSION["ud"]["fname"]; ?>">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label for="">Gender</label>
+                        <label class="form-label">Last Name</label>
+                        <input class="form-control" id="ln" type="text" value="<?php echo $_SESSION["ud"]["lname"]; ?>">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">Your Gender</label>
+                        <select class="form-control" disabled>
+                            <option value="0"><?php echo $_SESSION["ud"]["gender_name"]; ?></option>
+                        </select>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">Password</label>
+                        <input class="form-control" id="pw" type="passowrd" value="<?php echo $_SESSION["ud"]["password"]; ?>">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">Your Mobile</label>
+                        <input class="form-control" id="mobile" type="email" value="<?php echo $_SESSION["ud"]["mobile"]; ?>">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label">Joined Date</label>
+                        <input class="form-control" type="text" value="<?php echo $_SESSION["ud"]["joined_date"]; ?>" disabled>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Your Email</label>
+                        <input class="form-control" id="email" type="email" value="<?php echo $_SESSION["ud"]["email"]; ?>">
+                    </div>
+                    <hr>
+                    <div class="row text-center mt-5 mb-5 justify-content-center">
+                        <div class="col-12 ">
+                            <button class="btn btn-success"> Change personal Details </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-12 col-lg-12 border-top border-bottom border-end border-5 ">
+                        <span class="text-primary shadow h3 text-start">Primary Adress</span>
+                        <br>
+                        <div class="row">
+                            <div class="col-12 mt-3 ">
+                                <label class="form-label signupstart">Address Line 1</label>
+                                <input type="text" id="pal1" value="<?php
+                                                                    if (empty($pdata["line_1"])) {
+                                                                    } else {
+                                                                        echo $pdata["line_1"];
+                                                                    }
+                                                                    ?>" placeholder="Address line 1" class="form-control border-primary">
+                            </div>
+                            <div class="col-12 mt-3 ">
+                                <label class="form-label signupstart">Address Line 2</label>
+                                <input type="text" id="pal2" value="<?php
+                                                                    if (empty($pdata["line_2"])) {
+                                                                    } else {
+                                                                        echo $pdata["line_2"];
+                                                                    }
+                                                                    ?>" placeholder="Address line 2" class="form-control border-primary">
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label class="form-label">
+                                    Select Your City
+                                </label>
+                                <select id="pcity" class="form-control border-primary ">
+                                    <option value="0">Select your City</option>
+                                    <?php
+                                    $city_rs = Database::search("SELECT * FROM `city`");
+                                    $city_rows = $city_rs->num_rows;
+                                    for ($j = 0; $j < $city_rows; $j++) {
+                                        $city_data = $city_rs->fetch_assoc();
+                                    ?>
+                                        <option value="<?php echo ($j + 1) ?>"><?php echo $city_data["city_name"] ?></option>
+                                    <?php
+                                    }
+
+                                    ?>
+
+                                </select>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label class="form-label">
+                                    Select Your District
+                                </label>
+                                <select id="pdisreict" class="form-control border-primary ">
+                                    <option value="0">Select your District</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label class="form-label">
+                                    Select Your Province
+                                </label>
+                                <select id="pprovince" class="form-control border-primary ">
+                                    <option value="0">Select your Province</option>
+                                </select>
+
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label class="form-label">
+                                    Enter Your Postal Code
+                                </label>
+                                <input id="ppc" value="<?php
+                                                        if (empty($pdata["postal_code"])) {
+                                                        } else {
+                                                            echo $pdata["postal_code"];
+                                                        }
+                                                        ?>" class="form-control border-primary" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5 justify-content-center">
+                        <div class="col-12">
+                            <button onclick="adressesUpdate();" class="btn btn-success fw-bold signupstart ">Update Shipping Details</button>
+                            <button type="button" class="btn btn-secondary" onclick="changeview();">Close</button>
+                        </div>
+                    </div>
+                </div>
+                <!--address-->
             </div>
+
+        </div>
         </div>
 
 

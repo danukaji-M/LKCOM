@@ -375,11 +375,12 @@ LIMIT 6;
                 <div class="col-12">
                     <span class="text-muted h6" id="loading">Show More....</span>
                 </div>
+                <?php
+                require "footer.php";
+                ?>
             </div>
             <!--body-->
-            <?php
-            require "footer.php";
-            ?>
+
         </div>
         <script src="script.js"></script>
         <script src="bootstrap.bundle.js"></script>
