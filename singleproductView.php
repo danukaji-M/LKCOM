@@ -125,16 +125,19 @@ $product_data = $product_rs->fetch_assoc();
                                 <span class="fw-bold fs-3">Shipping</span>
                                 <p class="h5">
                                     <?php
-                                    $user_rs = Database::search("SELECT * FROM `address`
-                                    INNER JOIN `city` ON `city`.`city_id` = `address`.`city_city_id` INNER JOIN 
-                                    district ON district.district_id =city.district_district_id 
-                                    WHERE address.user_email ='".$_SESSION['ud']['email']."'");
-                                    $user_data = $user_rs->fetch_assoc();
-                                    if($user_data["district_id"]==15){
-                                        echo $product_data["delevery_colombo"] . "(".$user_data["district_name"].")";
-                                    }else{
-                                        echo $product_data["delevery_other"] . "&nbsp;<span class='fw-bold text-info'> (".$user_data["district_name"].")</span>";
+                                    if (isset($_SESSION["ud"])) {
+                                        $user_rs = Database::search("SELECT * FROM `address`
+                                        INNER JOIN `city` ON `city`.`city_id` = `address`.`city_city_id` INNER JOIN 
+                                        district ON district.district_id =city.district_district_id 
+                                        WHERE address.user_email ='" . $_SESSION['ud']['email'] . "'");
+                                        $user_data = $user_rs->fetch_assoc();
+                                        if ($user_data["district_id"] == 15) {
+                                            echo $product_data["delevery_colombo"] . "(" . $user_data["district_name"] . ")";
+                                        } else {
+                                            echo $product_data["delevery_other"] . "&nbsp;<span class='fw-bold text-info'> (" . $user_data["district_name"] . ")</span>";
+                                        }
                                     }
+
                                     ?>
                                 </p>
                                 <p><span class="text-mute text-secondary">Delevery By</span>
@@ -162,7 +165,47 @@ $product_data = $product_rs->fetch_assoc();
                         <hr>
                         <span>seller joined date <?php echo $seller_data["joined_date"] ?></span>
                         <br>
-                        <a href="">contact seller</a>
+
+                        <?php
+                        // Encryption key (keep this secret and secure)
+                        $encryptionKey = "Aventura-Best-Encryption-with-danu-189073#$@!#342541234"; // Change this to a strong, random key
+
+                        // Data to be encrypted
+                        $email = $seller_data["email"];
+
+                        // Encrypt the data
+                        $encryptedEmail = encryptData($email, $encryptionKey);
+
+                        // Decrypt the data
+                        $decryptedEmail = decryptData($encryptedEmail, $encryptionKey);
+
+
+
+                        // Function to encrypt data
+                        function encryptData($data, $key)
+                        {
+                            $cipher = "aes-256-cbc";
+                            $ivlen = openssl_cipher_iv_length($cipher);
+                            $iv = openssl_random_pseudo_bytes($ivlen);
+                            $encryptedData = openssl_encrypt($data, $cipher, $key, 0, $iv);
+                            return base64_encode($iv . $encryptedData);
+                        }
+
+                        // Function to decrypt data
+                        function decryptData($data, $key)
+                        {
+                            $data = base64_decode($data);
+                            $cipher = "aes-256-cbc";
+                            $ivlen = openssl_cipher_iv_length($cipher);
+                            $iv = substr($data, 0, $ivlen);
+                            $data = substr($data, $ivlen);
+                            $decryptedData = openssl_decrypt($data, $cipher, $key, 0, $iv);
+                            return $decryptedData;
+                        }
+                        ?>
+
+                        <a href="<?php echo "customerSeeSeller.php?seledetails=".$encryptedEmail ?>">Seller's Profile</a>
+
                         <br>
                         <a href="">Visit Store</a>
                         <br>

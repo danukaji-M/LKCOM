@@ -56,7 +56,7 @@ require "connection.php";
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-none col-lg-10">
+                    <div class="col-12  col-lg-10">
                         <div class="row  ">
                             <div class="col-12 overflow-auto border-top text-start border-end" style="height: 90vh;">
                                 <div class="row align-items-center justify-content-center">
@@ -276,7 +276,7 @@ require "connection.php";
                             </div>
                         </div>
                     </div>
-                    <div  class="col-12 d-none col-lg-10">
+                    <div class="col-12 d-none col-lg-10">
                         <div class="row">
                             <div class="col-12 overflow-auto">
                                 <h1 class=" signupstart "> Selling Analysis</h1>
@@ -301,15 +301,15 @@ require "connection.php";
                                     </div>
                                     <div class="col-6">
                                         <div class="card col-12 ">
-                                            
+
                                             <div class="row align-items-center">
                                                 <h4 class="text-primary fw-bold text-start">Product Buying Information </h4>
                                                 <div class="col-10 offset-1">
-                                                <label for="selectTime">Select Item</label>
+                                                    <label for="selectTime">Select Item</label>
                                                     <select id="selectTime" class="mb-3 form-control">
                                                         <option value="0">SELECT ITEM</option>
                                                     </select>
-                                                <canvas id="myChartclick" style="width:100%;max-width:600px"></canvas>
+                                                    <canvas id="myChartclick" style="width:100%;max-width:600px"></canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -318,24 +318,67 @@ require "connection.php";
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-10">
+                    <div class="col-12 d-none col-lg-10">
                         <div class="row justify-content-center ">
                             <span class="text-warning h3">
                                 Customer Details
                             </span>
-                            <div class="col-12 col-lg-10 border-3 border-top border-bottom border-start border-end " >
-                                <table class="table" >
+                            <div class="col-12 col-lg-10 border-3 border-top border-bottom border-start border-end ">
+                                <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" >Customer Name</th>
-                                            <th scope="col" >Customer Address</th>
-                                            <th scope="col" >Item</th>
-                                            <th scope="col" >Quantity</th>
-                                            <th scope="col" >Date</th>
-                                            <th scope="col" >Net Value</th>
+                                            <th scope="col">Customer Name</th>
+                                            <th scope="col">Customer Address</th>
+                                            <th scope="col">Item</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Net Value</th>
                                         </tr>
                                     </thead>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-none col-lg-10">
+                        <div class="row justify-content-center ">
+                            <div class=" h1 text-danger">
+                                Withdraw Process
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-5">
+                                    <div class="row">
+                                        <div class="card shadow col-12">
+                                            <h2 class="text-warning fw-bold">Your balance</h2>
+                                            <div class="card-body text-start">
+                                                <?php
+                                                $total = 0.00;
+                                                $price = 0.00;
+                                                $seller_rs = Database::search("SELECT * FROM `product` INNER JOIN `buyitems` ON
+                                                `product`.`id` = `buyitems`.`product_id` WHERE `product`.`user_email` = '" . $_SESSION["ud"]["email"] . "'");
+                                                $seller_num = $seller_rs->num_rows;
+                                                for ($i = 0; $i < $seller_num; $i++) {
+                                                    $seller_data = $seller_rs->fetch_assoc();
+                                                    $price = $seller_data["buy_price"];
+                                                    $total = $price + $total;
+                                                }
+                                                ?>
+                                                <label class="text-muted text-start text-danger" for="balance">your balance</label>
+                                                <input type="text" class="form-control" value="<?php echo "LKR." . $total ?>" id="tot" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="row">
+                                        <div class="card shadow col-12">
+                                            <h2 class="text-warning fw-bold">Withdraw request</h2>
+                                            <div class="card-body text-start">
+                                                <label class="text-muted text-start text-danger" for="balance">Withdraw</label>
+                                                <input type="text" class="form-control" value="<?php echo "LKR." . $total ?>" id="tot" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

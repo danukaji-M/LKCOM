@@ -1,196 +1,396 @@
-.logo{
-    background-image: url('resources/logo.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+.logo {
+  background-image: url("resources/logo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.text-1{
-    margin-top: -70px;
-
+.text-1 {
+  margin-top: -70px;
 }
-.text-2{
-font-family: 'myfont-5',;
-font-weight: 800;
-font-size: xxl-large;
-color: rgb(33, 103, 165);
-}
-
-*{
-    font-family: myfont-2;
+.text-2 {
+  font-family: "myfont-5";
+  font-weight: 800;
+  font-size: xxl-large;
+  color: rgb(33, 103, 165);
 }
 
-.signupstart{
-    font-family: myfont-3;
+* {
+  font-family: myfont-2;
 }
 
-label{
-    font-family: myfont-5;
-}
-.social{
-    font-family: myfont-3;
-    font-weight: 500;
-    color: blue;
+.signupstart {
+  font-family: myfont-3;
 }
 
-.login{
-    font-family: myfont-3 ;
-    font-style: normal;
-    font-weight: 900;
+label {
+  font-family: myfont-5;
+}
+.social {
+  font-family: myfont-3;
+  font-weight: 500;
+  color: blue;
 }
 
-.cart-icon{
-    height: 30px;
-    width: 30px;
-    cursor: pointer;
+.login {
+  font-family: myfont-3;
+  font-style: normal;
+  font-weight: 900;
 }
 
-.logo1{
-    height: 40px;
-    display: flex;
-    align-items: end;
-    justify-content: end;
+.cart-icon {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
 }
 
-.fter{
-    font-family: myfont-3;
+.logo1 {
+  height: 40px;
+  display: flex;
+  align-items: end;
+  justify-content: end;
 }
 
-.cursor{
-    cursor: pointer;
+.fter {
+  font-family: myfont-3;
 }
 
-.list{
-    list-style: none;
+.cursor {
+  cursor: pointer;
 }
 
-.myimg{
-    height: auto;
-    width: auto;
+.list {
+  list-style: none;
 }
 
-.body{
-    overflow-x: hidden;
+.myimg {
+  height: auto;
+  width: auto;
 }
 
-.img-user{
-    height: 10rem;
-    width: 10rem;
-    border-radius: 100%;
-    border-color: blue;
+.body {
+  overflow-x: hidden;
 }
 
+.img-user {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 100%;
+  border-color: blue;
+}
 
 /* use reverse flexbox to take advantage of flex-direction: reverse */
 .star-rating {
-    display: flex;
-    align-items: center;
-    width: 160px;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    margin: 40px auto;
-    position: relative;
+  display: flex;
+  align-items: center;
+  width: 160px;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin: 40px auto;
+  position: relative;
 }
-  /* hide the inputs */
+/* hide the inputs */
 .star-rating input {
-    display: none;
+  display: none;
 }
-  /* set properties of all labels */
+/* set properties of all labels */
 .star-rating > label {
-    width: 30px;
-    height: 30px;
-    font-family: Arial;
-    font-size: 30px;
-    transition: 0.2s ease;
-    color: orange;
+  width: 30px;
+  height: 30px;
+  font-family: Arial;
+  font-size: 30px;
+  transition: 0.2s ease;
+  color: orange;
 }
-  /* give label a hover state */
+/* give label a hover state */
 .star-rating label:hover {
-    color: #ff69b4;
-    transition: 0.2s ease;
+  color: #ff69b4;
+  transition: 0.2s ease;
 }
 .star-rating label:active::before {
-    transform:scale(1.1);
+  transform: scale(1.1);
 }
 
-  /* set shape of unselected label */
+/* set shape of unselected label */
 .star-rating label::before {
-    content: '\2606';
-    position: absolute;
-    top: 0px;
-    line-height: 26px;
+  content: "\2606";
+  position: absolute;
+  top: 0px;
+  line-height: 26px;
 }
-  /* set full star shape for checked label and those that come after it */
+/* set full star shape for checked label and those that come after it */
 .star-rating input:checked ~ label:before {
-    content:'\2605';
+  content: "\2605";
 }
 
 @-moz-document url-prefix() {
-    .star-rating input:checked ~ label:before {
+  .star-rating input:checked ~ label:before {
     font-size: 36px;
     line-height: 21px;
-    }
+  }
 }
 
-.newclasshover{
-    border: none;
-    border-radius: 10px;
-    background-color: none;
-    color: 000000;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.3s;
+.newclasshover {
+  border: none;
+  border-radius: 10px;
+  background-color: none;
+  color: 000000;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.3s;
 }
 
-.newclasshover:hover{
-    background-color: rgba(0, 0, 0, 0.1);
-    color: 000000;
+.newclasshover:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: 000000;
 }
-.color{
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.img1{
-    background-size: cover;
+.color {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-.click{
-    background-color:red;
-    height:30px;
-    width:30px;
-    border-radius:100%;
-    cursor:pointer;
-
+.img1 {
+  background-size: cover;
 }
 
-.clicked{
-    border: 3px solid;
-    filter: (blur(0.5));
-    border-color: rgb(0, 0, 255);
+.click {
+  background-color: red;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.clicked {
+  border: 3px solid;
+  filter: (blur(0.5));
+  border-color: rgb(0, 0, 255);
 }
 
 /* styles.css */
 
 .bar-graph {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 300px;
-    padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 300px;
+  padding: 20px;
 }
 
 .bar {
-    width: 40px; /* Adjust as needed */
-    background-color: #3498db; /* Adjust the color */
-    margin-right: 10px;
-    transition: height 0.5s;
+  width: 40px; /* Adjust as needed */
+  background-color: #3498db; /* Adjust the color */
+  margin-right: 10px;
+  transition: height 0.5s;
 }
 
-.mybtn{
-    border-radius: 25px;
-    background-color: rgb(255, 33, 33);
+.mybtn {
+  border-radius: 25px;
+  background-color: rgb(255, 33, 33);
 }
 
-.mybtn1{
-    border-radius: 25px;
+.mybtn1 {
+  border-radius: 25px;
+}
+
+body {
+  margin-top: 20px;
+  background: #f5f5f5;
+}
+/**
+ * Panels
+ */
+/*** General styles ***/
+.panel {
+  box-shadow: none;
+}
+.panel-heading {
+  border-bottom: 0;
+}
+.panel-title {
+  font-size: 17px;
+}
+.panel-title > small {
+  font-size: 0.75em;
+  color: #999999;
+}
+.panel-body *:first-child {
+  margin-top: 0;
+}
+.panel-footer {
+  border-top: 0;
+}
+
+.panel-default > .panel-heading {
+  color: #333333;
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.07);
+}
+
+/**
+ * Profile
+ */
+/*** Profile: Header  ***/
+.profile__avatar {
+  float: left;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 20px;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .profile__avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+.profile__avatar > img {
+  width: 20px;
+  height: auto;
+}
+.profile__header {
+  overflow: hidden;
+}
+.profile__header p {
+  margin: 20px 0;
+}
+/*** Profile: Table ***/
+@media (min-width: 992px) {
+  .profile__table tbody th {
+    width: 200px;
+  }
+}
+/*** Profile: Recent activity ***/
+.profile-comments__item {
+  position: relative;
+  padding: 15px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.profile-comments__item:last-child {
+  border-bottom: 0;
+}
+.profile-comments__item:hover,
+.profile-comments__item:focus {
+  background-color: #f5f5f5;
+}
+.profile-comments__item:hover .profile-comments__controls,
+.profile-comments__item:focus .profile-comments__controls {
+  visibility: visible;
+}
+.profile-comments__controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  visibility: hidden;
+}
+.profile-comments__controls > a {
+  display: inline-block;
+  padding: 2px;
+  color: #999999;
+}
+.profile-comments__controls > a:hover,
+.profile-comments__controls > a:focus {
+  color: #333333;
+}
+.profile-comments__avatar {
+  display: block;
+  float: left;
+  margin-right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.profile-comments__avatar > img {
+  width: 100%;
+  height: auto;
+}
+.profile-comments__body {
+  overflow: hidden;
+}
+.profile-comments__sender {
+  color: #333333;
+  font-weight: 500;
+  margin: 5px 0;
+}
+.profile-comments__sender > small {
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #999999;
+}
+@media (max-width: 767px) {
+  .profile-comments__sender > small {
+    display: block;
+    margin: 5px 0 10px;
+  }
+}
+.profile-comments__content {
+  color: #999999;
+}
+/*** Profile: Contact ***/
+.profile__contact-btn {
+  padding: 12px 20px;
+  margin-bottom: 20px;
+}
+.profile__contact-hr {
+  position: relative;
+  border-color: rgba(0, 0, 0, 0.1);
+  margin: 40px 0;
+}
+.profile__contact-hr:before {
+  content: "OR";
+  display: block;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #f5f5f5;
+  color: #c6c6cc;
+}
+.profile__contact-info-item {
+  margin-bottom: 30px;
+}
+.profile__contact-info-item:before,
+.profile__contact-info-item:after {
+  content: " ";
+  display: table;
+}
+.profile__contact-info-item:after {
+  clear: both;
+}
+.profile__contact-info-item:before,
+.profile__contact-info-item:after {
+  content: " ";
+  display: table;
+}
+.profile__contact-info-item:after {
+  clear: both;
+}
+.profile__contact-info-icon {
+  float: left;
+  font-size: 18px;
+  color: #999999;
+}
+.profile__contact-info-body {
+  overflow: hidden;
+  padding-left: 20px;
+  color: #999999;
+}
+.profile__contact-info-body a {
+  color: #999999;
+}
+.profile__contact-info-body a:hover,
+.profile__contact-info-body a:focus {
+  color: #999999;
+  text-decoration: none;
+}
+.profile__contact-info-heading {
+  margin-top: 2px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #999999;
 }

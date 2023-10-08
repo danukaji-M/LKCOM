@@ -1009,3 +1009,12 @@ function feedback(){
 
 // Assuming you have jQuery loaded, you can do this:
 
+function redirrectSeller(email){
+    
+    const r = new XMLHttpRequest;
+    r.onreadystatechange = function() {
+        if (r.readyState === 4 && r.status === 200) {
+            window.location.href="customerSeeSeller.php"
+        }
+    }
+}

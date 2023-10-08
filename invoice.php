@@ -3,17 +3,14 @@ session_start();
 require "connection.php";
 if (isset($_SESSION["ud"])) {
     $email = $_SESSION["ud"]["email"];
-
 ?>
     <!DOCTYPE html>
     <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cart Lanka || INVOICE</title>
     </head>
-
     <body>
         <div class="conainer-fluid">
             <div class="row">
@@ -113,14 +110,12 @@ if (isset($_SESSION["ud"])) {
                                         <td>
                                             <span class="fw-bold">LKR.20000.00</span>
                                         </td>
-
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="row">
                             <div class="col-6 col-lg-2 text-end ">
-
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -142,15 +137,12 @@ if (isset($_SESSION["ud"])) {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </body>
-
     </html>
 <?php
-
 } else {
     echo "<script>window.location='home.php'</script>";
 }
