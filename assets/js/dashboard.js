@@ -1,13 +1,67 @@
 $(function () {
 
+  const worth = {};
+  const earningMonth = [];
+  $(document).ready(function () {
+    $.ajax({
+      url: "chartProcess.php",
+      type: "GET",
+      dataType: "json",
+      success: function (data) {
+        // Now you can work with the JSON data in your JavaScript code.
+        for (let index = 2023; index <= 2023; index++) {
+          const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+
+          for (let j = 1; j <= 12; j++) {
+            const formattedNumber = j.toString().padStart(2, '0');
+            console.log(months[j - 1]);
+            if((data[index+"-"+formattedNumber]!== null))
+            console.log(data[index+"-"+formattedNumber]);
+            worth[index+"-"+formattedNumber] = data[index+"-"+formattedNumber];
+          }
+        }
+        const earningMonth = [];
+
+        for (const key in worth) {
+          if (worth.hasOwnProperty(key)) {
+            earningMonth.push(worth[key]);
+          }
+        }
+        console.log(earningMonth);
+        // Process the data further as needed.
+      },
+      error: function (xhr, status, error) {
+        console.error("Error fetching data from process.php:", error);
+      },
+    });
+  });
 
   // =====================================
   // Profit
   // =====================================
   var chart = {
     series: [
-      { name: "Earnings this month:", data: [355, 390, 300, 350, 390, 180, 355, 390] },
-      { name: "Expense this month:", data: [280, 250, 325, 215, 250, 310, 280, 250] },
+      {
+        name: "Earnings month:",
+        data: earningMonth,
+      },
+      {
+        name: "Worth month:",
+        data: [0, 0, 325, 215, 250, 310, 280, 250, 123, 214, 190, 267],
+      },
     ],
 
     chart: {
@@ -16,21 +70,19 @@ $(function () {
       offsetX: -15,
       toolbar: { show: true },
       foreColor: "#adb0bb",
-      fontFamily: 'inherit',
+      fontFamily: "inherit",
       sparkline: { enabled: false },
     },
 
-
     colors: ["#5D87FF", "#49BEFF"],
-
 
     plotOptions: {
       bar: {
         horizontal: false,
         columnWidth: "35%",
         borderRadius: [6],
-        borderRadiusApplication: 'end',
-        borderRadiusWhenStacked: 'all'
+        borderRadiusApplication: "end",
+        borderRadiusWhenStacked: "all",
       },
     },
     markers: { size: 0 },
@@ -39,11 +91,9 @@ $(function () {
       enabled: false,
     },
 
-
     legend: {
       show: false,
     },
-
 
     grid: {
       borderColor: "rgba(0,0,0,0.1)",
@@ -57,12 +107,24 @@ $(function () {
 
     xaxis: {
       type: "category",
-      categories: ["16/08", "17/08", "18/08", "19/08", "20/08", "21/08", "22/08", "23/08"],
+      categories: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
       labels: {
         style: { cssClass: "grey--text lighten-2--text fill-color" },
       },
     },
-
 
     yaxis: {
       show: true,
@@ -82,7 +144,6 @@ $(function () {
       colors: ["transparent"],
     },
 
-
     tooltip: { theme: "light" },
 
     responsive: [
@@ -90,20 +151,17 @@ $(function () {
         breakpoint: 600,
         options: {
           plotOptions: {
-            bar: {
+            bar: { 
               borderRadius: 3,
-            }
+            },
           },
-        }
-      }
-    ]
-
-
+        },
+      },
+    ],
   };
 
   var chart = new ApexCharts(document.querySelector("#chart"), chart);
   chart.render();
-
 
   // =====================================
   // Breakup
@@ -123,7 +181,7 @@ $(function () {
         startAngle: 0,
         endAngle: 360,
         donut: {
-          size: '75%',
+          size: "75%",
         },
       },
     },
@@ -158,8 +216,6 @@ $(function () {
 
   var chart = new ApexCharts(document.querySelector("#breakup"), breakup);
   chart.render();
-
-
 
   // =====================================
   // Earning
@@ -208,4 +264,4 @@ $(function () {
     },
   };
   new ApexCharts(document.querySelector("#earning"), earning).render();
-})
+});
