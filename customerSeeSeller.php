@@ -3,9 +3,7 @@ session_start();
 require "connection.php";
 $encryptionKey = "Aventura-Best-Encryption-with-danu-189073#$@!#342541234your-secret-key"; 
 $encryptedEmailForWebpage2 = $_GET['seledetails'];
-
 $decryptedEmail = decryptData($encryptedEmailForWebpage2, $encryptionKey);
-
 function decryptData($data, $key)
 {
     $data = base64_decode($data);
@@ -21,13 +19,11 @@ $seller_data = $seller_rs->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SELLER || <?php echo $seller_data['fname'] ." ". $seller_data['lname'] ?></title>
 </head>
-
 <body>
     <div class="container-flud">
         <div class="row">
@@ -38,7 +34,6 @@ $seller_data = $seller_rs->fetch_assoc();
                     <div class="col-12">
                         <div class="row">
                             <div class="col-xs-12 col-sm-9">
-
                                 <!-- User profile -->
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -67,7 +62,6 @@ $seller_data = $seller_rs->fetch_assoc();
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- User info -->
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -97,7 +91,6 @@ $seller_data = $seller_rs->fetch_assoc();
                                         </table>
                                     </div>
                                 </div>
-
                                 <!-- Community -->
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -126,9 +119,7 @@ $seller_data = $seller_rs->fetch_assoc();
                                         Contact user
                                     </a>
                                 </p>
-
                                 <hr class="profile__contact-hr">
-
                                 <!-- Contact info -->
                                 <div class="profile__contact-info">
                                     <div class="profile__contact-info-item">
@@ -141,7 +132,6 @@ $seller_data = $seller_rs->fetch_assoc();
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
