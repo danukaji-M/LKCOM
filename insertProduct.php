@@ -41,8 +41,8 @@ require "connection.php";
                                     <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView2();"> <i class="bi bi-bucket-fill"></i>&nbsp;Add product</li>
                                     <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView3();"> <i class="bi bi-graph-down"></i>&nbsp;Analytics </li>
                                     <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView4();"> <i class="bi bi-people-fill"></i>&nbsp;Customers</li>
-                                    <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView5();"><i class="bi bi-envelope-open-heart-fill"></i>&nbsp;Reviews </li>
-                                    <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView5();"><i class="bi bi-emoji-neutral-fill"></i>&nbsp;Complains </li>
+                                    <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView5();"><i class="bi bi-envelope-open-heart-fill"></i>&nbsp;Withdraw </li>
+                                    <li class=" signupstart h6 mt-4 mb-2 newclasshover " onclick="changeView6();"><i class="bi bi-emoji-neutral-fill"></i>&nbsp;Complains </li>
                                 </ul>
                             </div>
                             <div class="col-12 mx-3 text-start ">
@@ -56,7 +56,7 @@ require "connection.php";
                             </div>
                         </div>
                     </div>
-                    <div class="col-12  col-lg-10">
+                    <div id="insert" class="col-12  col-lg-10">
                         <div class="row  ">
                             <div class="col-12 overflow-auto border-top text-start border-end" style="height: 90vh;">
                                 <div class="row align-items-center justify-content-center">
@@ -276,7 +276,7 @@ require "connection.php";
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-none col-lg-10">
+                    <div id="sellin" class="col-12 d-none col-lg-10">
                         <div class="row">
                             <div class="col-12 overflow-auto">
                                 <h1 class=" signupstart "> Selling Analysis</h1>
@@ -318,7 +318,7 @@ require "connection.php";
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-none col-lg-10">
+                    <div id="customer" class="col-12 d-none col-lg-10">
                         <div class="row justify-content-center ">
                             <span class="text-warning h3">
                                 Customer Details
@@ -339,12 +339,12 @@ require "connection.php";
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-none col-lg-10">
+                    <div id="withdraw" class="col-12 d-none col-lg-10">
                         <div class="row justify-content-center ">
                             <div class=" h1 text-danger">
                                 Withdraw Process
                             </div>
-                            <div class="row mt-5">
+                            <div class="row mt-5 justify-content-center">
                                 <div class="col-5">
                                     <div class="row">
                                         <div class="card shadow col-12">
@@ -374,7 +374,51 @@ require "connection.php";
                                             <h2 class="text-warning fw-bold">Withdraw request</h2>
                                             <div class="card-body text-start">
                                                 <label class="text-muted text-start text-danger" for="balance">Withdraw</label>
-                                                <input type="text" class="form-control" value="<?php echo "LKR." . $total ?>" id="tot" disabled>
+                                                <input type="texti" class="form-control" placeholder="enter withdraw value" id="tot">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-5">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" onclick="withdraw();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        withdraw
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw Request</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row text-start">
+                                                        <div class="col-6">
+                                                            <label for="">Enter Bank Name</label>
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="">Enter Branch</label>
+                                                            <input type="text" class="form-control" >
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="">Enter Account Number</label>
+                                                            <input type="text" class="form-control" >
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label>Enter Your name</label>
+                                                            <input type="text" class="form-control" >
+                                                        </div>
+                                                    </div>
+                                                    <label for="vrcode">Enter Verificaion code </label>
+                                                    <input class="form-control" id="vrcode" placeholder="Enter Verification Code (We Send it your email)">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Withdraw Now</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

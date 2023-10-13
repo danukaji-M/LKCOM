@@ -91,26 +91,61 @@ if ($status != 0) {
                             <h5 class="card-title fw-bold"><?php echo $selected_data["title"]; ?></h5>
                             <span class="card-text fw-bold text-primary">Rs. <?php echo $selected_data["price"]; ?> .00</span><br />
                             <span class="card-text fw-bold text-success"><?php echo $selected_data["qty"]; ?> Items left</span>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="<?php echo $selected_data["id"]; ?>" onchange="changeStatus(<?php echo $selected_data['id']; ?>);" <?php if ($selected_data["product_status_id"] == 2) { ?> checked <?php } ?> />
-                                <label class="form-check-label fw-bold text-info" for="<?php echo $selected_data["id"]; ?>">
-                                    <?php if ($selected_data["product_status_id"] == 2) { ?>
-                                        Activate Product
-                                    <?php } else {
-                                    ?>
-                                        Deactivate Product
-                                    <?php
-                                    } ?>
-                                </label>
-                            </div>
+                            <p class="<?php
+                                                            if ($selected_data["product_status_id"] == "1") {
+                                                            ?>
+                                                                    text-success fw-bold
+                                                                    <?php
+                                                                } else {
+                                                                    ?>
+                                                                    text-danger fw-bold
+                                                                    <?php
+                                                                }
+                                                                    ?>">
+                                                    <?php
+                                                    if ($selected_data["product_status_id"] == "1") {
+                                                    ?>
+                                                        Your Product Is Activated
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        Your Product Is Disabled
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </p>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row g-1">
                                         <div class="col-12 col-lg-6 d-grid">
-                                            <button class="btn btn-success fw-bold">Update</button>
+                                            <button class="btn btn-info fw-bold">Update Product</button>
                                         </div>
                                         <div class="col-12 col-lg-6 d-grid">
-                                            <button class="btn btn-danger fw-bold">Delete</button>
+                                        <span class="<?php
+                                                                if ($selected_data["product_status_id"] == "1") {
+                                                                ?>
+                                                                    btn btn-success
+                                                                    <?php
+                                                                } else {
+                                                                    ?>
+                                                                    btn btn-dark
+                                                                    <?php
+                                                                }
+                                                                    ?>" onclick='update(<?php echo $selected_data["id"]; ?> );' id="statusOpen<?php echo $selected_data["id"] ?>"><?php
+                                                                                                                                                                                if ($selected_data["product_status_id"] == "1") {
+                                                                                                                                                                                ?>
+                                                        Deactivate Product
+                                                    <?php
+                                                                                                                                                                                } else {
+                                                    ?>
+                                                        Activate Product
+                                                    <?php
+                                                                                                                                                                                }
+                                                    ?></span>
+                                        </div>
+                                        <div class="col-6">
+                                                <span class="btn cursor btn-danger" id="deleteOpen<?php echo $selected_data['id']; ?>" onclick="deleteProduct(<?php echo $selected_data['id']; ?>);">Delete</span>
+                                                <button class="btn cursor btn-warning" id="discountOpen<?php echo $selected_data['id']; ?>" onclick="DiscountAdd(<?php echo $selected_data['id']; ?>);">Discount</button>
                                         </div>
                                     </div>
                                 </div>

@@ -134,7 +134,7 @@ if (isset($_SESSION["ud"])) {
                                     <div class="card col-12">
                                         <div class="row">
                                             <div class="col-5 ">
-                                                <img src="<?php echo $product_img_data["img_path"]; ?>" style="height: 13rem;" class=" card-img img-flex" alt="">
+                                                <img src="<?php echo $product_img_data["img_path"]; ?>" style="height: 16rem;" class=" card-img img-flex" alt="">
                                             </div>
                                             <div class="col-7 card-body">
                                                 <h5 class="card-title"><?php echo $product_data["title"] ?></h5>
@@ -162,6 +162,8 @@ if (isset($_SESSION["ud"])) {
                                                     }
                                                     ?>
                                                 </p>
+                                                <span class="card-text fw-bold text-success"><?php echo $product_data["qty"]; ?> Items left</span>
+                                                <br>
                                                 <span class="btn btn-info"> <a class=" text-decoration-none text-dark" href="updateProduct.php"> Update Product</a></span>
                                                 <span class="<?php
                                                                 if ($product_data["product_status_id"] == "1") {
@@ -184,7 +186,76 @@ if (isset($_SESSION["ud"])) {
                                                     <?php
                                                                                                                                                                                 }
                                                     ?></span>
-                                                <div class="modal" id="status-modal" tabindex="-1">
+                                                
+                                                <br>
+                                                <br>
+                                                <span class="btn cursor btn-danger" id="deleteOpen<?php echo $product_data['id']; ?>" onclick="deleteProduct(<?php echo $product_data['id']; ?>);">Delete</span>
+                                                <button class="btn cursor btn-warning" id="discountOpen<?php echo $product_data['id']; ?>" onclick="DiscountAdd(<?php echo $product_data['id']; ?>);">Discount</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                        </div>
+                        <div class="row text-center mt-5 align-items-center justify-content-center d-flex">
+                            <div class="col-12">
+                                <nav arial-label="Page navigation example">
+                                    <ul class="pagination pagination-lg justify-content-center">
+                                        <li class="page-item">
+                                            <a class="btn btn-dark" href="
+                                                <?php if ($pageno <= 1) {
+                                                    echo ("#");
+                                                } else {
+                                                    echo "?page=" . ($pageno - 1);
+                                                } ?>
+                                                " aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <?php
+
+                                        for ($y = 1; $y <= $number_of_page; $y++) {
+                                            if ($y == $pageno) {
+                                        ?>
+
+                                                <li class="page-item active">
+                                                    <a class="btn btn-dark" href="<?php echo "?page=" . ($y); ?>"><?php echo $y; ?></a>
+                                                </li>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <li class="page-item">
+                                                    <a class="btn btn-dark" href="<?php echo "?page=" . ($y); ?>"><?php echo $y; ?></a>
+                                                </li>
+                                        <?php
+                                            }
+                                        }
+
+                                        ?>
+
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="btn btn-dark" href="
+                                                <?php if ($pageno >= $number_of_page) {
+                                                    echo ("#");
+                                                } else {
+                                                    echo "?page=" . ($pageno + 1);
+                                                } ?>
+                                                " aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal" id="status-modal" tabindex="-1">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -267,74 +338,6 @@ if (isset($_SESSION["ud"])) {
                                                     </div>
                                                 </div>
 
-                                                <br>
-                                                <br>
-                                                <span class="btn cursor btn-danger" id="deleteOpen<?php echo $product_data['id']; ?>" onclick="deleteProduct(<?php echo $product_data['id']; ?>);">Delete</span>
-                                                <button class="btn cursor btn-warning" id="discountOpen<?php echo $product_data['id']; ?>" onclick="DiscountAdd(<?php echo $product_data['id']; ?>);">Discount</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                        <div class="row text-center mt-5 align-items-center justify-content-center d-flex">
-                            <div class="col-12">
-                                <nav arial-label="Page navigation example">
-                                    <ul class="pagination pagination-lg justify-content-center">
-                                        <li class="page-item">
-                                            <a class="btn btn-dark" href="
-                                                <?php if ($pageno <= 1) {
-                                                    echo ("#");
-                                                } else {
-                                                    echo "?page=" . ($pageno - 1);
-                                                } ?>
-                                                " aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <?php
-
-                                        for ($y = 1; $y <= $number_of_page; $y++) {
-                                            if ($y == $pageno) {
-                                        ?>
-
-                                                <li class="page-item active">
-                                                    <a class="btn btn-dark" href="<?php echo "?page=" . ($y); ?>"><?php echo $y; ?></a>
-                                                </li>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <li class="page-item">
-                                                    <a class="btn btn-dark" href="<?php echo "?page=" . ($y); ?>"><?php echo $y; ?></a>
-                                                </li>
-                                        <?php
-                                            }
-                                        }
-
-                                        ?>
-
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="btn btn-dark" href="
-                                                <?php if ($pageno >= $number_of_page) {
-                                                    echo ("#");
-                                                } else {
-                                                    echo "?page=" . ($pageno + 1);
-                                                } ?>
-                                                " aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
             <?php require "footer.php" ?>
         </div>
         </div>

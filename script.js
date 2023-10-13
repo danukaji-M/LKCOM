@@ -1018,3 +1018,64 @@ function redirrectSeller(email){
         }
     }
 }
+
+
+function changeView2(){
+
+    var d2 = document.getElementById ('insert');
+    var d3 = document.getElementById ('sellin');
+    var d4 = document.getElementById ('customer');
+    var d5 = document.getElementById ('withdraw');
+    d2.classList="d-block col-12  col-lg-10";
+    d3.classList="d-none";
+    d4.classList="d-none";
+    d5.classList="d-none";
+}
+
+
+
+function changeView3() {
+    var d2 = document.getElementById ('insert');
+    var d3 = document.getElementById ('sellin');
+    var d4 = document.getElementById ('customer');
+    var d5 = document.getElementById ('withdraw');
+    d2.classList="d-none";
+    d4.classList="d-none";
+    d5.classList="d-none";
+    d3.classList="d-block col-12  col-lg-10";
+}
+
+function changeView4() {
+    var d2 = document.getElementById ('insert');
+    var d3 = document.getElementById ('sellin');
+    var d4 = document.getElementById ('customer');
+    var d5 = document.getElementById ('withdraw');
+    d2.classList="d-none";
+    d3.classList="d-none";
+    d5.classList="d-none";
+    d4.classList="d-block col-12  col-lg-10";
+}
+
+function changeView5() {
+    var d2 = document.getElementById ('insert');
+    var d3 = document.getElementById ('sellin');
+    var d4 = document.getElementById ('customer');
+    var d5 = document.getElementById ('withdraw');
+    d2.classList="d-none";
+    d4.classList="d-none";
+    d3.classList="d-none";
+    d5.classList="d-block col-12  col-lg-10";
+}
+
+var newmodal1;
+function withdraw(){
+    var tot = document.getElementById('tot').value;
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function (){
+        if(r.status == 200 && r.readyState == 4){
+            alert("Successfully Withdrawn");   
+        }
+    }
+    r.open("GET","withdrawveificationProcess.php",true);
+    r.send();
+}
