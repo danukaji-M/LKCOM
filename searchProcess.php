@@ -19,6 +19,7 @@ if (!empty($stext) && $cat == 0) {
             INNER JOIN `product_category` ON product_category.cat_id = sub_category.product_category_id
             WHERE `cat_id` = '" . $cat . "' AND `title` LIKE '%" . $stext . "%'";
 }
+
 ?>
 <div class="offset-1 col-10 text-center">
     <div class="row justify-content-center">

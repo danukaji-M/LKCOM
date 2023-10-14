@@ -153,6 +153,7 @@ INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`p
 INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id` 
 INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
 INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
+WHERE  `product_status_id`='1'
 ORDER BY `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC
 LIMIT 4;
 ");
@@ -164,12 +165,12 @@ LIMIT 4;
                                     $image_data = $image_rs->fetch_assoc();
                                 ?>
                                     <div class="col-3 col-lg-3 cursor card " onclick="productclick(<?php
-                                                                                                        if (!isset($_COOKIE['product' . $product_data['id']])) {
-                                                                                                            echo $product_data['id'];
-                                                                                                        } else {
-                                                                                                            echo 0;
-                                                                                                        }
-                                                                                                        ?>) , brandclick(
+                                                                                                    if (!isset($_COOKIE['product' . $product_data['id']])) {
+                                                                                                        echo $product_data['id'];
+                                                                                                    } else {
+                                                                                                        echo 0;
+                                                                                                    }
+                                                                                                    ?>) , brandclick(
                                                                                                 <?php
                                                                                                 if (!isset($_COOKIE['brand' . $product_data['brand_id']])) {
                                                                                                     echo $product_data['brand_id'];
@@ -244,11 +245,13 @@ LIMIT 4;
                             <div class="row justify-content-center">
                                 <?php
                                 $dis_rs = Database::search("SELECT * FROM `product` INNER JOIN `discount` ON `product`.`id`=`discount`.`product_id`
-                                INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id`=`product`.`sub_category_sub_cat_id`
-                        INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`product_category_id`
-                        INNER JOIN `click_products` ON `click_products`.`product_id`=`product`.`id` 
-                        INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
-                        WHERE  `product_status_id`='1' ORDER BY `dis_presentage` DESC , `product_added_date` ASC LIMIT 6");
+                                INNER JOIN `click_products` ON `click_products`.`product_id` = `product`.`id`
+INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id`=`product`.`sub_category_sub_cat_id`
+INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`product_category_id`
+INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id` 
+INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
+INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
+                        WHERE  `product_status_id`='1' ORDER BY `dis_presentage` DESC , `product_added_date` ASC, `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC LIMIT 4");
                                 $dis_num_rows = $dis_rs->num_rows;
                                 for ($y = 0; $y < $dis_num_rows; $y++) {
                                     $dis_data = $dis_rs->fetch_assoc();
@@ -256,12 +259,12 @@ LIMIT 4;
                                     $image_data1 = $image_rs1->fetch_assoc();
                                 ?>
                                     <div class="col-3 card cursor d-lg-block " onclick="productclick(<?php
-                                                                                                            if (!isset($_COOKIE['product' . $product_data['id']])) {
-                                                                                                                echo $dis_data['id'];
-                                                                                                            } else {
-                                                                                                                echo 0;
-                                                                                                            }
-                                                                                                            ?>) , brandclick(
+                                                                                                        if (!isset($_COOKIE['product' . $product_data['id']])) {
+                                                                                                            echo $dis_data['id'];
+                                                                                                        } else {
+                                                                                                            echo 0;
+                                                                                                        }
+                                                                                                        ?>) , brandclick(
                                                                                                 <?php
                                                                                                 if (!isset($_COOKIE['brand' . $product_data['brand_id']])) {
                                                                                                     echo $dis_data['brand_id'];
@@ -300,94 +303,111 @@ LIMIT 4;
                     </div>
                 </div>
                 <hr>
-                <div class="row justify-content-center ">
-                    <div class="col-12 col-lg-8 offset-2 mt-3 mb-3">
-                        <div class="row">
+                <br>
+                <br>
+                <div class="row  ">
+                    <div class="col-12">
+                        <div class="row justify-content-center">
+                            <span class="h2 fw-bold" >Top Deals</span>
                             <?php
 
-                            $list_rs = Database::search("SELECT * FROM `product` 
-                            INNER JOIN `product_img` ON `product_img`.`product_id`=`product`.`id` INNER JOIN
-                    `discount` ON `discount`.`product_id`=`product`.`id` INNER JOIN `click_products` ON `click_products`.`product_id`=`product`.`id`
-                    WHERE `product_status_id`= '1' ORDER BY `click_count` DESC, `product_added_date` LIMIT 4 OFFSET 4 ");
+                            $list_rs = Database::search("SELECT *
+FROM `product`
+INNER JOIN `click_products` ON `click_products`.`product_id` = `product`.`id`
+INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id`=`product`.`sub_category_sub_cat_id`
+INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`product_category_id`
+INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id` 
+INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
+INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
+WHERE  `product_status_id`='1'
+ORDER BY `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC  LIMIT 16 OFFSET 4;
+");
                             $list_num = $list_rs->num_rows;
-                            for ($z = 0; $z < $list_num; $z++) {
+                            for ($k = 0; $k < $list_num; $k++) {
                                 $list_data = $list_rs->fetch_assoc();
+                                $image1_rs = Database::search("SELECT * FROM `product_img` WHERE `product_id`='" . $list_data["id"] . "'");
+                                $image1_data = $image1_rs->fetch_assoc();
                             ?>
-                                <div class="col-3 card mx-5  cursor" onclick="productclick(<?php
-                                                                                            if (!isset($_COOKIE['product' . $product_data['id']])) {
-                                                                                                echo $product_data['id'];
-                                                                                            } else {
-                                                                                                echo 0;
-                                                                                            }
-                                                                                            ?>) , brandclick(
+                                <div class="col-3 col-lg-3 cursor card " onclick="productclick(<?php
+                                                                                                if (!isset($_COOKIE['product' . $list_data['id']])) {
+                                                                                                    echo $list_data['id'];
+                                                                                                } else {
+                                                                                                    echo 0;
+                                                                                                }
+                                                                                                ?>) , brandclick(
                                                                                                 <?php
-                                                                                                if (!isset($_COOKIE['brand' . $product_data['brand_id']])) {
-                                                                                                    echo $product_data['brand_id'];
+                                                                                                if (!isset($_COOKIE['brand' . $list_data['brand_id']])) {
+                                                                                                    echo $list_data['brand_id'];
                                                                                                 } else {
                                                                                                     echo 0;
                                                                                                 }
 
                                                                                                 ?>
                                                                                             )  , catogoryclick(<?php
-                                                                                                                if (isset($_COOKIE['category' . $product_data['cat_id']])) {
+                                                                                                                if (isset($_COOKIE['category' . $list_data['cat_id']])) {
                                                                                                                     echo (0);
                                                                                                                 } else {
-                                                                                                                    echo $product_data['cat_id'];
+                                                                                                                    echo $list_data['cat_id'];
                                                                                                                 }
-                                                                                                                ?>);">
-                                    <img src="<?php echo $list_data["img_path"]; ?>" class="card-img-top mt-2 " alt="...">
-                                    <div class="card-body text-start align-items-center justify-content-center">
-                                        <span class="text-primary fw-bold"> <?php echo $list_data["title"] ?> </span>
-                                        <br>
+                                                                                                                ?>) ,  singleload(<?php echo $list_data['id']; ?>);">
+                                    <div class="card-body">
+                                        <img class="img-fluid" src="<?php echo $image1_data["img_path"]  ?>">
+                                        <span class=" d-none d-lg-block signupstart fw-bold text-capitalize "><?php echo $list_data["title"] ?></span>
                                         <?php
-                                        $discount1 = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $product_data["id"] . "'");
-                                        $discount_row1 = $discount1->num_rows;
-                                        $discount_data1 = $discount1->fetch_assoc();
-                                        if ($discount_row1 > 0) {
+                                        $discount = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $list_data["id"] . "'");
+                                        $discount_row = $discount->num_rows;
+                                        $discount_data = $discount->fetch_assoc();
+                                        if ($discount_row > 0) {
 
-                                            $op3 = $list_data["price"];
-                                            $dis3 = $discount_data1["dis_presentage"];
-                                            $np3 = ($op3 - (($op3 / 100) * $dis3));
-                                            if ($op3 == $np3) {
+                                            $op2 = $list_data["price"];
+                                            $dis2 = $discount_data["dis_presentage"];
+                                            $np2 = ($op2 - (($op2 / 100) * $dis2));
+                                            if ($op2 == $np2) {
+                                                1
                                         ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR.</span><?php echo $op3 ?></span>
+
                                             <?php
                                             } else {
                                             ?>
-                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold text-danger ">LKR. </span><?php echo $np3 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
-                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op3 ?></h6>
-                                        <?php
+                                                <span class="text-dark font-monospace fw-bold "><span class="fw-bold ">LKR. </span><?php echo $np2 . "<span class='text-warning'>  DIS-" . $dis2 . " % </span>" ?></span>
+                                                <h6 class="text-danger text-muted text-decoration-line-through">LKR. <?php echo $op2 ?></h6>
+                                            <?php
                                             }
+                                        } else {
+                                            ?>
+                                            <span class="text-dark font-monospace fw-bold  "><span class="fw-bold  ">LKR.</span><?php echo $list_data["price"] ?></span>
+                                        <?php
                                         }
                                         ?>
+
                                     </div>
-                                <?php
-                            }
-
-                                ?>
                                 </div>
-                        </div>
+                            <?php
+                            }
+                            ?>
 
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center text-center align-items-center ">
-                <div class="col-12">
-                    <span class="text-muted h6" id="loading">Show More....</span>
-                </div>
-                <?php
-                require "footer.php";
-                ?>
-            </div>
-            <!--body-->
-
         </div>
-        <script src="script.js"></script>
-        <script src="bootstrap.bundle.js"></script>
-        <script src="bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+        <div class="row justify-content-center text-center align-items-center ">
+            <div class="col-12">
+                <span class="text-muted h6"  id="loading">Show More....</span>
+            </div>
+            <?php
+            require "footer.php";
+            ?>
+        </div>
+        <!--body-->
+
+    </div>
+    <script src="script.js"></script>
+    <script src="bootstrap.bundle.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

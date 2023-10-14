@@ -384,7 +384,6 @@ require "connection.php";
                                     <button type="button" onclick="withdraw();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         withdraw
                                     </button>
-
                                     <!-- Modal -->
                                     <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">

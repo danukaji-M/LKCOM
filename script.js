@@ -1,3 +1,44 @@
+function basicSearch(no){
+    var text = document.getElementById("searchtext").value;
+    var cat = document.getElementById("category").value;
+    if(text.trim() === '' && cat != "0" ){
+        window.location="basicsearch.php?trigger=true&st="+text+"&cat="+cat+"&no="+no;
+    }
+    if (text.trim() != '' && cat == "0"){
+        window.location="basicsearch.php?trigger=true&st="+text+"&cat="+cat+"&no="+no;
+    }
+    if(text.trim() != '' && cat !=0){
+        window.location="basicsearch.php?trigger=true&st="+text+"&cat="+cat+"&no="+no;
+    }if(text.trim() === '' && cat == "0"){
+        window.location.href;
+    }
+
+}
+
+function mySearchFunction() {
+    var text = urlParams.get('st');
+    var cat = urlParams.get('cat');
+    var no = urlParams.get('no');
+    searchstatus = 0;
+    if(text.trim() === '' && cat != "0" ){
+        searchstatus = 1;
+    }
+    if (text.trim() != '' && cat == "0"){
+        searchstatus = 2;
+    }
+    if(text.trim() != '' && cat !=0){
+        searchstatus = 3;
+    }if(text.trim() === '' && cat == "0"){
+        window.location.href;
+    }
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('trigger') === 'true') {
+    mySearchFunction();
+}
+
+
 function togDiv(){
     var crDiv = document.getElementById("crDiv");
     var logDiv = document.getElementById("logDiv");
@@ -188,183 +229,7 @@ function signOut(){
 }
 
 
-var newmodal;
-var num;
-document.addEventListener("DOMContentLoaded", function() {
-    
-    const myDiv = document.getElementById("myDiv1");
 
-    // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
-    }
-
-    // Function to be executed when the mouse leaves the <div>
-    function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; 
-    }
-
-    // Add a mouseenter event listener to the <div>
-    myDiv.addEventListener("mouseenter", handleMouseEnter);
-
-    // Add a mouseleave event listener to the <div>
-    myDiv.addEventListener("mouseleave", handleMouseLeave);
-
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    const myDiv = document.getElementById("myDiv2");
-    
-
-
-    // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
-    }
-
-    // Function to be executed when the mouse leaves the <div>
-    function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; 
-    }
-
-    // Add a mouseenter event listener to the <div>
-    myDiv.addEventListener("mouseenter", handleMouseEnter);
-    // Add a mouseleave event listener to the <div>
-    myDiv.addEventListener("mouseleave", handleMouseLeave);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    const myDiv = document.getElementById("myDiv3");
-    
-
-
-    // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
-    }
-
-    // Function to be executed when the mouse leaves the <div>
-    function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; 
-    }
-
-    // Add a mouseenter event listener to the <div>
-    myDiv.addEventListener("mouseenter", handleMouseEnter);
-    // Add a mouseleave event listener to the <div>
-    myDiv.addEventListener("mouseleave", handleMouseLeave);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    const myDiv = document.getElementById("myDiv4");
-    
-
-
-    // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
-    }
-
-    // Function to be executed when the mouse leaves the <div>
-    function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; 
-    }
-
-    // Add a mouseenter event listener to the <div>
-    myDiv.addEventListener("mouseenter", handleMouseEnter);
-    // Add a mouseleave event listener to the <div>
-    myDiv.addEventListener("mouseleave", handleMouseLeave);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    const myDiv = document.getElementById("myDiv5");
-    
-
-
-    // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
-    }
-
-    // Function to be executed when the mouse leaves the <div>
-    function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; 
-    }
-
-    // Add a mouseenter event listener to the <div>
-    myDiv.addEventListener("mouseenter", handleMouseEnter);
-    // Add a mouseleave event listener to the <div>
-    myDiv.addEventListener("mouseleave", handleMouseLeave);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    const myDiv = document.getElementById("myDiv6");
-    
-
-
-    // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
-    }
-
-    // Function to be executed when the mouse leaves the <div>
-    function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-1 border-bottom"; 
-    }
-
-    // Add a mouseenter event listener to the <div>
-    myDiv.addEventListener("mouseenter", handleMouseEnter);
-    // Add a mouseleave event listener to the <div>
-    myDiv.addEventListener("mouseleave", handleMouseLeave);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    const myDiv = document.getElementById("myDiv7");
-    
-
-
-    // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
-    }
-
-    // Function to be executed when the mouse leaves the <div>
-    function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom"; 
-    }
-
-    // Add a mouseenter event listener to the <div>
-    myDiv.addEventListener("mouseenter", handleMouseEnter);
-    // Add a mouseleave event listener to the <div>
-    myDiv.addEventListener("mouseleave", handleMouseLeave);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    const myDiv = document.getElementById("myDiv8");
-    
-
-
-    // Function to be executed when the mouse enters the <div>
-    function handleMouseEnter() { 
-        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
-    }
-
-    // Function to be executed when the mouse leaves the <div>
-    function handleMouseLeave() {
-        myDiv.classList="col-1 text-center border-bottom";
-    }
-
-    // Add a mouseenter event listener to the <div>
-    myDiv.addEventListener("mouseenter", handleMouseEnter);
-    // Add a mouseleave event listener to the <div>
-    myDiv.addEventListener("mouseleave", handleMouseLeave);
-});
 
 function productclick(item_id){
     
@@ -618,6 +483,20 @@ function insertProduct() {
     r.send(f);
 }
 
+document.getElementById("image-uploaderm").addEventListener("change", function(event) {
+    var image = event.target;
+    var img_count = image.files.length;
+    for (var index = 0; index < img_count; index++) {
+        var imgTagId = "i" + (index ); // Create the ID for the img tag
+        var imgTag = document.getElementById(imgTagId); // Get the corresponding img tag
+        
+        if (imgTag) {
+            // Create a URL for the selected image and set it as the src attribute of the img tag
+            imgTag.src = URL.createObjectURL(image.files[index]);
+        }
+    }
+});
+
 function sort(id){
     var search = document.getElementById("search");
     var time = 0;
@@ -742,21 +621,6 @@ function discount(id){
     r.send();
 }
 
-function basicSearch(no){
-    var text = document.getElementById("searchtext").value;
-    var cat = document.getElementById("category").value;
-
-    var r = new XMLHttpRequest;
-    r.onreadystatechange = function(){
-        if(r.status == 200 && r.readyState == 4){
-            var t = r.responseText;
-            document.getElementById("sort").innerHTML = t;
-        }
-    }
-
-    r.open("GET","searchProcess.php?pageno="+no+"&text="+text+"&catid="+cat,true);
-    r.send();
-}
 
 
 function barGraph(){
@@ -1079,3 +943,195 @@ function withdraw(){
     r.open("GET","withdrawveificationProcess.php",true);
     r.send();
 }
+
+function loading(x){
+    var number = x+16;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "home.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            
+        }
+    };
+    xhr.send(number);
+};
+
+
+var newmodal;
+var num;
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const myDiv = document.getElementById("myDiv1");
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { 
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-bottom"; 
+    }
+
+    // Add a mouseenter event listener to the <div>
+
+
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const myDiv = document.getElementById("myDiv2");
+    
+
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { 
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-bottom"; 
+    }
+
+    // Add a mouseenter event listener to the <div>
+
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const myDiv = document.getElementById("myDiv3");
+    
+
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { 
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-bottom"; 
+    }
+
+    // Add a mouseenter event listener to the <div>
+
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const myDiv = document.getElementById("myDiv4");
+    
+
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { 
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-bottom"; 
+    }
+
+    // Add a mouseenter event listener to the <div>
+
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const myDiv = document.getElementById("myDiv5");
+    
+
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { 
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-bottom"; 
+    }
+
+    // Add a mouseenter event listener to the <div>
+
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const myDiv = document.getElementById("myDiv6");
+    
+
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { 
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-1 border-bottom"; 
+    }
+
+    // Add a mouseenter event listener to the <div>
+
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const myDiv = document.getElementById("myDiv7");
+    
+
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { 
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-bottom"; 
+    }
+
+    // Add a mouseenter event listener to the <div>
+
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const myDiv = document.getElementById("myDiv8");
+    
+
+
+    // Function to be executed when the mouse enters the <div>
+    function handleMouseEnter() { 
+        myDiv.classList="col-1 border-1  border-top border-start border-end text-center";
+    }
+
+    // Function to be executed when the mouse leaves the <div>
+    function handleMouseLeave() {
+        myDiv.classList="col-1 text-center border-bottom";
+    }
+
+    // Add a mouseenter event listener to the <div>
+
+    // Add a mouseleave event listener to the <div>
+    myDiv.addEventListener("mouseleave", handleMouseLeave);
+});
