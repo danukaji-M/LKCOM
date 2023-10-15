@@ -1,3 +1,5 @@
+
+
 function basicSearch(no){
     var text = document.getElementById("searchtext").value;
     var cat = document.getElementById("category").value;
@@ -31,13 +33,114 @@ function mySearchFunction() {
     }if(text.trim() === '' && cat == "0"){
         window.location.href;
     }
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if(r.readyState==4&&r.status==200) {
+            var t = r.responseText;
+            document.getElementById('searchresult').innerHTML = t;
+        }
+    }
+    r.open("GET","basicSearchProcess.php?sest="+searchstatus+"&text="+text+"&cat="+cat+"&no="+no,true);
+    r.send();
+
 }
+
+function advanced(){
+    window.location = "advancedSearch.php";
+}
+
+
+function advancedSearch(id) {
+    var text = document.getElementById('text').value;
+    var category = document.getElementById('category-search').value;
+    var seller = document.getElementById('seller-search').value;
+    var lth = document.getElementById('lth').checked;
+    var htl = document.getElementById('htl').checked;
+    var nto = document.getElementById('nto').checked;
+    var otn = document.getElementById('otn').checked;
+    var slth = document.getElementById('slth').checked;
+    var shtl = document.getElementById('shtl').checked;
+    var sclth = document.getElementById('sclth').checked;
+    var schtl = document.getElementById('schtl').checked;
+
+    if (text.trim() === '' && category.trim() === '' && seller.trim() === '') {
+        window.location.reload();
+    } else {
+        window.location = "advancedresultsearch.php?text=" + text + "&cattext=" + category + "&seller=" + seller
+            + "&lth=" + lth + "&hlt=" + htl + "&nto=" + nto + "&otn=" + otn + "&slth=" + slth + "&shtl=" + shtl + "&sclth=" + sclth + "&schtl=" + schtl +"&id="+id +"&adtrigger=true";
+    }
+}
+
+
+const adurlParams = new URLSearchParams(window.location.search);
+if (true) {
+    myAdvancedSearchFunction();
+}
+
+function myAdvancedSearchFunction(){
+    
+    var text = adurlParams.get('text');
+    var category = adurlParams.get('category');
+    var seller= adurlParams.get('seller');
+    var lth = adurlParams.get('lth');
+    var htl= adurlParams.get('htl');
+    var nto = adurlParams.get('nto');
+    var otn = adurlParams.get('otn');
+    var slth = adurlParams.get('slth');
+    var shtl = adurlParams.get('shtl');
+    var sclth = adurlParams.get('sclth');
+    var schtl = adurlParams.get('schtl');
+    var id = adurlParams.get('id');
+
+    var f = new FormData;
+    f.append('text', text);
+    f.append('category', category);
+    f.append('seller', seller);
+    f.append('lth', lth);
+    f.append('htl', htl);
+    f.append('nto', nto);
+    f.append('otn', otn);
+    f.append('slth', slth);
+    f.append('shtl', shtl);
+    f.append('sclth', sclth);
+    f.append('schtl', schtl);
+    f.append('id', id);
+
+
+    var r = new XMLHttpRequest;
+    r.onreadystatechange = function(){
+        if(r.readyState == 4 && r.status == 200){
+            var t= r.responseText;
+            alert(t)
+        }
+    }
+    r.open("POST","advancedSearchProcess.php",true);
+    r.send(f);
+
+} 
+
 
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('trigger') === 'true') {
     mySearchFunction();
 }
 
+const c = document.querySelector('.container')
+const indexs = Array.from(document.querySelectorAll('.index'))
+let cur = -1
+indexs.forEach((index, i) => {
+  index.addEventListener('click', (e) => {
+    // clear
+    c.className = 'container'
+    void c.offsetWidth; // Reflow
+    c.classList.add('open')
+    c.classList.add(`i${i + 1}`)
+    if (cur > i) {
+      c.classList.add('flip')
+    }
+    cur = i
+  })
+})
 
 function togDiv(){
     var crDiv = document.getElementById("crDiv");

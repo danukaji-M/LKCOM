@@ -44,7 +44,7 @@
                     <button class="btn btn-primary" onclick="basicSearch(0);" href="productSearch.php" type="button">Search <i class="bi bi-search"></i></button>
                     </div>
                     <div class="col-5 col-md-2 col-lg-1 align-items-start text-start">
-                        <button class="btn btn-info" type="button">Advanced <i class="bi bi-search"></i> </button>
+                        <button class="btn btn-info" onclick="advanced();" type="button">Advanced <i class="bi bi-search"></i> </button>
                     </div>
                 </div>
             </div>
