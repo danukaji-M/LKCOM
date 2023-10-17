@@ -10,7 +10,7 @@ $product_rs = Database::search("SELECT * FROM `product`
                                 INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id` = `product`.`sub_category_sub_cat_id` 
                                 INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`product_category_id` 
                                 INNER JOIN `user` ON `product`.`user_email` = `user`.`email` 
-                                INNER JOIN `brand` ON brand.brand_id = product.brand_id
+                                INNER JOIN `brand` ON brand.brand_id = product.brand_brand_id
                                 WHERE `product`.`id` = '" . $pid . "'");
 $product_data = $product_rs->fetch_assoc();
 ?>

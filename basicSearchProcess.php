@@ -8,7 +8,7 @@ $no = $_GET['no'];
 $query = "SELECT * FROM `product` INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id` = `product`.`sub_category_sub_cat_id` 
             INNER JOIN `product_category` ON `product_category`.`cat_id`=`sub_category`.`product_category_id` 
             INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id` 
-INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
+INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_brand_id` 
 INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
 INNER JOIN `click_products` ON `click_products`.`product_id` = `product`.`id`  ";
 echo $sest;

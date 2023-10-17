@@ -73,6 +73,9 @@
                             <span class="text-light" > +94761964531</span>
                         
                     </div>
+                    <div class="col-4 fter col-lg-2 mt-md-2 text-start">
+                        <a href="livechat\help.php">Live Chat</a>
+                    </div>
                 </div>
             </div>
         </div>

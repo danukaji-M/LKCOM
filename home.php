@@ -151,7 +151,7 @@ INNER JOIN `click_products` ON `click_products`.`product_id` = `product`.`id`
 INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id`=`product`.`sub_category_sub_cat_id`
 INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`product_category_id`
 INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id` 
-INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
+INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_brand_id` 
 INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
 WHERE  `product_status_id`='1'
 ORDER BY `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC
@@ -249,7 +249,7 @@ LIMIT 4;
 INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id`=`product`.`sub_category_sub_cat_id`
 INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`product_category_id`
 INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id` 
-INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
+INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_brand_id` 
 INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
                         WHERE  `product_status_id`='1' ORDER BY `dis_presentage` DESC , `product_added_date` ASC, `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC LIMIT 4");
                                 $dis_num_rows = $dis_rs->num_rows;
@@ -317,7 +317,7 @@ INNER JOIN `click_products` ON `click_products`.`product_id` = `product`.`id`
 INNER JOIN `sub_category` ON `sub_category`.`sub_cat_id`=`product`.`sub_category_sub_cat_id`
 INNER JOIN `product_category` ON `product_category`.`cat_id` = `sub_category`.`product_category_id`
 INNER JOIN `cat_clicks` ON `cat_clicks`.`product_category_cat_id` = `product_category`.`cat_id` 
-INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_id` 
+INNER JOIN `brand` ON `brand`.`brand_id`=`product`.`brand_brand_id` 
 INNER JOIN `brand_click` ON `brand_click`.`brand_brand_id`=`brand`.`brand_id`
 WHERE  `product_status_id`='1'
 ORDER BY `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC  LIMIT 16 OFFSET 4;
@@ -351,7 +351,7 @@ ORDER BY `click_count` DESC, `cat_click_count` DESC , `brand_click_count` DESC  
                                                                                                                 }
                                                                                                                 ?>) ,  singleload(<?php echo $list_data['id']; ?>);">
                                     <div class="card-body">
-                                        <img class="img-fluid" src="<?php echo $image1_data["img_path"]  ?>">
+                                        <img style="height: 13rem;" class="img-fluid" src="<?php echo $image1_data["img_path"]  ?>">
                                         <span class=" d-none d-lg-block signupstart fw-bold text-capitalize "><?php echo $list_data["title"] ?></span>
                                         <?php
                                         $discount = Database::search("SELECT * FROM `discount` WHERE `product_id` = '" . $list_data["id"] . "'");

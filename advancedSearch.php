@@ -32,7 +32,19 @@ require "connection.php";
                                 <label for="seller-search">
                                     Seller Search :
                                 </label>
-                                <input type="text" id="seller-search" placeholder="Search With Seller" class="form-control">
+                                <select name="" class="form-control" id="seller-search">
+                                    <option value="0">Select a Brand...</option>
+                                    <?php 
+                                    $brand_rs = Database::search("SELECT * FROM `brand`");
+                                    $brand_num = $brand_rs->num_rows;
+                                    for ($i=0; $i < $brand_num; $i++) { 
+                                        $brand_obj = $brand_rs->fetch_assoc();
+                                        ?>
+                                        <option value="<?php echo $brand_obj['brand_id']?>"><?php echo $brand_obj['brand_name'] ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="col-12 mt-4 mb-4">
                             <span class="fw-bold h3">Sort Process</span>
@@ -46,12 +58,12 @@ require "connection.php";
                                 <label class="fw-bold text-capitalize text-danger " for="htl">High To Low</label>
                             </div>
                             <div class="col-12 col-md-6">
-                                <h4>Sort With Date</h4>
-                                <input type="radio" id="nto" name="date_sort" >
-                                <label class="fw-bold text-capitalize text-danger " >new to old</label>
+                                <h4>Sort With Most Sell</h4>
+                                <input type="radio" id="nto" name="nto" >
+                                <label class="fw-bold text-capitalize text-danger " >New To Old</label>
                                 <br>
-                                <input type="radio" id="otn" name=date_sort" >
-                                <label class="fw-bold text-capitalize text-danger " for="htl">old to new</label>
+                                <input type="radio" id="otn" name="nto" >
+                                <label class="fw-bold text-capitalize text-danger " for="htl">Old To New</label>
                             </div>
                             <div class="col-12 col-md-6">
                                 <h4>Sort With Most Sell</h4>

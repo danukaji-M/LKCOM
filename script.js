@@ -1,3 +1,31 @@
+const chat = document.getElementById('chat');
+const messageInput = document.getElementById('message');
+const sendButton = document.getElementById('send');
+
+function appendMessage(message) {
+    const p = document.createElement('p');
+    p.innerText = message;
+    chat.appendChild(p);
+}
+
+sendButton.addEventListener('click', () => {
+    const message = messageInput.value;
+    if (message) {
+        appendMessage(`You: ${message}`);
+        messageInput.value = '';
+        sendMessage(message);
+    }
+});
+
+function sendMessage(message) {
+    // Send the message to the server using an AJAX request or WebSockets.
+}
+
+function receiveMessage(message) {
+    appendMessage(`Friend: ${message}`);
+}
+
+// Poll the server for new messages or use WebSockets to receive messages.
 
 
 function basicSearch(no){
@@ -111,7 +139,7 @@ function myAdvancedSearchFunction(){
     r.onreadystatechange = function(){
         if(r.readyState == 4 && r.status == 200){
             var t= r.responseText;
-            alert(t)
+            document.getElementById('searchresult').innerHTML = t;
         }
     }
     r.open("POST","advancedSearchProcess.php",true);
