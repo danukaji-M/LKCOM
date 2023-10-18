@@ -832,37 +832,39 @@ message-area
                                                 <ul id="sendmsglist">
                                                     <?php
                                                     $chatFile = '../livechat/chat.json';
+                                                    $email = $_SESSION["ud"]["email"]; // The user's email
 
-                                                    // Specify the email/user for which you want to retrieve messages
-                                                    $targetEmail = $_SESSION['ud']['email'];
+                                                    // Read the chat data from the JSON file
+                                                    $chatData = file_get_contents($chatFile);
+                                                    $chat = json_decode($chatData, true);
 
-                                                    // Check if the file exists
-                                                    if (file_exists($chatFile)) {
-                                                        // Read the JSON content from the file
-                                                        $chatData = file_get_contents($chatFile);
+                                                    if ($chat !== null && isset($chat[$email])) {
+                                                        // Access user data for the specified email
+                                                        $userData = $chat[$email];
 
-                                                        // Decode the JSON data into a PHP array
-                                                        $chatArray = json_decode($chatData, true);
+                                                        // Access user's email
+                                                        $userEmail = $userData['email'];
 
-                                                        // Check if the decoding was successful
-                                                        if ($chatArray !== null) {
-                                                            // Loop through the chat data and display messages for the specified email
-                                                            foreach ($chatArray as $message) {
-                                                                if ($message['user'] === $targetEmail) {
-                                                    ?>
-                                                                    <li class="sender">
-                                                                        <p><?php echo $message['message']; ?></p>
-                                                                        <span class="time"><?php echo $message['time']; ?></span>
-                                                                    </li>
-                                                                    <li class="repaly">
-                                                                        <p>yes!</p>
-                                                                        <span class="time">10:20 am</span>
-                                                                    </li>
-                                                    <?php
-                                                                }
-                                                            }
+                                                        // Access user's messages
+                                                        $userMessages = $userData['messages'];
+
+                                                        // Loop through the messages and access message content and time
+                                                        foreach ($userMessages as $messageData) {
+                                                            $message = $messageData['message'];
+                                                            $time = $messageData['time'];
+
+                                                            // Output the message and time
+                                                            ?>
+                                                            <li class="repaly">
+                                                                <p><?php echo $message ?></p>
+                                                                <span class="time"><?php echo $time ?></span>
+                                                            </li>
+                                            <?php
                                                         }
+                                                    } else {
+
                                                     }
+
                                                     ?>
 
                                                 </ul>

@@ -2,7 +2,7 @@
 $chatFile = '../livechat/chat.json';
 
 $message = $_GET['msg'];
-$email = $_GET['email'];
+$user = 'Admin';
 // Set the time zone to Sri Lanka
 date_default_timezone_set('Asia/Colombo');
 
@@ -19,13 +19,13 @@ if ($chat === null) {
 }
 
 // Check if the user's email already has chat data
-if (isset($chat[$email])) {
+if (isset($chat[$user])) {
     // User already has chat data, add the new message to their existing chat
-    $chat[$email]['messages'][] = ['message' => $message, 'time' => $currentTime];
+    $chat[$user]['messages'][] = ['message' => $message, 'time' => $currentTime];
 } else {
     // User does not have chat data, create a new entry for them
-    $chat[$email] = [
-        'email' => $email,
+    $chat[$user] = [
+        'user' => $user,
         'messages' => [
             ['message' => $message, 'time' => $currentTime]
         ]
@@ -39,20 +39,3 @@ $encodedData = json_encode($chat, JSON_PRETTY_PRINT); // Use JSON_PRETTY_PRINT f
 file_put_contents($chatFile, $encodedData . "\n");
 
 echo "success";
-
-
-
-/*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $message = $_POST['message'];
-    $user = $_SESSION['ud']['email'];
-
-    $chat = json_decode(file_get_contents($chatFile), true);
-    $chat[] = ['user' => $user, 'message' => $message];
-    file_put_contents($chatFile, json_encode($chat));
-}*/
-
-/*if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $chat = json_decode(file_get_contents($chatFile), true);
-    header('Content-Type: application/json');
-    echo json_encode($chat);
-}*/

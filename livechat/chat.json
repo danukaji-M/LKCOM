@@ -1,1 +1,28 @@
-[{"user":"danukajihansanath0408@gmail.com","message":"hi","time":"18:25"}]
+{
+    "danukajihansanath0408@gmail.com": {
+        "email": "danukajihansanath0408@gmail.com",
+        "messages": [
+            {
+                "message": "hi",
+                "time": "21:58"
+            }
+        ]
+    },
+    "danukajihansanath0227@gmail.com": {
+        "email": "danukajihansanath0227@gmail.com",
+        "messages": [
+            {
+                "message": "hey",
+                "time": "21:58"
+            },
+            {
+                "message": "what are u doing",
+                "time": "22:04"
+            },
+            {
+                "message": "hello sir can you help me",
+                "time": "22:52"
+            }
+        ]
+    }
+}
